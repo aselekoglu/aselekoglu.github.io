@@ -1,0 +1,285 @@
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" id="viewport" content="width=device-width,user-scalable=no">
+    <script src="http://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
+    <link rel="stylesheet" href="css/styles.css" type="text/css" media="screen"/>
+
+    <title>Call Center Studio Signature Generator v1.0</title>
+
+
+</head>
+
+<body>
+<main>
+    <div class="column-action">
+        <div class="input">
+
+            <form id="user_id_form" style="alignment: bottom">
+                <p class="form" align="center"><label for="full-name">Full Name:</label><input type="text" size="20" id="full-name" name="full-name" placeholder="Michael Scott" /><br>
+                    <label for="title">Title:</label><input type="text" rows="20" name="title" id="title" placeholder="Regional Manager" /><br>
+                    <label for="email">Email:</label><input type="text" rows="20" name="email" id="email" placeholder="michael.scott@callcenterstudio.com" /><br>
+                    <label for="phone">Phone:</label><input type="text" rows="20" name="phone" id="phone" placeholder="+1 234 567 8901"  /><br>
+                <label for="photo-id">Google Drive ID:</label><input type="text" rows="20" name="title" id="photo-id" placeholder="Paste the file ID provided" /><br>
+                <input style="margin-top: 10px" type="button" name="get_sig" value="Generate" class="user_button" onclick="generateSig();"></p>
+            </form>
+
+        </div>
+
+        <div id="output" name="output">
+
+        <!--Beginning of the signature-->
+
+                <table id="code" cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                       style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                    <tbody>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                   style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                                <tbody>
+                                <tr>
+                                    <td width="150" style="vertical-align: middle;"><span  class="sc-kgAjT cuzzPp"
+                                                                                          style="margin-right: 20px; display: block;"><img
+                                            id="photo"
+                                            src="https://upload.wikimedia.org/wikipedia/en/d/dc/MichaelScott.png"
+                                            role="presentation"
+                                            width="130" height="130" class="sc-cHGsZl bHiaRe"
+                                            style="max-width: 130px; border-radius: 50%; object-fit: cover; filter: grayscale(1)"></span></td>
+                                    <td style="vertical-align: middle;"><h3 id="sign-name" color="#000000" class="sc-fBuWsC eeihxG"
+                                                                            style="margin: 0px; font-size: 15px; color: rgb(0, 0, 0);">
+                                        <span>Michael</span> <span>Scott</span></h3>
+                                        <p id="sign-title" color="#000000" font-size="medium" class="sc-fMiknA bxZCMx"
+                                           style="margin: 0px; color: rgb(0, 0, 0); font-size: 12px; line-height: 22px;">
+                                            <span>Regional Manager</span>
+                                        </p>
+                                        <p color="#000000" font-size="medium" class="sc-dVhcbM fghLuF"
+                                           style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 22px;">
+                                            <span>Call Center Studio</span></p>
+
+                                    </td>
+
+                                    <td width="30">
+                                        <div style="width: 30px;"></div>
+                                    </td>
+                                    <td color="#f47a00" direction="vertical" width="1" class="sc-jhAzac hmXDXQ"
+                                        style="width: 1px; border-bottom: none; border-left: 1px solid rgb(244, 122, 0);"></td>
+                                    <td width="30">
+                                        <div style="width: 30px;"></div>
+                                    </td>
+                                    <td style="vertical-align: middle;">
+                                        <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                               style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                                            <tbody>
+                                            <tr height="25" style="vertical-align: middle;">
+                                                <td width="30" style="vertical-align: middle;">
+                                                    <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                                           style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: bottom;"><span color="#f47a00" width="11"
+                                                                                                      class="sc-jlyJG bbyJzT"
+                                                                                                      style="display: block; background-color: rgb(244, 122, 0);"><img
+                                                                    src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/phone-icon-2x.png"
+                                                                    color="#f47a00" width="13" class="sc-iRbamj blSEcj"
+                                                                    style="display: block; background-color: rgb(244, 122, 0);"></span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td style="padding: 0px; color: rgb(0, 0, 0);"><a href="tel:+13127283372"
+                                                                                                  color="#000000"
+                                                                                                  class="sc-gipzik iyhjGb"
+                                                                                                  style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span
+                                                        style="font-weight: bold"> O: </span><span> +1 312 728 3372</span></a>
+                                                    | <a id="sign-mobile-href" href="tel:+12345678901" color="#000000" class="sc-gipzik iyhjGb"
+                                                         style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span
+                                                            style="font-weight: bold"> M: </span><span id="sign-mobile-vis"> +1 234 567 8901</span></a>
+                                                </td>
+                                            </tr>
+                                            <tr height="25" style="vertical-align: middle;">
+                                                <td width="30" style="vertical-align: middle;">
+                                                    <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                                           style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: bottom;"><span color="#f47a00" width="11"
+                                                                                                      class="sc-jlyJG bbyJzT"
+                                                                                                      style="display: block; background-color: rgb(244, 122, 0);"><img
+                                                                    src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/email-icon-2x.png"
+                                                                    color="#f47a00" width="13" class="sc-iRbamj blSEcj"
+                                                                    style="display: block; background-color: rgb(244, 122, 0);"></span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td style="padding: 0px;"><a id="sign-email-href" href="mailto:michael.scott@callcenterstudio.com"
+                                                                             color="#000000" class="sc-gipzik iyhjGb"
+                                                                             style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span id="sign-email-vis">michael.scott@callcenterstudio.com</span></a>
+                                                </td>
+                                            </tr>
+                                            <tr height="25" style="vertical-align: middle;">
+                                                <td width="30" style="vertical-align: middle;">
+                                                    <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                                           style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: bottom;"><span color="#f47a00" width="11"
+                                                                                                      class="sc-jlyJG bbyJzT"
+                                                                                                      style="display: block; background-color: rgb(244, 122, 0);"><img
+                                                                    src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/link-icon-2x.png"
+                                                                    color="#f47a00" width="13" class="sc-iRbamj blSEcj"
+                                                                    style="display: block; background-color: rgb(244, 122, 0);"></span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td style="padding: 0px;"><a href="https://callcenterstudio.com/" color="#000000"
+                                                                             class="sc-gipzik iyhjGb"
+                                                                             style="text-decoration: none; color: rgb(0, 0, 0); font-size: 12px;"><span>www.callcenterstudio.com</span></a>
+                                                </td>
+                                            </tr>
+                                            <tr height="25" style="vertical-align: middle;">
+                                                <td width="30" style="vertical-align: middle;">
+                                                    <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                                           style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia;">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td style="vertical-align: bottom;"><span color="#f47a00" width="11"
+                                                                                                      class="sc-jlyJG bbyJzT"
+                                                                                                      style="display: block; background-color: rgb(244, 122, 0);"><img
+                                                                    src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/address-icon-2x.png"
+                                                                    color="#f47a00" width="13" class="sc-iRbamj blSEcj"
+                                                                    style="display: block; background-color: rgb(244, 122, 0);"></span>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                                <td style="padding: 0px;"><span color="#000000" class="sc-csuQGl CQhxV"
+                                                                                style="font-size: 12px; color: rgb(0, 0, 0);"><span>1 East Erie St Suite 525 PMB 4651,  Chicago, IL 60611</span></span>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                   style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td height="30"></td>
+                                </tr>
+                                <tr>
+                                    <td color="#f47a00" direction="horizontal" height="1" class="sc-jhAzac hmXDXQ"
+                                        style="width: 100%; border-bottom: 1px solid rgb(244, 122, 0); border-left: none; display: block;"></td>
+                                </tr>
+                                <tr>
+                                    <td height="15"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                   style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia; width: 100%; height: 80%">
+                                <tbody>
+                                <tr>
+                                    <td style="vertical-align: top;"><a href="https://callcenterstudio.com/"> <img
+                                            src="https://drive.google.com/uc?id=12TqnpO2yih2l6OfAq_XrFaJ60aovB0qf"
+
+                                            role="presentation" width="130" class="sc-cHGsZl bHiaRe"
+                                            style="max-width: 100px; display: inline-block;"></a></td>
+                                    <td style="text-align: right; vertical-align: center;">
+                                        <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                               style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia; display: inline-block;">
+                                            <tbody>
+                                            <tr style="text-align: center;">
+                                                <td><a href="https://www.facebook.com/CCS4CX/"
+                                                       color="#F47A00" class="sc-hzDkRC kpsoyz"
+                                                       style="display: inline-block; padding: 0px; background-color: rgb(244, 122, 0);"><img
+                                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/facebook-icon-2x.png"
+                                                        alt="facebook" color="#F47A00" height="24" class="sc-bRBYWo ccSRck"
+                                                        style="background-color: rgb(244, 122, 0); max-width: 135px; display: block;"></a>
+                                                </td>
+                                                <td width="5">
+                                                    <div></div>
+                                                </td>
+                                                <td><a href="https://twitter.com/ccs4cx" color="#F47A00" class="sc-hzDkRC kpsoyz"
+                                                       style="display: inline-block; padding: 0px; background-color: rgb(244, 122, 0);"><img
+                                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/twitter-icon-2x.png"
+                                                        alt="twitter" color="#F47A00" height="24" class="sc-bRBYWo ccSRck"
+                                                        style="background-color: rgb(244, 122, 0); max-width: 135px; display: block;"></a>
+                                                </td>
+                                                <td width="5">
+                                                    <div></div>
+                                                </td>
+                                                <td>
+                                                    <a href="https://www.linkedin.com/company/callcenterstudio/"
+                                                       color="#F47A00" class="sc-hzDkRC kpsoyz"
+                                                       style="display: inline-block; padding: 0px; background-color: rgb(244, 122, 0);"><img
+                                                            src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/linkedin-icon-2x.png"
+                                                            alt="linkedin" color="#F47A00" height="24" class="sc-bRBYWo ccSRck"
+                                                            style="background-color: rgb(244, 122, 0); max-width: 135px; display: block;"></a>
+                                                </td>
+                                                <td width="5">
+                                                    <div></div>
+                                                </td>
+                                                <td><a href="https://www.instagram.com/ccs4cx/" color="#F47A00"
+                                                       class="sc-hzDkRC kpsoyz"
+                                                       style="display: inline-block; padding: 0px; background-color: rgb(244, 122, 0);"><img
+                                                        src="https://cdn2.hubspot.net/hubfs/53/tools/email-signature-generator/icons/instagram-icon-2x.png"
+                                                        alt="instagram" color="#F47A00" height="24" class="sc-bRBYWo ccSRck"
+                                                        style="background-color: rgb(244, 122, 0); max-width: 135px; display: block;"></a>
+                                                </td>
+                                                <td width="5">
+                                                    <div></div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
+                                   style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Georgia; width: 100%;">
+                                <tbody>
+                                <tr>
+                                    <td height="15"></td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        <input id="js-copy" class="btn" type="button" value="Copy"  data-clipboard-target="#code">
+    </div>
+
+
+    <!--end column-action-->
+
+</main>
+</body>
+<script src="js/clipboard.min.js"></script>
+<script type="text/javascript" src="js/scripts.js"></script></html>
