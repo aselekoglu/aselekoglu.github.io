@@ -1,6 +1,7 @@
 let clipboard = new ClipboardJS(".btn");
 
 var searchBlock = document.getElementById('output');
+var links = document.getElementsByClassName('sc-hzDkRC')
 
 function generateSig() {
 
@@ -19,6 +20,15 @@ function generateSig() {
     $(searchBlock).find('#sign-mobile-vis').text(phone);
     $(searchBlock).find('#sign-mobile-href').attr('href', 'tel:' + phone);
     $(searchBlock).find('#photo').attr('src', 'https://drive.google.com/uc?id=' + photo_id);
+
+    $(links).each(function () {
+        var $this = $(this);
+        var _href = $this.attr("href");
+        $this.attr("href", _href + email)
+    })
+
+    console.log($(links).attr("href"))
+
     $('button').show();
 }
 
