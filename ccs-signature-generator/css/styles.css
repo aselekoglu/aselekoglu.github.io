@@ -19,6 +19,19 @@ label{
     font-weight: bold;
     margin-bottom:10px;
 }
+
+.instructions {
+    width: 300px;
+    text-align: center;
+    margin-top: 5px;
+    font-size: small;
+    color: #6c757d;
+}
+.instructions tr {
+        margin: 5px;
+    }
+
+
 button{
     margin-top:100px;
     background:transparent;
@@ -34,6 +47,7 @@ button{
 
 .user_button {
     margin-bottom: 20px;
+
 
 }
 
