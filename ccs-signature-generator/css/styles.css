@@ -63,6 +63,7 @@ button{
 .column-action{
     width:content-box;
     border:1px solid #f47a00;
+    border-radius: 15px;
     padding:20px;
 }
 
