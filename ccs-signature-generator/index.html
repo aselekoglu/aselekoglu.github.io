@@ -27,24 +27,24 @@
                     <label for="phone">Phone:</label><input type="text" rows="20" name="phone" id="phone"
                                                             placeholder="+1 234 567 8901"/><br>
                     <label for="photo-id">Photo ID:</label><input type="text" rows="20" name="title"
-                                                                         id="photo-id"
-                                                                         placeholder="see below for how"/><br>
+                                                                  id="photo-id"
+                                                                  placeholder="see below for how"/><br>
                 <table class="instructions">
                     <tr>
                         <td>
-                        1 - Upload your photo to Google Drive
+                            1 - Upload your photo to Google Drive
                         </td>
                     </tr>
                     <tr>
                         <td>
-                        2 - Make sure anyone with the link can view
+                            2 - Make sure anyone with the link can view
                         </td>
                     </tr>
-                <tr>
-                    <td>
-                        3 - Copy the file ID (part of the URL <b>after</b> "https://drive.google.com/file/d/")
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            3 - Copy the file ID (part of the URL <b>after</b> "https://drive.google.com/file/d/")
+                        </td>
+                    </tr>
 
                 </table>
 
@@ -91,12 +91,12 @@
                                 </td>
 
                                 <td width="30">
-                                    <div style="width: 30px;"></div>
+                                    <div style="width: 30px; min-width: 10px"></div>
                                 </td>
                                 <td color="#f47a00" direction="vertical" width="1" class="sc-jhAzac hmXDXQ"
                                     style="width: 1px; border-bottom: none; border-left: 1px solid rgb(244, 122, 0);"></td>
                                 <td width="30">
-                                    <div style="width: 30px;"></div>
+                                    <div style="width: 30px; min-width: 10px"></div>
                                 </td>
                                 <td style="vertical-align: middle;">
                                     <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW"
@@ -321,8 +321,17 @@
             </table>
         </div>
         <script type="text/javascript" src="js/script.js"></script>
+        <table>
+            <tr>
+                <td>
+                    <input id="js-copy" class="btn" type="button" value="Copy as text" data-clipboard-target="#code">
+                </td>
+                <td>
+                    <input id="hs-copy" class="btn" type="button" value="Copy as HTML" onclick="copyHTML()">
+                </td>
+            </tr>
+        </table>
 
-        <input id="js-copy" class="btn" type="button" value="Copy" data-clipboard-target="#code">
     </div>
 
 
