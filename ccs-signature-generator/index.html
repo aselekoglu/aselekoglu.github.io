@@ -3,6 +3,7 @@
     <meta name="viewport" id="viewport" content="width=device-width,user-scalable=no">
     <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.8/dist/clipboard.min.js"></script>
+
     <link rel="stylesheet" href="css/styles.css" type="text/css" media="screen"/>
 
     <title>Call Center Studio Signature Generator v1.0</title>
@@ -29,6 +30,8 @@
                     <label for="photo-id">Photo ID:</label><input type="text" rows="20" name="title"
                                                                   id="photo-id"
                                                                   placeholder="see below for how"/><br>
+
+
                 <table class="instructions">
                     <tr>
                         <td>
@@ -47,8 +50,19 @@
                     </tr>
 
                 </table>
+                <label for="meeting-checkbox" style="margin-top: inherit"> Meeting button </label><input
+                    style="margin-top: inherit" type="checkbox" name="meeting-checkbox"
+                    id="meeting-checkbox"/>
+                <div id="hidden" style="display: none" align="center">
+                    <label for="meeting-link">Meeting link:</label>
+                    <input
 
-                <input style="margin-top: 10px" type="button" id="generateButton" name="get_sig" value="Generate"
+                            type="text" rows="20" name="meeting-link"
+                            id="meeting-link"
+                            placeholder="Insert your meeting link"/>
+                </div>
+
+                <input style="margin-top: 10px;" type="button" id="generateButton" name="get_sig" value="Generate"
                        class="user_button"
                        onclick="generateSig()"/>
             </form>
@@ -87,6 +101,14 @@
                                     <p color="#000000" font-size="medium" class="sc-dVhcbM fghLuF"
                                        style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 12px; line-height: 22px;">
                                         <span>Call Center Studio</span></p>
+                                    <a target="_blank"
+                                       id="hidden-sig"
+                                       rel="noopener noreferrer"
+                                       href="https://www.youtube.com/watch?v=BNDmaJwDmeo"
+                                       color="#F47A00"
+                                       class="sc-fAjcbJ byigni"
+                                       style="border-width: 6px 12px; border-style: solid; border-color: rgb(244, 122, 0); display: none ; background-color: rgb(244, 122, 0); color: rgb(255, 255, 255); font-weight: 700; text-decoration: none; text-align: center; text-decoration: underline; line-height: 17px; font-size: 12px; margin-top: 7px; border-radius: 15px;">Book
+                                        a meeting</a></span>
 
                                 </td>
 

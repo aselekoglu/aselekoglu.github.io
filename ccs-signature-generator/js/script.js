@@ -2,6 +2,20 @@ let clipboard = new ClipboardJS(".btn");
 
 var searchBlock = document.getElementById('output');
 var links = document.getElementsByClassName('sc-hzDkRC')
+const checkbox = document.getElementById('meeting-checkbox')
+const hiddenElement = document.getElementById('hidden')
+const hiddenSig = document.getElementById('hidden-sig')
+
+checkbox.addEventListener('click', function handleClick() {
+    if (checkbox.checked) {
+        hiddenElement.style.display = 'block';
+        hiddenSig.style.display = 'block';
+
+    } else {
+        hiddenElement.style.display = 'none';
+        hiddenSig.style.display = 'none';
+    }
+})
 
 // console.log(URLSearchParams);
 
@@ -15,6 +29,8 @@ function generateSig() {
         photo_id: document.getElementById('photo-id').value
     }
 
+    var meetLink = document.getElementById('meeting-link').value
+
 
     // console.log(name, title, email, phone, photo_id, searchBlock);
 
@@ -25,6 +41,7 @@ function generateSig() {
     $(searchBlock).find('#sign-mobile-vis').text(signature.phone);
     $(searchBlock).find('#sign-mobile-href').attr('href', 'tel:' + signature.phone);
     $(searchBlock).find('#photo').attr('src', 'https://drive.google.com/uc?id=' + signature.photo_id);
+    $(searchBlock).find('#hidden-sig').attr('href', meetLink);
 
     $(links).each(function () {
         var $this = $(this);

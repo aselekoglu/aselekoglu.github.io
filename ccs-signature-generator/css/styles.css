@@ -47,6 +47,7 @@ button{
 
 .user_button {
     margin-bottom: 20px;
+    display: grid;
 
 
 }
@@ -71,6 +72,9 @@ button{
     display: inline;
 }
 
-
+#hidden {
+    display: block;
+    horiz-align: center;
+}
 
 
