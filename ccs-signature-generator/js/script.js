@@ -26,7 +26,6 @@ function generateSig() {
         title: document.getElementById('title').value,
         email: document.getElementById('email').value,
         phone: document.getElementById('phone').value,
-        photo_id: document.getElementById('photo-id').value
     }
 
     var meetLink = document.getElementById('meeting-link').value
@@ -40,7 +39,6 @@ function generateSig() {
     $(searchBlock).find('#sign-email-href').attr('href', 'mailto:' + signature.email);
     $(searchBlock).find('#sign-mobile-vis').text(signature.phone);
     $(searchBlock).find('#sign-mobile-href').attr('href', 'tel:' + signature.phone);
-    $(searchBlock).find('#photo').attr('src', 'https://drive.google.com/uc?id=' + signature.photo_id);
     $(searchBlock).find('#hidden-sig').attr('href', meetLink);
 
     $(links).each(function () {
