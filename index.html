@@ -1,122 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Coming Soon?</title>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ataberk Selekoglu's CV</title>
+    <style>
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #2b2b2b;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: #00ffff;
+        }
+
+        h1::before, h2::before, h3::before {
+            content: '/';
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .job-title {
+            color: #ff69b4;
+        }
+
+        .job-duration {
+            color: #ffa500;
+        }
+
+        .intro, .skills, .education, .projects, .experience, .summary, .additional {
+            color: #ff6347;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .project-link {
+            color: #80c7ff; /* Light Blue */
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        .project-link:hover {
+            color: #00bfff; /* Darker Blue on Hover */
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-	
-	<!--  -->
-	<div class="simpleslide100">
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/img.png');"></div>
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/img_1.png');"></div>
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/img_2.png');"></div>
-		<div class="simpleslide100-item bg-img1" style="background-image: url('images/img_3.png');"></div>
+<div class="container">
+    <h1>Ataberk Selekoglu</h1>
+    <p class="section intro">Ottawa, ON | aselekoglu97@gmail.com | <a class="project-link"
+                                                                      href="https://www.linkedin.com/in/aselekoglu/">LinkedIn</a>
+        | <a class="project-link" href="https://github.com/aselekoglu">GitHub</a></p>
 
-
+    <div class="section summary">
+        <h2>Summary</h2>
+        <p>Technical Business Analyst with 3 years of experience in process optimization, automation, and management of
+            CRM systems. Spearheaded multifaceted projects aimed at optimizing operational efficiency across sales,
+            marketing, and project departments, leveraging advanced technical skills by enhancing CRM automation tools
+            with custom middlewares via JavaScript. Led projects such as development and implementation of tailored
+            scripting solutions for meticulous goal tracking, seamless CRM integration via REST APIs, and comprehensive
+            process automation.</p>
 	</div>
 
-	<div class="size1 overlay1">
-		<!--  -->
-		<div class="size1 flex-col-c-m p-l-15 p-r-15 p-t-50 p-b-50">
-			<h3 class="l1-txt1 txt-center p-b-25">
-				Under Construction
-			</h3>
+    <div class="section skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>Java</li>
+            <li>Kotlin</li>
+            <li>JS (Google Script, ExpressJS, jQuery, Node.js)</li>
+            <li>HTML/CSS</li>
+            <li>Python</li>
+            <li>JSON</li>
+            <li>REST APIs</li>
+            <li>SQL</li>
+            <li>Arduino IDE</li>
+        </ul>
+    </div>
 
-			<p class="m2-txt1 txt-center p-b-48">
-				A cool resumé will be placed here. If you ask "When?", this meaningless countdown will <b id='not'> not </b> give you the correct answer:
-			</p>
+    <div class="section experience">
+        <h2>Experience</h2>
+        <div>
+            <h3 class="job-title">Technical Business Analyst</h3>
+            <p class="job-duration">Call Center Studio | Remote | Mar 2021 – Feb 2024</p>
+            <p>Responsible for business process integrations, CRM management, and custom scripting (JS - Google Script).
+                Spearheaded in navigating and transforming processes amid the company's rapid expansion, as the sole
+                Business Analyst in the company. Designed and implemented financial processes such as invoice
+                calculation, forecasting and collection; marketing processes such as lead tracking, lead distribution
+                and meeting scheduling by region, leveraging technical expertise to streamline operations. Engineered
+                sophisticated middleware solutions and automation tools, utilizing a wide range of skills such as
+                integrating with different APIs, manipulating JSON data, employing event-driven triggers, and
+                demonstrating adeptness in various software development methodologies and library utilization, ensuring
+                seamless workflow orchestration and data synchronization.</p>
+        </div>
+        <div>
+            <h3 class="job-title">Management Trainee</h3>
+            <p class="job-duration">Call Center Studio | Istanbul, Turkiye | Oct 2020 - Mar 2021</p>
+            <p>Played a pivotal role in the department's early stages, leveraging the opportunity to enhance operational
+                efficiency. Actively engaged with several teams to understand and optimize processes within sales,
+                marketing, and project departments. Key involvement in the strategic selection of a suitable CRM system
+                through effective planning and execution of the procurement process.</p>
+        </div>
+    </div>
 
-			<div class="flex-w flex-c-m cd100 p-b-33">
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 days">35</span>
-					<span class="s2-txt1">Days</span>
-				</div>
+    <div class="section education">
+        <h2>Education</h2>
+        <div>
+            <h3 class="job-title">Bachelor of Science</h3>
+            <p class="job-duration">Bogazici University | Istanbul, Turkiye | Sep 2017 - Jan 2023</p>
+            <p>Management Information Systems</p>
+            <p>Acquired Skills: Java, Kotlin, Python, JavaScript, OOP, COBIT/IT Governance, CRM, Arduino IDE, HTML/CSS,
+                MySQL, Cisco IOS</p>
+        </div>
+        <div>
+            <h3 class="job-title">Graduation Project</h3>
+            <p class="job-duration">Developing an Android Application for Crowdsourcing: Spotify to Chords | 2023</p>
+            <p>Designed and implemented a crowdsourcing application using Kotlin, leveraging Spotify API’s Audio
+                Analysis Endpoint to grant users instant access to song chords. To incorporate the functionalities of a
+                similar open-source study, created an API endpoint with ExpressJS to establish seamless communication
+                between the Android app and the pre-existing study, enabling the Android app to request Spotify Track
+                IDs and retrieve processed chord data for direct display to the user. Additionally, integrated social
+                media features for user interaction and utilized Firebase for efficient user
+                authorization/authentication and data management. <br> Presentation: <a class="project-link"
+                                                                                        href="hhttps://www.youtube.com/watch?v=P5FAwWHaiCg">YouTube</a>
+            </p>
+        </div>
+    </div>
 
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 hours">17</span>
-					<span class="s2-txt1">Hours</span>
-				</div>
-
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 minutes">50</span>
-					<span class="s2-txt1">Minutes</span>
-				</div>
-
-				<div class="flex-col-c-m size2 bor1 m-l-15 m-r-15 m-b-20">
-					<span class="l2-txt1 p-b-9 seconds">39</span>
-					<span class="s2-txt1">Seconds</span>
-				</div>
-			</div>
-
-			<button class="cybr-btn" onclick="parent.location='https://aselekoglu.github.io/ccs-signature-generator/'">
-				Signature Generator<span aria-hidden>_</span>
-				<span aria-hidden class="cybr-btn__glitch">Signature Generator</span>
-				<span aria-hidden class="cybr-btn__tag">CCS</span>
-			</button>
-
-			<div>
-				<p class="footer"> aselekoglu.github.io</p>
- 			</div>
-
-		</div>
+    <div class="section projects">
+        <h2>Projects</h2>
+        <ul>
+            <li>
+                <h3>Hubspot to Zoho Custom Integration | Nov 2023</h3>
+                <p>Engineered a custom middleware in Google Script to transfer deal object information from Hubspot CRM
+                    to Zoho CRM by using UrlFetchApp for HTTP requests, XML parsing for data extraction, and JSON
+                    manipulation for processing. The project aimed to synchronize data between different CRMs used by
+                    various departments, ensuring data reliability. The middleware retrieved deal object information,
+                    including associated line item objects, from Hubspot, processed the data, and pushed it to Zoho as
+                    account, potential, and sales order objects. Utilized: JS (Google Script), API, CRM, JSON.
+            </li>
+            <li>
+                <h3>Goal Tracker Application | Dec 2022</h3>
+                <p>Implemented middleware using Google Script to track sales goals. Created a custom object "Goals"
+                    within the CRM and established a workflow to push created goals to Google Sheets. Utilized
+                    event-driven triggers on Google Script to process each goal based on type and duration. Triggers
+                    execute functions upon goal completion, querying the CRM based on goal details (team/personal goal,
+                    new qualification/contracts signed, etc.) and associating the fetched objects (contacts or deals)
+                    with the initial Goals object in the CRM. Calculated KPIs (e.g., total created deal amount, number
+                    of contacts created) within the CRM using custom-calculated fields. <br> GitHub: <a
+                            class="project-link" href="https://github.com/aselekoglu/hs-goal-tracker">Project Repo</a>
+                </p>
+            </li>
+            <li>
+                <h3>Email Signature Generator | Dec 2021</h3>
+                <p>Designed a custom signature for the company using HTML/CSS, then developed a signature editor page
+                    hosted on GitHub for new members to create their own signatures, enhancing brand consistency.
+                    Utilized: HTML, CSS, JavaScript. <br> GitHub: <a class="project-link"
+                                                                     href="https://github.com/aselekoglu/ccs-signature-generator">Project
+                        Repo</a> | <a class="project-link" href="https://aselekoglu.github.io/ccs-signature-generator">
+                        Web page </a></p>
+            </li>
+            <li>
+                <h3>US Phone Number to Rate Center Checker | Jan 2021</h3>
+                <p>Developed a Google Script project to query US numbers for rate center information. The script takes a
+                    US number from a spreadsheet, queries an open-source web API, retrieves rate center information, and
+                    updates the spreadsheet. Utilized: Google Script (JS), API, JSON. <br> GitHub: <a
+                            class="project-link" href="https://github.com/aselekoglu/rate-center-npa-nxx">Project
+                        Repo</a></p>
+            </li>
+        </ul>
 	</div>
 
-
-
-	
-
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/countdowntime/moment.min.js"></script>
-	<script src="vendor/countdowntime/moment-timezone.min.js"></script>
-	<script src="vendor/countdowntime/moment-timezone-with-data.min.js"></script>
-	<script src="vendor/countdowntime/countdowntime.js"></script>
-	<script>
-		$('.cd100').countdown100({
-			/*Set Endtime here*/
-			/*Endtime must be > current time*/
-			endtimeYear: 0,
-			endtimeMonth: 0,
-			endtimeDate: 35,
-			endtimeHours: 18,
-			endtimeMinutes: 0,
-			endtimeSeconds: 0,
-			timeZone: "" 
-			// ex:  timeZone: "America/New_York"
-			//go to " http://momentjs.com/timezone/ " to get timezone
-		});
-	</script>
-<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
-
+    <div class="section additional">
+        <h2>Additional</h2>
+        <p>Activities and Societies: Bogazici University Music Club (BUMC) Jazz Choir Member, BUMC Rock Choir Member</p>
+        <p>Languages: English (Full professional proficiency), French (Limited working proficiency), Turkish
+            (Native)</p>
+    </div>
+</div>
 </body>
 </html>
