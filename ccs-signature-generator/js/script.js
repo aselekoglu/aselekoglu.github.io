@@ -1,7 +1,10 @@
 let clipboard = new ClipboardJS(".btn");
 
 var searchBlock = document.getElementById('output');
-var links = document.getElementsByClassName('sc-hzDkRC')
+var links = document.getElementsByClassName('sc-hzDkRC');
+Array.from(links).forEach(function (el) {
+    el.dataset.baseHref = el.getAttribute('href');
+});
 const checkbox = document.getElementById('meeting-checkbox')
 const hiddenElement = document.getElementById('hidden')
 const hiddenSig = document.getElementById('hidden-sig')
@@ -43,13 +46,13 @@ function generateSig() {
 
     $(links).each(function () {
         var $this = $(this);
-        var _href = $this.attr("href");
-        $this.attr("href", _href + signature.email)
-    })
+        var base = $this.data('base-href');
+        $this.attr('href', base + signature.email);
+    });
 
     // console.log($(links).attr("href"))
 
-    $('button').show();
+    $('.btn').show();
 }
 
 clipboard.on('success', function (e) {
