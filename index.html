@@ -3,209 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ataberk Selekoglu's CV</title>
-    <style>
-        body {
-            font-family: 'Courier New', Courier, monospace;
-            background-color: #2b2b2b;
-            color: #ffffff;
-            padding: 20px;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        h1, h2, h3 {
-            color: #00ffff;
-        }
-
-        h1::before, h2::before, h3::before {
-            content: '/';
-        }
-
-        .section {
-            margin-bottom: 40px;
-        }
-
-        .job-title {
-            color: #ff69b4;
-        }
-
-        .job-duration {
-            color: #ffa500;
-        }
-
-        .intro, .skills, .education, .projects, .experience, .summary, .additional {
-            color: #ff6347;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .project-link {
-            color: #80c7ff; /* Light Blue */
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s ease;
-        }
-
-        .project-link:hover {
-            color: #00bfff; /* Darker Blue on Hover */
-            text-decoration: underline;
-        }
-    </style>
+    <meta name="description"
+          content="Ataberk Selekoglu - Software Developer and Technical Business Analyst portfolio featuring AI and full-stack projects.">
+    <title>Ataberk Selekoglu | Software Developer Portfolio</title>
+    <link rel="stylesheet" href="assets/css/site.css">
 </head>
 <body>
-<div class="container">
-    <h1>Ataberk Selekoglu</h1>
-    <p class="section intro">Ottawa, ON | aselekoglu97@gmail.com | <a class="project-link"
-                                                                      href="https://www.linkedin.com/in/aselekoglu/">LinkedIn</a>
-        | <a class="project-link" href="https://github.com/aselekoglu">GitHub</a></p>
-
-    <div class="section summary">
-        <h2>Summary</h2>
-        <p>Technical Business Analyst with 3 years of experience in process optimization, automation, and management of
-            CRM systems. Spearheaded multifaceted projects aimed at optimizing operational efficiency across sales,
-            marketing, and project departments, leveraging advanced technical skills by enhancing CRM automation tools
-            with custom middlewares via JavaScript. Led projects such as development and implementation of tailored
-            scripting solutions for meticulous goal tracking, seamless CRM integration via REST APIs, and comprehensive
-            process automation.</p>
+<header class="site-header">
+    <div class="container header-inner">
+        <a class="brand" href="index.html">Ataberk Selekoglu</a>
+        <nav class="site-nav" aria-label="Main">
+            <a data-nav-link href="index.html">Home</a>
+            <a data-nav-link href="projects.html">Projects</a>
+            <a href="#experience">Experience</a>
+            <a href="#contact">Contact</a>
+        </nav>
     </div>
+</header>
 
-    <div class="section skills">
-        <h2>Skills</h2>
-        <ul>
-            <li>Java</li>
-            <li>Kotlin</li>
-            <li>JS (Google Script, ExpressJS, jQuery, Node.js)</li>
-            <li>HTML/CSS</li>
-            <li>Python</li>
-            <li>JSON</li>
-            <li>REST APIs</li>
-            <li>SQL</li>
-            <li>Arduino IDE</li>
-        </ul>
-    </div>
-
-    <div class="section experience">
-        <h2>Experience</h2>
-        <div>
-            <h3 class="job-title">Technical Business Analyst</h3>
-            <p class="job-duration"><a class="project-link" href="https://callcenterstudio.com"> Call Center Studio</a>
-                | Remote | Mar 2021 – Feb 2024 </p>
-            <p>Responsible for business process integrations, CRM management, and custom scripting (JS - Google Script).
-                Spearheaded in navigating and transforming processes amid the company's rapid expansion, as the sole
-                Business Analyst in the company. Designed and implemented financial processes such as invoice
-                calculation, forecasting and collection; marketing processes such as lead tracking, lead distribution
-                and meeting scheduling by region, leveraging technical expertise to streamline operations. Engineered
-                sophisticated middleware solutions and automation tools, utilizing a wide range of skills such as
-                integrating with different APIs, manipulating JSON data, employing event-driven triggers, and
-                demonstrating adeptness in various software development methodologies and library utilization, ensuring
-                seamless workflow orchestration and data synchronization.</p>
-        </div>
-        <div>
-            <h3 class="job-title">Management Trainee</h3>
-            <p class="job-duration"><a class="project-link" href="https://callcenterstudio.com"> Call Center Studio</a>
-                | Istanbul, Turkiye | Oct 2020 - Mar 2021</p>
-            <p>Played a pivotal role in the department's early stages, leveraging the opportunity to enhance operational
-                efficiency. Actively engaged with several teams to understand and optimize processes within sales,
-                marketing, and project departments. Key involvement in the strategic selection of a suitable CRM system
-                through effective planning and execution of the procurement process.</p>
-        </div>
-    </div>
-
-    <div class="section education">
-        <h2>Education</h2>
-        <div>
-            <h3 class="job-title">Bachelor of Science</h3>
-            <p class="job-duration">Bogazici University | Istanbul, Turkiye | Sep 2017 - Jan 2023</p>
-            <p>Management Information Systems</p>
-            <p>Acquired Skills: Java, Kotlin, Python, JavaScript, OOP, COBIT/IT Governance, CRM, Arduino IDE, HTML/CSS,
-                MySQL, Cisco IOS</p>
-        </div>
-        <div>
-            <h3 class="job-title">Graduation Project</h3>
-            <p class="job-duration">Developing an Android Application for Crowdsourcing: Spotify to Chords | 2023</p>
-            <p>Designed and implemented a crowdsourcing application using Kotlin, leveraging Spotify API’s Audio
-                Analysis Endpoint to grant users instant access to song chords. To incorporate the functionalities of a
-                similar open-source study, created an API endpoint with ExpressJS to establish seamless communication
-                between the Android app and the pre-existing study, enabling the Android app to request Spotify Track
-                IDs and retrieve processed chord data for direct display to the user. Additionally, integrated social
-                media features for user interaction and utilized Firebase for efficient user
-                authorization/authentication and data management. <br> Presentation: <a class="project-link"
-                                                                                        href="https://www.youtube.com/watch?v=P5FAwWHaiCg">YouTube</a>
-            </p>
-        </div>
-    </div>
-
-    <div class="section projects">
-        <h2>Projects</h2>
-        <ul>
-            <li>
-                <h3>Tuya Pet Feeder Homebridge Integration | July 2024</h3>
-                <p>Developed a new accessory class for the Homebridge platform to control a Tuya-based pet feeder,
-                    enabling seamless integration and control via Apple HomeKit. Implemented custom accessory logic
-                    using
-                    TypeScript, handling device commands and status updates through the Tuya API. Enhanced the existing
-                    homebridge-tuya-web plugin by creating a PetFeederAccessory class, which included methods to start
-                    and stop the feeder
-                    and to retrieve the current feeding. Updated the configuration and index files to support the new
-                    accessory type,
-                    ensuring a smooth user experience for Homebridge users. <br> GitHub: <a
-                            class="project-link" href="https://github.com/aselekoglu/homebridge-tuya-platform">Project
-                        Repo</a>
+<main>
+    <section class="hero">
+        <div class="container hero-grid">
+            <div>
+                <p class="eyebrow">Software Developer · AI & Full-Stack</p>
+                <h1>Building practical AI-driven and integration-heavy software.</h1>
+                <p class="lead">
+                    Analytical and solutions-focused developer with 3+ years of experience designing middleware,
+                    automations, and data workflows. Currently focused on AI software development and project delivery
+                    from idea to implementation.
                 </p>
+                <div class="cta-row">
+                    <a class="btn btn-primary" href="projects.html">View Projects</a>
+                    <a class="btn btn-secondary"
+                       href="mailto:sele0007@algonquinlive.com?subject=CV%20Request">Request CV PDF</a>
+                </div>
+            </div>
+            <aside class="hero-card" aria-label="Quick facts">
+                <h2>Quick Facts</h2>
+                <ul class="meta-list">
+                    <li>Based in Ottawa, ON</li>
+                    <li>Post-graduate: AI Software Development (Co-op)</li>
+                    <li>3+ years in CRM integrations, process automation, and analytics</li>
+                    <li>Open to software roles across AI, backend, and full-stack</li>
+                </ul>
+            </aside>
+        </div>
+    </section>
 
-                <h3>Hubspot to Zoho Custom Integration | Nov 2023</h3>
-                <p>Engineered a custom middleware in Google Script to transfer deal object information from Hubspot CRM
-                    to Zoho CRM by using UrlFetchApp for HTTP requests, XML parsing for data extraction, and JSON
-                    manipulation for processing. The project aimed to synchronize data between different CRMs used by
-                    various departments, ensuring data reliability. The middleware retrieved deal object information,
-                    including associated line item objects, from Hubspot, processed the data, and pushed it to Zoho as
-                    account, potential, and sales order objects. Utilized: JS (Google Script), API, CRM, JSON.
-            </li>
-            <li>
-                <h3>Goal Tracker Application | Dec 2022</h3>
-                <p>Implemented middleware using Google Script to track sales goals. Created a custom object "Goals"
-                    within the CRM and established a workflow to push created goals to Google Sheets. Utilized
-                    event-driven triggers on Google Script to process each goal based on type and duration. Triggers
-                    execute functions upon goal completion, querying the CRM based on goal details (team/personal goal,
-                    new qualification/contracts signed, etc.) and associating the fetched objects (contacts or deals)
-                    with the initial Goals object in the CRM. Calculated KPIs (e.g., total created deal amount, number
-                    of contacts created) within the CRM using custom-calculated fields. <br> GitHub: <a
-                            class="project-link" href="https://github.com/aselekoglu/hs-goal-tracker">Project Repo</a>
-                </p>
-            </li>
-            <li>
-                <h3>Email Signature Generator | Dec 2021</h3>
-                <p>Designed a custom signature for the company using HTML/CSS, then developed a signature editor page
-                    hosted on GitHub for new members to create their own signatures, enhancing brand consistency.
-                    Utilized: HTML, CSS, JavaScript. <br> GitHub: <a class="project-link"
-                                                                     href="https://github.com/aselekoglu/ccs-signature-generator">Project
-                        Repo</a> | <a class="project-link" href="https://aselekoglu.github.io/ccs-signature-generator">
-                        Web page </a></p>
-            </li>
-            <li>
-                <h3>US Phone Number to Rate Center Checker | Jan 2021</h3>
-                <p>Developed a Google Script project to query US numbers for rate center information. The script takes a
-                    US number from a spreadsheet, queries an open-source web API, retrieves rate center information, and
-                    updates the spreadsheet. Utilized: Google Script (JS), API, JSON. <br> GitHub: <a
-                            class="project-link" href="https://github.com/aselekoglu/rate-center-npa-nxx">Project
-                        Repo</a></p>
-            </li>
-        </ul>
-    </div>
+    <section class="section">
+        <div class="container grid-2">
+            <article class="panel">
+                <h2 class="section-title">Core Strengths</h2>
+                <ul class="list-compact">
+                    <li>Designing and implementing API integrations and event-driven workflows</li>
+                    <li>Building automation pipelines for data validation, transformation, and synchronization</li>
+                    <li>Applying ML/LLM workflows to real-world productivity and decision-support problems</li>
+                </ul>
+            </article>
+            <article class="panel">
+                <h2 class="section-title">Tech Stack</h2>
+                <div class="tags">
+                    <span class="tag">Java</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">Kotlin</span>
+                    <span class="tag">React</span>
+                    <span class="tag">Node.js</span>
+                    <span class="tag">ExpressJS</span>
+                    <span class="tag">SQL</span>
+                    <span class="tag">REST APIs</span>
+                    <span class="tag">Google Apps Script</span>
+                    <span class="tag">PostgreSQL</span>
+                    <span class="tag">Firebase</span>
+                </div>
+            </article>
+        </div>
+    </section>
 
-    <div class="section additional">
-        <h2>Additional</h2>
-        <p>Activities and Societies: Bogazici University Music Club (BUMC) Jazz Choir Member, BUMC Rock Choir Member</p>
-        <p>Languages: English (Full professional proficiency), French (Limited working proficiency), Turkish
-            (Native)</p>
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            <div class="cards">
+                <article class="card">
+                    <h3>ApplAI</h3>
+                    <p>AI-assisted job application automation platform for CV tailoring and document generation.</p>
+                    <div class="tags">
+                        <span class="tag">LLM Workflows</span>
+                        <span class="tag">Automation</span>
+                        <span class="tag">Prompt Engineering</span>
+                    </div>
+                </article>
+                <article class="card">
+                    <h3>ARPA Meal Planner</h3>
+                    <p>Constraint-based meal planning system focused on nutrition, cost, and user preferences.</p>
+                    <div class="tags">
+                        <span class="tag">Data Modeling</span>
+                        <span class="tag">Optimization</span>
+                        <span class="tag">Scalable Architecture</span>
+                    </div>
+                </article>
+                <article class="card">
+                    <h3>Crime Insights in Dallas</h3>
+                    <p>ML analysis of 1.4M+ incidents using classification, clustering, and outlier detection.</p>
+                    <div class="tags">
+                        <span class="tag">Machine Learning</span>
+                        <span class="tag">CRISP-DM</span>
+                        <span class="tag">Feature Engineering</span>
+                    </div>
+                </article>
+            </div>
+            <div class="cta-row" style="margin-top: 16px;">
+                <a class="btn btn-secondary" href="projects.html">See All Projects</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section">
+        <div class="container panel">
+            <h2 class="section-title">Experience Snapshot</h2>
+            <div class="experience-item">
+                <div class="role-title">Technical Business Analyst</div>
+                <div class="role-meta">Call Center Studio · Remote · Mar 2021 - Feb 2024</div>
+                <ul class="list-compact">
+                    <li>Implemented JavaScript-based middleware services and REST API integrations between CRMs and external systems.</li>
+                    <li>Built event-driven automation pipelines using JSON payloads, scheduled triggers, and HTTP endpoints.</li>
+                    <li>Partnered across product and operations in agile delivery to refine requirements and resolve production issues.</li>
+                </ul>
+            </div>
+            <div class="experience-item">
+                <div class="role-title">Management Trainee</div>
+                <div class="role-meta">Call Center Studio · Istanbul · Oct 2020 - Mar 2021</div>
+                <ul class="list-compact">
+                    <li>Supported process improvements across sales, marketing, and project teams during rapid growth stage.</li>
+                    <li>Led the CRM procurement workflow and evaluated system fit for operational requirements.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer id="contact" class="site-footer">
+    <div class="container footer-inner">
+        <div>
+            <strong>Ataberk Selekoglu</strong>
+            <div class="small">Ottawa, ON · sele0007@algonquinlive.com · +1 613 793 5109</div>
+        </div>
+        <div class="cta-row">
+            <a class="btn btn-secondary" href="https://www.linkedin.com/in/aselekoglu/" target="_blank"
+               rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn btn-secondary" href="https://github.com/aselekoglu" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a class="btn btn-secondary" href="ccs-signature-generator/index.html">Legacy Tool</a>
+        </div>
     </div>
-</div>
+</footer>
+
+<script src="assets/js/site.js"></script>
 </body>
 </html>
