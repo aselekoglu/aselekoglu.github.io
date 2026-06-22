@@ -1,187 +1,925 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="day">
 <head>
+    <script>
+        (() => {
+            const stored = localStorage.getItem("as-persona");
+            if (stored === "day" || stored === "night") {
+                document.documentElement.setAttribute("data-theme", stored);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Project portfolio of Ataberk Selekoglu featuring AI, machine learning, and systems integration work.">
-    <title>Projects | Ataberk Selekoglu</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+          content="Project portfolio of Ataberk Selekoglu. Detailed breakdowns of AI, automation, and full-stack systems, as well as creative music tools.">
+    <title>Portfolio | Ataberk Selekoglu</title>
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/site.css?v=5">
 </head>
 <body>
-<header class="site-header">
-    <div class="container header-inner">
-        <a class="brand" href="index.html">Ataberk Selekoglu</a>
-        <nav class="site-nav" aria-label="Main">
-            <a data-nav-link href="index.html">Home</a>
-            <a data-nav-link href="projects.html">Projects</a>
-            <a href="index.html#experience">Experience</a>
+<div class="theme-transition-mask" aria-hidden="true"></div>
+
+<div class="page">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="mark">AS</div>
+            <h1>Ataberk Selekoglu</h1>
+            <p class="role persona-day">AI Software Developer / Full-Stack</p>
+            <p class="role persona-night">Bassist / Songwriter / Performer</p>
+        </div>
+        
+        <div class="contact">
+            <span>Ottawa, ON</span>
+            <span>sele0007@algonquinlive.com</span>
+            <a href="https://linkedin.com/in/aselekoglu" target="_blank" rel="noopener noreferrer">linkedin.com/in/aselekoglu</a>
+            <a href="https://github.com/aselekoglu" target="_blank" rel="noopener noreferrer">github.com/aselekoglu</a>
+        </div>
+        
+        <nav aria-label="Portfolio navigation">
+            <a data-nav-link href="index.html">Overview</a>
+            <a data-nav-link href="projects.html" class="persona-day">Projects</a>
+            <a data-nav-link href="projects.html" class="persona-night">Music Work</a>
             <a href="index.html#contact">Contact</a>
         </nav>
-    </div>
-</header>
 
-<main class="section">
-    <div class="container">
-        <p class="eyebrow">Portfolio</p>
-        <h1>Selected Projects</h1>
-        <p class="lead">
-            Projects are structured as mini case studies highlighting the problem context, technical approach, and
-            outcome.
-        </p>
+        <div class="toggle-container">
+            <button type="button" class="persona-toggle" data-persona-toggle aria-pressed="false">
+                <span class="persona-toggle-label"></span>
+                <span class="persona-toggle-track" aria-hidden="true">
+                    <span class="persona-toggle-thumb"></span>
+                </span>
+            </button>
+        </div>
+    </aside>
 
-        <section class="project-list" aria-label="Projects list">
-            <article class="panel project-card">
-                <h3>ApplAI - AI Assisted Job Application Automation Platform</h3>
-                <p class="project-sub">March 2026</p>
-                <p>Built an AI-driven workflow to automate job application tasks such as CV tailoring, document generation, and structured extraction from job descriptions.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Implemented LLM-based pipelines to transform unstructured text into role-specific outputs.</li>
-                    <li>Designed modular workflow stages to support scalable and repeatable automation.</li>
-                    <li>Applied prompt engineering strategies to improve consistency and quality of generated artifacts.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Generative AI</span>
-                    <span class="tag">Prompt Engineering</span>
-                    <span class="tag">Workflow Automation</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/aselekoglu/ApplAI" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>ARPA Meal Planner - AI Assisted Meal Planner</h3>
-                <p class="project-sub">February 2026</p>
-                <p>Developed an intelligent meal planning application that optimizes meal selection using nutrition, cost, and user preference constraints.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Designed data models and transformation pipelines for food dataset analysis.</li>
-                    <li>Implemented filtering and recommendation-oriented planning workflows.</li>
-                    <li>Structured the architecture for future AI-driven recommendation extensions.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Data Pipelines</span>
-                    <span class="tag">Optimization Logic</span>
-                    <span class="tag">Scalable Design</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/aselekoglu/arpa-meal-planner" target="_blank" rel="noopener noreferrer">GitHub</a>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>Crime Insights in Dallas - ML Classification, Clustering and Outlier Detection</h3>
-                <p class="project-sub">Algonquin College · November 2025</p>
-                <p>Analyzed a 1.4M+ record police incident dataset using CRISP-DM to extract insights from noisy and imbalanced data.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Built pipelines for classification, clustering, and anomaly detection.</li>
-                    <li>Performed encoding, feature engineering, dimensionality reduction, and model tuning.</li>
-                    <li>Evaluated Decision Tree models via grid search and cross-validation while diagnosing imbalance effects.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Machine Learning</span>
-                    <span class="tag">CRISP-DM</span>
-                    <span class="tag">Data Mining</span>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>HubSpot to Zoho Custom Integration</h3>
-                <p class="project-sub">Call Center Studio · November 2023</p>
-                <p>Engineered middleware in Google Apps Script to synchronize deal and line-item data from HubSpot to Zoho CRM across departments.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Implemented API calls with `UrlFetchApp` and payload transformations with XML and JSON parsing.</li>
-                    <li>Mapped and pushed processed records into account, potential, and sales-order objects.</li>
-                    <li>Improved cross-system data reliability for operational reporting and workflow continuity.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Google Apps Script</span>
-                    <span class="tag">REST APIs</span>
-                    <span class="tag">CRM Integration</span>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>Telecom Customer Churn Prediction and Decision Support System</h3>
-                <p class="project-sub">Bogazici University · January 2022</p>
-                <p>Built an end-to-end churn analytics workflow from data preparation to model optimization on a real-world telecom dataset.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Handled class imbalance with SMOTE, ADASYN, and class-weighted learning strategies.</li>
-                    <li>Trained and tuned CatBoost, XGBoost, and LightGBM with stratified validation and Optuna.</li>
-                    <li>Improved ROC-AUC performance from 0.74 to 0.84.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Python</span>
-                    <span class="tag">Scikit-learn</span>
-                    <span class="tag">Optuna</span>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>Developing an Android Application for Crowdsourcing: Spotify</h3>
-                <p class="project-sub">Bogazici University · January 2023</p>
-                <p>Created a Kotlin Android app that leverages Spotify audio analysis and an ExpressJS endpoint to deliver chord data to users.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Designed Android flows to collect Spotify Track IDs and display processed output.</li>
-                    <li>Built an ExpressJS integration layer to connect the app with existing open-source processing logic.</li>
-                    <li>Integrated Firebase for authentication and backend data support.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">Kotlin</span>
-                    <span class="tag">Android</span>
-                    <span class="tag">ExpressJS</span>
-                    <span class="tag">Firebase</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/aselekoglu/chordy" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="https://www.youtube.com/watch?v=P5FAwWHaiCg" target="_blank" rel="noopener noreferrer">Presentation</a>
-                </div>
-            </article>
-
-            <article class="panel project-card">
-                <h3>Email Signature Generator</h3>
-                <p class="project-sub">December 2021</p>
-                <p>Built an internal signature generator page to help new team members produce consistent, branded email signatures.</p>
-                <h4 class="project-section-title">What I built</h4>
-                <ul class="list-compact">
-                    <li>Designed and implemented reusable HTML/CSS signature structure and controls.</li>
-                    <li>Added lightweight JavaScript form behavior for generating and copying signature output.</li>
-                </ul>
-                <div class="tags">
-                    <span class="tag">HTML</span>
-                    <span class="tag">CSS</span>
-                    <span class="tag">JavaScript</span>
-                </div>
-                <div class="project-links">
-                    <a href="https://github.com/aselekoglu/ccs-signature-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
-                    <a href="ccs-signature-generator/index.html">Live Tool</a>
-                </div>
-            </article>
+    <main class="main">
+        <!-- Page Header -->
+        <section class="section" style="padding-top: 0;">
+            <div class="section-head">
+                <h2 class="persona-day">Engineering Catalog</h2>
+                <h2 class="persona-night">Selected Sounds & Tech</h2>
+                <p class="section-note persona-day">
+                    Applied AI, robust integrations, and full-stack systems built with deterministic outcomes.
+                </p>
+                <p class="section-note persona-night">
+                    Creative audio integrations, live show utilities, and performance-focused software.
+                </p>
+            </div>
         </section>
-    </div>
-</main>
 
-<footer class="site-footer">
-    <div class="container footer-inner">
-        <div>
-            <strong>Ataberk Selekoglu</strong>
-            <div class="small">Professional portfolio focused on practical engineering outcomes.</div>
-        </div>
-        <div class="cta-row">
-            <a class="btn btn-secondary" href="index.html">Back to Home</a>
-            <a class="btn btn-secondary" href="mailto:sele0007@algonquinlive.com">Email</a>
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/aselekoglu/" target="_blank"
-               rel="noopener noreferrer">LinkedIn</a>
-        </div>
-    </div>
-</footer>
+        <!-- Featured Projects (PAO Format) -->
+        <section class="section">
+            <div class="section-head">
+                <h2>Featured Work</h2>
+                <p class="section-note">Key projects highlighting core design patterns, problem-solving, and outcomes.</p>
+            </div>
 
-<script src="assets/js/site.js"></script>
+            <!-- Day Persona Featured (ApplAI, OPS Copilot, Sehlikzade Archive) -->
+            <div class="featured-projects-container persona-day">
+                <!-- ApplAI -->
+                <article class="featured-project-card" id="feat-applai">
+                    <div class="featured-project-header">
+                        <span class="kicker">Career AI Platform</span>
+                        <h3>ApplAI</h3>
+                        <p class="project-sub">Personal Project · March 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Tailoring CVs and cover letters for individual job descriptions is highly repetitive, slow (often taking 2+ hours per role manually), and prone to copy-paste errors or misalignment.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Developed a private AI Career Manager utilizing Python/FastAPI backend services and Pydantic contracts for structured data validation.</li>
+                                <li>Constructed a suggestions-first tailoring workflow that extracts structural metadata and requirements from incoming job descriptions.</li>
+                                <li>Designed grounding mechanisms with provenance metadata, unsupported-claim checks, and ATS/QA reporting to prevent LLM hallucinations.</li>
+                                <li>Created a React + TypeScript + Vite web interface where the user can review and edit suggested bullet points side-by-side with the original CV.</li>
+                                <li>Implemented template-aware document rendering using <code>python-docx</code> and <code>pdfplumber</code> to export clean files matching specific page budgets.</li>
+                                <li>Separated the agent orchestration layer (Eve) from deterministic Core services, keeping human-in-the-loop approval gates explicit.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>Reduces a 2+ hour manual resume tailoring process to minutes, ensuring strong alignment with job descriptions while guaranteeing factual accuracy and preserving final user control.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Pydantic</span><span class="tag">Gemini API</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aselekoglu/ApplAI" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="#diagram-applai">View Diagram</a>
+                    </div>
+                </article>
+
+                <!-- OPS Copilot -->
+                <article class="featured-project-card" id="feat-ops">
+                    <div class="featured-project-header">
+                        <span class="kicker">RAG Assistant</span>
+                        <h3>OPS Copilot (OPS Policy Chatbot)</h3>
+                        <p class="project-sub">Pilot Scaffold · 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Querying internal corporate policy, public-policy, and procedure documents (often hundreds of pages across PDF/DOCX) is slow for operational teams and prone to misinterpretation or hallucination if standard LLMs are used.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Engineered a Retrieval-Augmented Generation (RAG) pipeline with a FastAPI backend and a React/TypeScript/Vite frontend using Entra sign-in.</li>
+                                <li>Built an ingestion pipeline featuring SHA-256 file deduplication, PDF/DOC/TXT parsing, and Azure Document Intelligence OCR fallback for low-confidence or scanned text.</li>
+                                <li>Implemented top-k document retrieval using local embeddings and a FAISS vector database.</li>
+                                <li>Set a strict minimum-similarity score gate to decline answering when no relevant source document is found, enforcing "cite-or-decline" behavior.</li>
+                                <li>Integrated local Ollama models via LangChain components to process queries securely and locally without external cloud dependencies.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>A secure, pilot-ready ops chatbot that delivers reliable answers with exact file-path and page-number citations, reducing information discovery time while eliminating hallucination risk.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Streamlit</span><span class="tag">FastAPI</span><span class="tag">LangChain</span><span class="tag">FAISS</span><span class="tag">Ollama</span><span class="tag">RAG</span>
+                    </div>
+                    <div class="project-links">
+                        <span>Repo: private</span>
+                        <a href="#diagram-ops">View Diagram</a>
+                    </div>
+                </article>
+
+                <!-- Sehlikzade Family Archive -->
+                <article class="featured-project-card" id="feat-sehlikzade">
+                    <div class="featured-project-header">
+                        <span class="kicker">Public Web Archive</span>
+                        <h3>Sehlikzade Family Archive</h3>
+                        <p class="project-sub">Family Project · May 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Digitizing, organizing, and rendering a large collection of family archive documents and high-resolution images in a responsive, fast-loading, and secure public platform without complex database maintenance.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Developed a high-performance single-page web application (SPA) using Vite and Vanilla JavaScript/CSS.</li>
+                                <li>Created an interactive family tree visualizer with dynamic tree mapping, multi-criteria search, branch filtering, and a details drawer.</li>
+                                <li>Designed a responsive image delivery pipeline utilizing WebP/JPEG assets, gallery-specific loading states, and high fetch-priority for key visual elements.</li>
+                                <li>Implemented Firebase and Cloud Firestore for light data storage, visitor board interaction, and message collection.</li>
+                                <li>Added security measures including HTML escaping and domain allowlisting.</li>
+                                <li>Set up a deployment pipeline on Vercel with integrated analytics and release validation scripts verified via Puppeteer user-flow tests.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>A fast, accessible, and secure genealogy portal that displays rich historical data and family relations, maintaining responsive load times and high visual quality across devices.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Vite</span><span class="tag">Vanilla JS</span><span class="tag">Firebase</span><span class="tag">Vercel</span><span class="tag">Puppeteer</span>
+                    </div>
+                    <div class="project-links">
+                        <span>Repo: private</span>
+                        <a href="#diagram-sehlikzade">View Diagram</a>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Night Persona Featured (Air Controller & Highlights) -->
+            <div class="featured-projects-container persona-night">
+                <!-- Air Controller -->
+                <article class="featured-project-card" id="feat-air">
+                    <div class="featured-project-header">
+                        <span class="kicker">Computer Vision / MIDI tool</span>
+                        <h3>Air Controller</h3>
+                        <p class="project-sub">Creative Project · 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Live musical performances require expressive, continuous control over synthesizers and effects, but traditional MIDI controllers (knobs, faders) force musicians to take their hands off their instruments or occupy a fixed position on stage, limiting physical expression.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Developed a macOS-focused webcam-to-MIDI controller that runs locally in real-time, mapping hand movements to standard MIDI Control Change (CC) messages.</li>
+                                <li>Implemented OpenCV for webcam frame capture and MediaPipe Hands for high-fidelity hand landmark tracking.</li>
+                                <li>Built custom gesture smoothing, relative/absolute coordinate mapping, gesture hysteresis, and neutral-pose calibration to prevent sudden parameter jumps.</li>
+                                <li>Configured CoreMIDI virtual port generation to route CC streams directly to DAWs like Logic Pro with low latency.</li>
+                                <li>Added performance telemetry including rolling p50/p95 latency metrics, FPS overlays, and YAML-based per-instrument configuration files.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>Creates a highly expressive, touch-free gesture controller for live performance, enabling hands-free modulation of synth parameters with visual feedback and under 15ms of processing latency.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Python</span><span class="tag">OpenCV</span><span class="tag">MediaPipe</span><span class="tag">CoreMIDI</span><span class="tag">YAML</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aselekoglu/air-controller" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="#diagram-air-night">View Diagram</a>
+                    </div>
+                </article>
+
+                <!-- Musical Career Cards -->
+                <div class="featured" style="grid-template-columns: repeat(3, 1fr); margin-top: 10px;">
+                    <article class="feature-card">
+                        <span class="kicker">Live on stage</span>
+                        <h3>Live Performance</h3>
+                        <p>Years of shows with bands and acoustic sets. Comfortable on small and large stages, leading the low end with precision and groove.</p>
+                        <div class="tags">
+                            <span class="tag">Live Bass</span><span class="tag">Stagecraft</span>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="kicker">Original Music</span>
+                        <h3>Writing in synthwave</h3>
+                        <p>Ongoing writing, production, and arrangement in synthwave and adjacent genres—moody, melodic, and rhythm-first compositions.</p>
+                        <div class="tags">
+                            <span class="tag">Synthwave</span><span class="tag">Production</span>
+                        </div>
+                    </article>
+                    <article class="feature-card">
+                        <span class="kicker">Studio & Tracking</span>
+                        <h3>Collaborations</h3>
+                        <p>Studio sessions, featured bass parts, and project collaborations with other musicians, songwriters, and audio engineers.</p>
+                        <div class="tags">
+                            <span class="tag">Studio Tracking</span><span class="tag">Arranging</span>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Catalog (List of all remaining projects) -->
+        <section class="section">
+            <div class="section-head">
+                <h2>Project Catalog</h2>
+                <p class="section-note">Archived and active repositories, utility modules, and academic coursework.</p>
+            </div>
+
+            <!-- Day Catalog -->
+            <div class="project-catalog persona-day">
+                <!-- ApplAI -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>March 2026 - June 2026</time>
+                        <span class="project-kind">AI Career Platform</span>
+                        <h3>ApplAI</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Developed a private AI Career Manager for repeatable JD-to-application workflows, including job intake, scoring, CV tailoring, document generation, and run inspection.</li>
+                            <li>Built Python/FastAPI services and Pydantic contracts for master CV import, Career Brain data, job records, grounded scoring, and tailoring runs.</li>
+                            <li>Implemented a React + TypeScript + Vite workspace for reviewing masters, tailoring recommendations, and generated run outputs before approval.</li>
+                            <li>Designed grounded tailoring behavior with provenance metadata, unsupported-claim checks, ATS/QA reporting, two-page page-budget metadata, and compression ordering.</li>
+                            <li>Separated Eve orchestration from deterministic Core services, keeping approval gates explicit and preventing automated submission or publishing without user approval.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/ApplAI" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-applai">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Sehlikzade Family Archive -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>May 2026</time>
+                        <span class="project-kind">Public Web Archive</span>
+                        <h3>Sehlikzade Family Archive</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Created a high-performance Vite and Vanilla JS/CSS single-page application to digitize and present family archive content.</li>
+                            <li>Built an interactive family tree visualizer with tree mapping, multi-criteria search, branch filtering, and a details drawer.</li>
+                            <li>Designed a responsive image delivery pipeline using WebP/JPEG assets, high fetch-priority, and gallery-specific loading behavior.</li>
+                            <li>Implemented Firebase-backed data flows, visitor board behavior, Vercel deployment configuration, analytics, and release validation scripts.</li>
+                            <li>Added security and quality checks including HTML escaping, domain allowlisting, accessibility-oriented markup, and Puppeteer-based user-flow validation.</li>
+                        </ul>
+                        <div class="project-links">
+                            <span>Repo: private</span>
+                            <a href="#diagram-sehlikzade">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Air Controller -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>May 2026</time>
+                        <span class="project-kind">Computer Vision / MIDI tool</span>
+                        <h3>Air Controller</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built a macOS-focused webcam-to-MIDI controller that maps MediaPipe hand landmarks into CoreMIDI CC streams for Logic Pro and other DAWs.</li>
+                            <li>Implemented OpenCV capture, latest-frame draining, gesture smoothing, left/right and up/down axis mapping, openness detection, hysteresis, and configurable CC output.</li>
+                            <li>Added performance telemetry with rolling p50/p95 latency, FPS monitoring, CSV logging, camera switching, calibration profiles, and YAML-based per-instrument configuration.</li>
+                            <li>Designed the tool around real-time creative use, including debug overlays, neutral-pose capture, relative/absolute mapping modes, and low-latency tuning guidance.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/air-controller" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-air">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- OPS Copilot -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>2026</time>
+                        <span class="project-kind">RAG Assistant</span>
+                        <h3>OPS Copilot (OPS Policy Chatbot)</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built a Streamlit-based assistant for querying uploaded PDF and DOCX procedure documents through a Retrieval-Augmented Generation workflow.</li>
+                            <li>Implemented document loading, chunking, local embeddings, FAISS indexing, and similarity-based retrieval for document-grounded question answering.</li>
+                            <li>Integrated local Ollama models through LangChain components to support secure, localized responses without relying on external cloud inference.</li>
+                            <li>Added similarity threshold logic to reduce hallucination risk when no sufficiently relevant source document is retrieved.</li>
+                            <li>Structured the app around operational usability: upload documents, index the knowledge base, ask questions, and receive grounded responses through a chat interface.</li>
+                        </ul>
+                        <div class="project-links">
+                            <span>Repo: private</span>
+                            <a href="#diagram-ops">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Cliff Walking Gymnasium -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>2026</time>
+                        <span class="project-kind">RL Coursework</span>
+                        <h3>Cliff Walking Gymnasium</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Created a reinforcement learning workspace centered on the classic cliff walking environment.</li>
+                            <li>Implemented tabular Q-learning and SARSA training loops to experiment with policy and value iteration.</li>
+                            <li>Built Gymnasium-style training visualizations and CSV experiment logging trackers.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/cliffwalking-gymnasium" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ARPA Meal Planner -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>March 2026 - May 2026</time>
+                        <span class="project-kind">Full-stack AI Planner</span>
+                        <h3>ARPA Meal Planner</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Developed a full-stack meal planning platform featuring weekly scheduling, recipe storage, pantry tracking, automatic grocery list deduction, and PDF exports.</li>
+                            <li>Built a React 19 + TypeScript + Vite + Tailwind CSS UI backed by an Express/Node server and SQLite persistence using <code>Better-SQLite3</code>.</li>
+                            <li>Integrated Google Gemini and local Ollama models for recipe parsing, nutrition estimations, aisle categorization, and dietary recommendations.</li>
+                            <li>Implemented ingredient hygiene tools including automatic merge suggestions, strict measurements, and unit-aware pantry deductions.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/arpa-meal-planner" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-arpa">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Crime Insights in Dallas -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>November 2025</time>
+                        <span class="project-kind">Applied Machine Learning</span>
+                        <h3>Crime Insights in Dallas</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Analyzed a police incident dataset containing over 1.4 million records and 86 attributes using the CRISP-DM methodology.</li>
+                            <li>Built ML pipelines for Decision Tree classification, k-means clustering, Local Outlier Factor (LOF), and distance-based outlier detection.</li>
+                            <li>Implemented data preprocessing pipelines covering categorical encoding, feature engineering, and dimensionality reduction.</li>
+                            <li>Optimized a Decision Tree classifier using grid search and 10-fold cross-validation, diagnosing class imbalances and accuracy limits.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- HubSpot Goal Tracker -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>2024</time>
+                        <span class="project-kind">Google Apps Script</span>
+                        <h3>HubSpot Goal Tracker</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built Google Apps Script automation that pulls sales deal data from HubSpot API and tracks salesperson goals directly in Google Sheets.</li>
+                            <li>Implemented custom cron triggers, manual update triggers, and historic goal initialization scripts.</li>
+                            <li>Provided the sales department with a zero-maintenance goal reporting system before HubSpot introduced native Goal objects.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/hs-goal-tracker" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Homebridge Tuya Platform -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>April 2021 - July 2024</time>
+                        <span class="project-kind">IoT Plugin Maintenance</span>
+                        <h3>Homebridge Tuya Platform Fork</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Maintained a custom fork of the TypeScript Homebridge Tuya plugin, fixing device support and API rate limit issues.</li>
+                            <li>Supported custom DP mappings, smart scenes, and non-standard hardware protocols for local Tuya integrations.</li>
+                            <li>Documented setup, credentials configuration, and scene overrides for smart home operators.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/homebridge-tuya-platform" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- HubSpot to Zoho Custom Integration -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>November 2023</time>
+                        <span class="project-kind">CRM Middleware</span>
+                        <h3>HubSpot ↔ Zoho Integration</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Engineered custom Google Apps Script middleware using <code>UrlFetchApp</code> to transfer deal and line item info between HubSpot and Zoho CRM.</li>
+                            <li>Restored data alignment across sales, finance, and delivery teams, eliminating manual data entry steps.</li>
+                            <li>Parsed XML and JSON payloads to map CRM records into appropriate Account, Potential, and Sales Order objects.</li>
+                        </ul>
+                        <div class="project-links">
+                            <span>Repo: private</span>
+                            <a href="#diagram-crm">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Chordy (Android) -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>February 2026</time>
+                        <span class="project-kind">Android Music App</span>
+                        <h3>Chordy</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Designed a Kotlin-based Android application that collects Spotify Track IDs and fetches processed chord charts for musicians.</li>
+                            <li>Developed an ExpressJS API server to bridge the mobile client with an open-source chord recognition pipeline.</li>
+                            <li>Integrated Firebase Authentication and Cloud Firestore for user profiles, history, and social sharing features.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/chordy" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Telecom Churn Prediction -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>January 2022</time>
+                        <span class="project-kind">Decision Support System</span>
+                        <h3>Telecom Churn Prediction</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built an end-to-end churn prediction pipeline using Python, Pandas, and scikit-learn on a 7k+ customer dataset.</li>
+                            <li>Handled severe class imbalances using SMOTE, ADASYN, and class-weighted training, focusing on F1-score optimization.</li>
+                            <li>Trained and tuned CatBoost, XGBoost, and LightGBM models with stratified cross-validation and Optuna.</li>
+                            <li>Improved overall ROC-AUC classification score from 0.74 to 0.84.</li>
+                        </ul>
+                    </div>
+                </article>
+
+                <!-- Kotlin Quiz App -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>June 2021</time>
+                        <span class="project-kind">Android Application</span>
+                        <h3>Kotlin Quiz App</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built an interactive Android quiz application using Kotlin, AndroidX components, and ConstraintLayout view binding.</li>
+                            <li>Connected Firebase Authentication and Cloud Firestore database for real-time leaderboards and score tracking.</li>
+                            <li>Configured Gradle build parameters and JUnit/Espresso test configs for local validation.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/Kotlin-Quiz-App" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Rate Center NPA-NXX -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>2021</time>
+                        <span class="project-kind">Google Sheets Utility</span>
+                        <h3>Rate Center NPA-NXX</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Created Google Apps Script functions to resolve exchange locations (Rate Centers) from NPA/NXX numbers.</li>
+                            <li>Wrote functions to evaluate local calling routes between two exchanges: <code>isLocal(npa1, nxx1, npa2, nxx2)</code>.</li>
+                            <li>Optimized calculations to support lightweight telecom operations inside shared spreadsheets.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/rate-center-npa-nxx" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- CCS Signature Generator -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>December 2021</time>
+                        <span class="project-kind">Google Workspace Utility</span>
+                        <h3>CCS Signature Generator</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Created a lightweight HTML/CSS signature builder that outputs standardized copy-ready code blocks for brand conformity.</li>
+                            <li>Designed a clean client-side JavaScript form to capture employee details and render responsive signature mockups.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/ccs-signature-generator" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+
+            <!-- Night Catalog -->
+            <div class="project-catalog persona-night">
+                <!-- Air Controller -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>May 2026</time>
+                        <span class="project-kind">Computer Vision / MIDI tool</span>
+                        <h3>Air Controller</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built a macOS-focused webcam-to-MIDI controller that maps MediaPipe hand landmarks into CoreMIDI CC streams for Logic Pro and other DAWs.</li>
+                            <li>Implemented OpenCV capture, latest-frame draining, gesture smoothing, left/right and up/down axis mapping, openness detection, hysteresis, and configurable CC output.</li>
+                            <li>Added performance telemetry with rolling p50/p95 latency, FPS monitoring, CSV logging, camera switching, calibration profiles, and YAML-based per-instrument configuration.</li>
+                            <li>Designed the tool around real-time creative use, including debug overlays, neutral-pose capture, relative/absolute mapping modes, and low-latency tuning guidance.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/air-controller" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-air">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- LoFi Vibe Generator -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>July 2025 - August 2025</time>
+                        <span class="project-kind">Creative Web Audio</span>
+                        <h3>LoFi Vibe Generator</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Developed a browser-based lo-fi chord sequencer and drum builder using Vite and the Tone.js audio engine.</li>
+                            <li>Implemented real-time transport controls, key signature adjustments, scale degree selectors, and step sequencing.</li>
+                            <li>Configured multiple sampler presets (e.g., Rhodes piano sampler) and synth configurations for retro audio generation.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/lofi-gen" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Portfolio Website -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>December 2021 - April 2026</time>
+                        <span class="project-kind">Static Portfolio Site</span>
+                        <h3>Portfolio Website</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built this developer/musician dual-persona portfolio from scratch using semantic HTML, vanilla CSS, and clean JS selectors.</li>
+                            <li>Designed a custom clip-path theme transition and viewport scale transition to switch between professional developer and synthwave bassist styles.</li>
+                            <li>Optimized layout using CSS grid variables and client-side storage to persist style preferences without rendering delays.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/aselekoglu.github.io" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Music Structure -->
+                <article class="project">
+                    <div class="project-meta">
+                        <time>August 2020 - February 2022</time>
+                        <span class="project-kind">Music Data Visualizer</span>
+                        <h3>Music Structure</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Developed a Node/Vue web dashboard that integrates with the Spotify Web API to visualize high-resolution audio analysis data.</li>
+                            <li>Built six visualization modules displaying song structure parameters: repetitiveness, tempo, timbre, anomalies, key changes, and chord progression layout.</li>
+                            <li>Structured client and server as separate packages and configured Spotify OAuth flows for local testing.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/music-structure" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="http://jobsavelsberg.com/musicstructure/" target="_blank" rel="noopener noreferrer">Live Site</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Architecture Diagrams (Dynamic Mermaid Blocks) -->
+        <section class="section">
+            <div class="section-head">
+                <h2>Architecture Diagrams</h2>
+                <p class="section-note">Visual system layouts showing core data flows and components.</p>
+            </div>
+
+            <!-- Day Diagrams -->
+            <div class="diagram-grid persona-day">
+                <!-- ApplAI Diagram -->
+                <article class="diagram tall" id="diagram-applai">
+                    <div class="diagram-title">
+                        <h3>ApplAI</h3>
+                        <a href="https://github.com/aselekoglu/ApplAI/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">applai.mmd</a>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  User["Ata / Human Approver"]
+  Web["React + TypeScript Web UI"]
+  Eve["Eve Agent Runtime"]
+  API["FastAPI Core API"]
+  Brain["Career Brain"]
+  Jobs["Job Intake + Scoring"]
+  Tailor["CV Tailoring Engine"]
+  Render["DOCX/PDF Rendering"]
+  Storage["Local JSON + Generated Artifacts"]
+  User --> Web --> Eve --> API
+  API --> Brain
+  API --> Jobs
+  API --> Tailor --> Render
+  Brain --> Storage
+  Jobs --> Storage
+  Tailor --> Storage
+  Render --> Storage
+                    </pre>
+                </article>
+
+                <!-- Air Controller Diagram -->
+                <article class="diagram tall" id="diagram-air">
+                    <div class="diagram-title">
+                        <h3>Air Controller</h3>
+                        <span>air-controller.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  Camera["Webcam / Continuity Camera"]
+  Capture["OpenCV Latest-Frame Capture"]
+  Hands["MediaPipe Hands"]
+  Smooth["Smoothing + Hysteresis"]
+  Mapping["Axis / Openness Mapping"]
+  MIDI["CoreMIDI Virtual Port"]
+  DAW["Logic Pro / DAW"]
+  Overlay["Debug Overlay + p50/p95 Telemetry"]
+  Profiles["YAML Config + Calibration Profiles"]
+  Camera --> Capture --> Hands --> Smooth --> Mapping --> MIDI --> DAW
+  Smooth --> Overlay
+  Profiles --> Capture
+  Profiles --> Mapping
+                    </pre>
+                </article>
+
+                <!-- OPS Copilot Diagram -->
+                <article class="diagram wide" id="diagram-ops">
+                    <div class="diagram-title">
+                        <h3>OPS Copilot (OPS Policy Chatbot)</h3>
+                        <span>ops-copilot.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart LR
+  Upload["PDF / DOCX Upload"]
+  Loaders["Document Loaders"]
+  Chunks["Chunking Pipeline"]
+  Embed["Ollama Embeddings"]
+  Index["FAISS Index"]
+  Query["User Question"]
+  Retrieve["Similarity Retrieval"]
+  Guard["Threshold / Grounding Guard"]
+  LLM["Local LLM Answer"]
+  UI["Streamlit Chat UI"]
+  Upload --> Loaders --> Chunks --> Embed --> Index
+  Query --> Retrieve --> Index
+  Retrieve --> Guard --> LLM --> UI
+                    </pre>
+                </article>
+
+                <!-- Sehlikzade Archive Diagram -->
+                <article class="diagram tall" id="diagram-sehlikzade">
+                    <div class="diagram-title">
+                        <h3>Sehlikzade Family Archive</h3>
+                        <span>sehlikzade.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  Visitor["Visitor"]
+  App["Vite + Vanilla JS SPA"]
+  Router["Hash Router"]
+  Gallery["Gallery + Image Pipeline"]
+  Tree["Family Tree Visualizer"]
+  Board["Visitor Board"]
+  Firebase["Firebase / Firestore"]
+  Vercel["Vercel Hosting + Analytics"]
+  Visitor --> App --> Router
+  Router --> Gallery
+  Router --> Tree
+  Router --> Board
+  Gallery --> Firebase
+  Tree --> Firebase
+  Board --> Firebase
+  App --> Vercel
+                    </pre>
+                </article>
+
+                <!-- ARPA Meal Planner Diagram -->
+                <article class="diagram tall" id="diagram-arpa">
+                    <div class="diagram-title">
+                        <h3>ARPA Meal Planner</h3>
+                        <span>arpa-meal-planner.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  User["Household User"]
+  UI["React 19 + TypeScript UI"]
+  Planner["Weekly Planner"]
+  Recipes["Recipe Manager"]
+  Pantry["Pantry Inventory"]
+  Grocery["Grocery List + PDF Export"]
+  API["Express / Node Server"]
+  DB["SQLite / Better-SQLite3"]
+  AI["Gemini / Ollama / MLX Providers"]
+  Hygiene["Ingredient Merge + Unit Validation"]
+  User --> UI
+  UI --> Planner
+  UI --> Recipes
+  UI --> Pantry
+  Planner --> API
+  Recipes --> API
+  Pantry --> API
+  API --> DB
+  API --> AI
+  API --> Grocery
+  API --> Hygiene
+  Hygiene --> DB
+  Grocery --> User
+                    </pre>
+                </article>
+
+                <!-- CRM Integration Diagram -->
+                <article class="diagram wide" id="diagram-crm">
+                    <div class="diagram-title">
+                        <h3>CRM Integration Middleware</h3>
+                        <span>crm-integration.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart LR
+  HubSpot["HubSpot CRM"]
+  AppsScript["Google Apps Script Middleware"]
+  Transform["XML Parse + JSON Transform"]
+  Zoho["Zoho CRM"]
+  Teams["Sales / Finance / Marketing Teams"]
+  HubSpot --> AppsScript --> Transform --> Zoho --> Teams
+                    </pre>
+                </article>
+            </div>
+
+            <!-- Night Diagrams -->
+            <div class="diagram-grid persona-night">
+                <!-- Air Controller Diagram -->
+                <article class="diagram wide" id="diagram-air-night">
+                    <div class="diagram-title">
+                        <h3>Air Controller</h3>
+                        <span>air-controller.mmd</span>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  Camera["Webcam / Continuity Camera"]
+  Capture["OpenCV Latest-Frame Capture"]
+  Hands["MediaPipe Hands"]
+  Smooth["Smoothing + Hysteresis"]
+  Mapping["Axis / Openness Mapping"]
+  MIDI["CoreMIDI Virtual Port"]
+  DAW["Logic Pro / DAW"]
+  Overlay["Debug Overlay + p50/p95 Telemetry"]
+  Profiles["YAML Config + Calibration Profiles"]
+  Camera --> Capture --> Hands --> Smooth --> Mapping --> MIDI --> DAW
+  Smooth --> Overlay
+  Profiles --> Capture
+  Profiles --> Mapping
+                    </pre>
+                </article>
+            </div>
+        </section>
+
+        <!-- Skills Matrix -->
+        <section class="section">
+            <div class="section-head">
+                <h2>Skills Matrix</h2>
+                <p class="section-note">Categorized skill stacks and professional capabilities.</p>
+            </div>
+
+            <!-- Day Skills -->
+            <div class="matrix persona-day">
+                <article class="matrix-card">
+                    <h3>AI / LLM / RAG</h3>
+                    <p>Generative AI workflows, prompt engineering, structured extraction, RAG pipelines, local embeddings, FAISS vector index retrieval, Ollama, and validation guards.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Backend / APIs</h3>
+                    <p>Python, FastAPI, Pydantic, REST endpoints, Google Apps Script middleware, data validation, serialization, and JSON/XML parsing workflows.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Frontend / Product</h3>
+                    <p>React, TypeScript, Vite workspaces, Streamlit, Vanilla JS, CSS variables, interactive data trees, forms, and custom audio control integrations.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Data / ML</h3>
+                    <p>Pandas, scikit-learn, clustering models, decision tree classification, feature engineering, imbalanced datasets (SMOTE/ADASYN), and Optuna tuning.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Platforms / Tooling</h3>
+                    <p>Firebase, Firestore, Vercel, Google Cloud Platform, Google Workspace scripts, Gemini API, LangChain, python-docx, pdfplumber, and git-based workflows.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Delivery Practices</h3>
+                    <p>Requirements analysis, structured documentation, validation scripts, QA checkouts, human-in-the-loop gates, and robust software release flows.</p>
+                </article>
+            </div>
+
+            <!-- Night Skills -->
+            <div class="matrix persona-night">
+                <article class="matrix-card">
+                    <h3>Bass & Groove</h3>
+                    <p>Pocket-first electric bass performance across Rock, Funk, and Synthwave. Solid groove control, stage timing, and live band coordination.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Writing & Production</h3>
+                    <p>Songwriting, arrangements, and bedroom studio production. Proficient with MIDI sequencing, drum machine programming, and Rhodes electric piano samplers.</p>
+                </article>
+                <article class="matrix-card">
+                    <h3>Stage Performance</h3>
+                    <p>Over 100 live shows. Skilled in reading crowd energy, front-of-house coordination, stage dynamics, and graceful recovery when equipment faults occur.</p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>
+                © 2026 Ataberk Selekoglu. 
+                <span class="persona-day">Engineered with precision.</span>
+                <span class="persona-night">Played with feeling.</span>
+            </div>
+        </footer>
+    </main>
+</div>
+
+<!-- Shared JavaScript Behavior -->
+<script src="assets/js/site.js?v=5"></script>
+
+<!-- Dynamic, Theme-Aware Mermaid Config -->
+<script type="module">
+    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: "base",
+        themeVariables: {
+            primaryColor: "var(--paper)",
+            primaryTextColor: "var(--ink)",
+            primaryBorderColor: "var(--line-strong)",
+            lineColor: "var(--muted)",
+            secondaryColor: "var(--bg)",
+            tertiaryColor: "var(--bg)",
+            fontFamily: "var(--sans)"
+        }
+    });
+</script>
 </body>
 </html>

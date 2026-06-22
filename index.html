@@ -1,161 +1,218 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="day">
 <head>
+    <script>
+        (() => {
+            const stored = localStorage.getItem("as-persona");
+            if (stored === "day" || stored === "night") {
+                document.documentElement.setAttribute("data-theme", stored);
+            }
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-          content="Ataberk Selekoglu - Software Developer and Technical Business Analyst portfolio featuring AI and full-stack projects.">
-    <title>Ataberk Selekoglu | Software Developer Portfolio</title>
-    <link rel="stylesheet" href="assets/css/site.css">
+          content="Ataberk Selekoglu - Software Developer building AI, integrations, and full-stack products. Professional by day, musician by night.">
+    <title>Ataberk Selekoglu | Software Developer & Musician</title>
+    <link rel="icon" type="image/x-icon" href="images/icons/favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/site.css?v=5">
 </head>
 <body>
-<header class="site-header">
-    <div class="container header-inner">
-        <a class="brand" href="index.html">Ataberk Selekoglu</a>
-        <nav class="site-nav" aria-label="Main">
-            <a data-nav-link href="index.html">Home</a>
-            <a data-nav-link href="projects.html">Projects</a>
-            <a href="#experience">Experience</a>
+<div class="theme-transition-mask" aria-hidden="true"></div>
+
+<div class="page">
+    <aside class="sidebar">
+        <div class="brand">
+            <div class="mark">AS</div>
+            <h1>Ataberk Selekoglu</h1>
+            <p class="role persona-day">AI Software Developer / Full-Stack</p>
+            <p class="role persona-night">Bassist / Songwriter / Performer</p>
+        </div>
+        
+        <div class="contact">
+            <span>Ottawa, ON</span>
+            <span>sele0007@algonquinlive.com</span>
+            <a href="https://linkedin.com/in/aselekoglu" target="_blank" rel="noopener noreferrer">linkedin.com/in/aselekoglu</a>
+            <a href="https://github.com/aselekoglu" target="_blank" rel="noopener noreferrer">github.com/aselekoglu</a>
+        </div>
+        
+        <nav aria-label="Portfolio navigation">
+            <a data-nav-link href="index.html" class="active">Overview</a>
+            <a data-nav-link href="projects.html" class="persona-day">Projects</a>
+            <a data-nav-link href="projects.html" class="persona-night">Music Work</a>
             <a href="#contact">Contact</a>
         </nav>
-    </div>
-</header>
 
-<main>
-    <section class="hero">
-        <div class="container hero-grid">
-            <div>
-                <p class="eyebrow">Software Developer · AI & Full-Stack</p>
-                <h1>Building practical AI-driven and integration-heavy software.</h1>
-                <p class="lead">
-                    Analytical and solutions-focused developer with 3+ years of experience designing middleware,
-                    automations, and data workflows. Currently focused on AI software development and project delivery
-                    from idea to implementation.
-                </p>
-                <div class="cta-row">
-                    <a class="btn btn-primary" href="projects.html">View Projects</a>
-                    <a class="btn btn-secondary" href="mailto:sele0007@algonquinlive.com?subject=CV%20Request">Email</a>
+        <div class="toggle-container">
+            <button type="button" class="persona-toggle" data-persona-toggle aria-pressed="false">
+                <span class="persona-toggle-label"></span>
+                <span class="persona-toggle-track" aria-hidden="true">
+                    <span class="persona-toggle-thumb"></span>
+                </span>
+            </button>
+        </div>
+    </aside>
+
+    <main class="main">
+        <section class="hero" id="overview">
+            <div class="hero-content">
+                <h2 class="persona-day">Applied AI, automation, and full-stack systems.</h2>
+                <h2 class="persona-night">A synthwave bassist with a coder's precision.</h2>
+                
+                <div class="hero-copy">
+                    <p class="persona-day">
+                        I build AI workflows, middleware, and data automations that turn messy processes into
+                        dependable software. Currently focused on AI product delivery.
+                    </p>
+                    <p class="persona-night">
+                        Off the keyboard I play bass, write, and perform. Years on stage, in studios,
+                        and in front of audiences shape how I approach everything I ship.
+                    </p>
+                    
+                    <div class="stats">
+                        <div class="stat">
+                            <strong class="persona-day">3+</strong>
+                            <strong class="persona-night">10+</strong>
+                            <span class="persona-day">Years shipping</span>
+                            <span class="persona-night">Years playing</span>
+                        </div>
+                        <div class="stat">
+                            <strong class="persona-day">15+</strong>
+                            <strong class="persona-night">100+</strong>
+                            <span class="persona-day">Integrations built</span>
+                            <span class="persona-night">Live shows</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <aside class="hero-card" aria-label="Quick facts">
-                <h2>Quick Facts</h2>
-                <ul class="meta-list">
-                    <li>Based in Ottawa, ON</li>
-                    <li>Post-graduate: AI Software Development (Co-op)</li>
-                    <li>3+ years in CRM integrations, process automation, and analytics</li>
-                    <li>Open to software roles across AI, backend, and full-stack</li>
-                </ul>
-            </aside>
-        </div>
-    </section>
 
-    <section class="section">
-        <div class="container grid-2">
-            <article class="panel">
-                <h2 class="section-title">Core Strengths</h2>
-                <ul class="list-compact">
-                    <li>Designing and implementing API integrations and event-driven workflows</li>
-                    <li>Building automation pipelines for data validation, transformation, and synchronization</li>
-                    <li>Applying ML/LLM workflows to real-world productivity and decision-support problems</li>
-                </ul>
-            </article>
-            <article class="panel">
-                <h2 class="section-title">Tech Stack</h2>
-                <div class="tags">
-                    <span class="tag">Java</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">Python</span>
-                    <span class="tag">Kotlin</span>
-                    <span class="tag">React</span>
-                    <span class="tag">Node.js</span>
-                    <span class="tag">ExpressJS</span>
-                    <span class="tag">SQL</span>
-                    <span class="tag">REST APIs</span>
-                    <span class="tag">Google Apps Script</span>
-                    <span class="tag">PostgreSQL</span>
-                    <span class="tag">Firebase</span>
-                </div>
-            </article>
-        </div>
-    </section>
+            <div class="hero-visual" data-active="day" aria-hidden="false">
+                <div class="hero-glow" aria-hidden="true"></div>
+                <img class="hero-img-layer hero-img-day" src="images/ata-speaking.png"
+                     alt="Ataberk speaking on stage in a suit" loading="eager" decoding="async">
+                <img class="hero-img-layer hero-img-night" src="images/ata-playing.png"
+                     alt="Ataberk playing bass on stage" loading="eager" decoding="async">
+                <div class="hero-sweep-line" aria-hidden="true"></div>
+            </div>
+        </section>
 
-    <section class="section">
-        <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="cards">
-                <article class="card">
+        <section class="section" id="featured">
+            <div class="section-head">
+                <h2 class="persona-day">Featured technical work</h2>
+                <h2 class="persona-night">Selected sounds</h2>
+                <p class="section-note persona-day">Projects I'd put on my desk. Click a card to view detailed case studies.</p>
+                <p class="section-note persona-night">Moments I'd put on the setlist. Click a card to view project details.</p>
+            </div>
+            
+            <div class="featured persona-day">
+                <a href="projects.html#feat-applai" class="feature-card">
+                    <span class="kicker">Career AI platform</span>
                     <h3>ApplAI</h3>
-                    <p>AI-assisted job application automation platform for CV tailoring and document generation.</p>
+                    <p>Private AI Career Manager with job scoring, CV tailoring, and deterministic orchestration.</p>
                     <div class="tags">
-                        <span class="tag">LLM Workflows</span>
-                        <span class="tag">Automation</span>
-                        <span class="tag">Prompt Engineering</span>
+                        <span class="tag">LLMs</span><span class="tag">FastAPI</span><span class="tag">React</span>
                     </div>
-                </article>
-                <article class="card">
-                    <h3>ARPA Meal Planner</h3>
-                    <p>Constraint-based meal planning system focused on nutrition, cost, and user preferences.</p>
+                </a>
+                <a href="projects.html#feat-ops" class="feature-card">
+                    <span class="kicker">RAG assistant</span>
+                    <h3>OPS Copilot</h3>
+                    <p>Local document-backed assistant for OPS procedures using chunking, embeddings, and local LLM answers.</p>
                     <div class="tags">
-                        <span class="tag">Data Modeling</span>
-                        <span class="tag">Optimization</span>
-                        <span class="tag">Scalable Architecture</span>
+                        <span class="tag">LangChain</span><span class="tag">Ollama</span><span class="tag">RAG</span>
                     </div>
-                </article>
-                <article class="card">
-                    <h3>Crime Insights in Dallas</h3>
-                    <p>ML analysis of 1.4M+ incidents using classification, clustering, and outlier detection.</p>
+                </a>
+                <a href="projects.html#feat-sehlikzade" class="feature-card">
+                    <span class="kicker">Public web platform</span>
+                    <h3>Sehlikzade Archive</h3>
+                    <p>Interactive genealogy and cultural archive with family tree visualizer and Firebase data.</p>
                     <div class="tags">
-                        <span class="tag">Machine Learning</span>
-                        <span class="tag">CRISP-DM</span>
-                        <span class="tag">Feature Engineering</span>
+                        <span class="tag">Vite</span><span class="tag">JS</span><span class="tag">Firebase</span>
                     </div>
-                </article>
+                </a>
             </div>
-            <div class="cta-row" style="margin-top: 16px;">
-                <a class="btn btn-secondary" href="projects.html">See All Projects</a>
-            </div>
-        </div>
-    </section>
 
-    <section id="experience" class="section">
-        <div class="container panel">
-            <h2 class="section-title">Experience Snapshot</h2>
-            <div class="experience-item">
-                <div class="role-title">Technical Business Analyst</div>
-                <div class="role-meta">Call Center Studio · Remote · Mar 2021 - Feb 2024</div>
-                <ul class="list-compact">
-                    <li>Implemented JavaScript-based middleware services and REST API integrations between CRMs and external systems.</li>
-                    <li>Built event-driven automation pipelines using JSON payloads, scheduled triggers, and HTTP endpoints.</li>
-                    <li>Partnered across product and operations in agile delivery to refine requirements and resolve production issues.</li>
-                </ul>
+            <div class="featured persona-night">
+                <a href="projects.html#feat-air" class="feature-card">
+                    <span class="kicker">Computer Vision / MIDI</span>
+                    <h3>Air Controller</h3>
+                    <p>macOS webcam-to-MIDI controller mapping MediaPipe landmarks to CC streams for DAWs.</p>
+                    <div class="tags">
+                        <span class="tag">Python</span><span class="tag">MediaPipe</span><span class="tag">CoreMIDI</span>
+                    </div>
+                </a>
+                <a href="projects.html" class="feature-card">
+                    <span class="kicker">Original Music</span>
+                    <h3>Writing in synthwave</h3>
+                    <p>Ongoing writing and production in synthwave and adjacent genres—moody and rhythm-first.</p>
+                    <div class="tags">
+                        <span class="tag">Synthwave</span><span class="tag">Production</span>
+                    </div>
+                </a>
+                <a href="projects.html" class="feature-card">
+                    <span class="kicker">Live on stage</span>
+                    <h3>Live Performance</h3>
+                    <p>Years of shows with bands and acoustic sets. Comfortable leading the low end on stage.</p>
+                    <div class="tags">
+                        <span class="tag">Live</span><span class="tag">Bass</span>
+                    </div>
+                </a>
             </div>
-            <div class="experience-item">
-                <div class="role-title">Management Trainee</div>
-                <div class="role-meta">Call Center Studio · Istanbul · Oct 2020 - Mar 2021</div>
-                <ul class="list-compact">
-                    <li>Supported process improvements across sales, marketing, and project teams during rapid growth stage.</li>
-                    <li>Led the CRM procurement workflow and evaluated system fit for operational requirements.</li>
-                </ul>
+        </section>
+
+        <section class="section" id="skills">
+            <div class="section-head">
+                <h2 class="persona-day">Core competencies</h2>
+                <h2 class="persona-night">Musical toolkit</h2>
             </div>
-        </div>
-    </section>
-</main>
+            
+            <div class="matrix persona-day">
+                <div class="matrix-card">
+                    <h3>AI Product Delivery</h3>
+                    <p>LLM workflows, structured extraction, and prompt pipelines that turn unstructured inputs into reliable outputs.</p>
+                </div>
+                <div class="matrix-card">
+                    <h3>Integrations & Automation</h3>
+                    <p>Middleware, webhooks, and event-driven glue that keeps CRMs, data, and business ops talking reliably.</p>
+                </div>
+                <div class="matrix-card">
+                    <h3>Full-stack Delivery</h3>
+                    <p>React, Node, and mobile work end to end: idea to scoped plan to shipped product with honest trade-offs.</p>
+                </div>
+                <div class="matrix-card">
+                    <h3>Data Engineering</h3>
+                    <p>Data modeling, persistence, and pipeline construction using modern SQL and NoSQL databases.</p>
+                </div>
+            </div>
 
-<footer id="contact" class="site-footer">
-    <div class="container footer-inner">
-        <div>
-            <strong>Ataberk Selekoglu</strong>
-            <div class="small">Ottawa, ON · sele0007@algonquinlive.com</div>
-        </div>
-        <div class="cta-row">
-            <a class="btn btn-secondary" href="https://www.linkedin.com/in/aselekoglu/" target="_blank"
-               rel="noopener noreferrer">LinkedIn</a>
-            <a class="btn btn-secondary" href="https://github.com/aselekoglu" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a class="btn btn-secondary" href="ccs-signature-generator/index.html">Legacy Tool</a>
-        </div>
-    </div>
-</footer>
+            <div class="matrix persona-night">
+                <div class="matrix-card">
+                    <h3>Bass & Groove</h3>
+                    <p>Pocket-first bass player across rock, funk, and synthwave. Comfortable leading the low end in a live band.</p>
+                </div>
+                <div class="matrix-card">
+                    <h3>Writing & Production</h3>
+                    <p>Songs, arrangements, and bedroom production. I like writing parts that serve the vocal and the feeling first.</p>
+                </div>
+                <div class="matrix-card">
+                    <h3>Stage Performance</h3>
+                    <p>Years of live shows shape how I hold a room, read energy, and recover gracefully when things go sideways.</p>
+                </div>
+            </div>
+        </section>
 
-<script src="assets/js/site.js"></script>
+        <footer id="contact" class="footer">
+            <div>
+                © 2026 Ataberk Selekoglu. 
+                <span class="persona-day">Engineered with precision.</span>
+                <span class="persona-night">Played with feeling.</span>
+            </div>
+        </footer>
+    </main>
+</div>
+
+<script src="assets/js/site.js?v=5"></script>
 </body>
 </html>

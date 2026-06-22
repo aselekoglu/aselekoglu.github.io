@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Transition Test | Ataberk Selekoglu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0b0f19;
+            --card-bg: rgba(22, 28, 45, 0.6);
+            --border: rgba(255, 255, 255, 0.08);
+            --text: #f3f4f6;
+            --text-muted: #9ca3af;
+            --accent: #00ffff;
+            --accent-night: #ff00ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Fixed HUD Panel showing stats */
+        .hud {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 100;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            max-width: 320px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .hud h1 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .hud p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+
+        .hud-stat {
+            font-family: 'Fira Code', monospace;
+            font-size: 12px;
+            background: rgba(0,0,0,0.3);
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 8px;
+        }
+
+        .hud-stat span {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-top: 4px;
+        }
+
+        .badge.css-native {
+            background: rgba(0, 255, 255, 0.15);
+            color: var(--accent);
+            border: 1px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .badge.js-fallback {
+            background: rgba(255, 0, 255, 0.15);
+            color: var(--accent-night);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+        }
+
+        /* Scroll Area layout */
+        .scroll-container {
+            position: relative;
+            height: 300vh; /* Gives plenty of scroll room */
+        }
+
+        /* Sticky Frame containing the transition visual */
+        .sticky-frame {
+            position: sticky;
+            top: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: radial-gradient(circle at center, rgba(16, 24, 48, 0.8) 0%, #0b0f19 100%);
+        }
+
+        /* Visual Wrapper holding both images */
+        .visual-wrapper {
+            position: relative;
+            width: 500px;
+            height: 600px;
+            max-width: 90vw;
+            max-height: 80vh;
+        }
+
+        .visual-wrapper img {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            pointer-events: none;
+            will-change: clip-path, opacity, transform;
+        }
+
+        /* Image 1: Day/Speaking */
+        .img-day {
+            z-index: 2;
+            opacity: 1;
+        }
+
+        /* Image 2: Night/Playing */
+        .img-night {
+            z-index: 3;
+            opacity: 1;
+            /* Initially hidden by clip-path clip */
+            clip-path: inset(0 0 0 100%); 
+        }
+
+        /* Background glow effect behind images */
+        .glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            filter: blur(80px);
+            z-index: 1;
+            pointer-events: none;
+            will-change: background;
+            transition: background 0.3s ease;
+        }
+
+        /* Scroll indicator guide */
+        .scroll-guide {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translate(-50%, 0); }
+            40% { transform: translate(-50%, -10px); }
+            60% { transform: translate(-50%, -5px); }
+        }
+
+        /* Footer section at bottom to complete scroll path */
+        .footer-section {
+            height: 100vh;
+            background: #060913;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            padding: 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .footer-section h2 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 16px;
+            background: linear-gradient(to right, var(--accent), var(--accent-night));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .footer-section p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 24px;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--accent), var(--accent-night));
+            border: none;
+            color: #000;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 14px;
+            transition: opacity 0.2s;
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+        }
+
+        /* ========================================================
+           METHOD A: Native CSS Scroll-Driven Animations
+           Only active when CSS scroll-driven is supported and toggled
+           ======================================================== */
+        @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
+            .scroll-driven-active .img-night {
+                animation: wipe-in-scroll linear both;
+                animation-timeline: scroll(root block);
+                animation-range: start 20vh exit 80vh;
+            }
+
+            .scroll-driven-active .img-day {
+                animation: parallax-scroll linear both;
+                animation-timeline: scroll(root block);
+                animation-range: start 0% exit 100%;
+            }
+
+            .scroll-driven-active .glow {
+                animation: glow-color-scroll linear both;
+                animation-timeline: scroll(root block);
+                animation-range: start 10vh exit 90vh;
+            }
+        }
+
+        @keyframes wipe-in-scroll {
+            from { clip-path: inset(0 0 0 100%); }
+            to { clip-path: inset(0 0 0 0); }
+        }
+
+        @keyframes parallax-scroll {
+            from { transform: translateX(-50%) translateY(0) scale(1); }
+            to { transform: translateX(-50%) translateY(40px) scale(0.95); }
+        }
+
+        @keyframes glow-color-scroll {
+            from {
+                background: rgba(0, 255, 255, 0.4);
+                transform: translate(-50%, -50%) scale(1);
+            }
+            to {
+                background: rgba(255, 0, 255, 0.4);
+                transform: translate(-50%, -50%) scale(1.3);
+            }
+        }
+    </style>
+</head>
+<body class="scroll-driven-active">
+
+    <!-- HUD control dashboard -->
+    <div class="hud">
+        <h1>Scroll Test Panel</h1>
+        <p>This test page demonstrates a scroll-driven diagonal/horizontal wipe from Speaker (Day) to Musician (Night).</p>
+        
+        <div class="hud-stat">
+            Scroll Y: <span id="val-scroll">0px</span>
+        </div>
+        <div class="hud-stat">
+            Progress: <span id="val-pct">0%</span>
+        </div>
+        <div class="hud-stat">
+            Active Driver: <span id="val-driver">CSS (Native)</span>
+            <div id="badge-container">
+                <span class="badge css-native" id="driver-badge">CSS Animation-Timeline</span>
+            </div>
+        </div>
+
+        <div style="margin-top: 15px;">
+            <p style="font-size: 11px; margin-bottom: 6px;">Force fallback mode to test on unsupported browsers:</p>
+            <button class="btn" id="btn-toggle" style="width: 100%; font-size: 12px; padding: 8px;">Force JS Fallback Mode</button>
+        </div>
+    </div>
+
+    <!-- Scrollable container -->
+    <div class="scroll-container" id="scroll-target">
+        
+        <!-- Sticky visual frame -->
+        <div class="sticky-frame">
+            <div class="glow" id="ambient-glow"></div>
+            
+            <div class="visual-wrapper">
+                <!-- Day image (Speaker) -->
+                <img class="img-day" src="images/ata-speaking.png" alt="Speaker" id="img-day">
+                
+                <!-- Night image (Bassist) - overlays day image -->
+                <img class="img-night" src="images/ata-playing.png" alt="Bassist" id="img-night">
+            </div>
+
+            <div class="scroll-guide" id="guide">
+                <p>Scroll Down to Transition</p>
+                <p style="font-size: 20px;">↓</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer to finalize scroll path -->
+    <div class="footer-section">
+        <h2>Transition Complete</h2>
+        <p>You have transitioned Ataberk from the professional daylight speaker to the night-stage musician. Scroll back up to reverse the transition.</p>
+        <a href="index.html" class="btn">Back to Homepage</a>
+    </div>
+
+    <script>
+        // Check for CSS Scroll-driven animations support
+        const cssSupported = CSS.supports('animation-timeline', 'scroll()');
+        const body = document.body;
+        const btnToggle = document.getElementById('btn-toggle');
+        const valScroll = document.getElementById('val-scroll');
+        const valPct = document.getElementById('val-pct');
+        const valDriver = document.getElementById('val-driver');
+        const driverBadge = document.getElementById('driver-badge');
+        
+        const imgDay = document.getElementById('img-day');
+        const imgNight = document.getElementById('img-night');
+        const ambientGlow = document.getElementById('ambient-glow');
+        const guide = document.getElementById('guide');
+
+        let mode = cssSupported ? 'css' : 'js';
+        updateHUD();
+
+        function updateHUD() {
+            if (mode === 'css') {
+                body.classList.add('scroll-driven-active');
+                valDriver.innerText = 'CSS (Native)';
+                driverBadge.innerText = 'CSS Animation-Timeline';
+                driverBadge.className = 'badge css-native';
+                btnToggle.innerText = 'Force JS Fallback Mode';
+                
+                // Clear any inline styles set by JS fallback
+                imgNight.style.clipPath = '';
+                imgDay.style.transform = '';
+                ambientGlow.style.background = '';
+                ambientGlow.style.transform = '';
+            } else {
+                body.classList.remove('scroll-driven-active');
+                valDriver.innerText = 'JS (Fallback)';
+                driverBadge.innerText = 'JavaScript Scroll Event';
+                driverBadge.className = 'badge js-fallback';
+                btnToggle.innerText = 'Switch to CSS Native Mode';
+                if (!cssSupported) {
+                    btnToggle.disabled = true;
+                    btnToggle.innerText = 'CSS Native Not Supported';
+                    btnToggle.style.opacity = '0.5';
+                }
+            }
+        }
+
+        // Toggle mode button (if native support exists)
+        btnToggle.addEventListener('click', () => {
+            if (cssSupported) {
+                mode = mode === 'css' ? 'js' : 'css';
+                updateHUD();
+                onScroll(); // trigger recalculation
+            }
+        });
+
+        // Scroll logic handler
+        function onScroll() {
+            const scrolled = window.scrollY;
+            const viewHeight = window.innerHeight;
+            const documentHeight = document.documentElement.scrollHeight;
+            const scrollableRange = documentHeight - viewHeight;
+            
+            // Calculate scroll percentage
+            const rawPct = scrollableRange > 0 ? (scrolled / scrollableRange) : 0;
+            const pct = Math.min(Math.max(rawPct, 0), 1);
+            
+            // Update HUD values
+            valScroll.innerText = `${Math.round(scrolled)}px`;
+            valPct.innerText = `${Math.round(pct * 100)}%`;
+
+            // Fade guide text
+            guide.style.opacity = Math.max(1 - (pct * 4), 0);
+
+            // Execute JS Fallback logic if active
+            if (mode === 'js') {
+                // Mapping the active wipe zone (e.g. between 10% scroll and 80% scroll)
+                const startWipe = 0.1;
+                const endWipe = 0.8;
+                let wipePct = 0;
+                
+                if (pct > startWipe) {
+                    wipePct = (pct - startWipe) / (endWipe - startWipe);
+                    wipePct = Math.min(Math.max(wipePct, 0), 1);
+                }
+
+                // Apply clip path for wipe transition
+                // 100% means fully clipped/hidden. 0% means fully visible.
+                const clipVal = 100 - (wipePct * 100);
+                imgNight.style.clipPath = `inset(0 0 0 ${clipVal}%)`;
+
+                // Parallax translation on day image
+                const translateVal = pct * 40;
+                const scaleVal = 1 - (pct * 0.05);
+                imgDay.style.transform = `translateX(-50%) translateY(${translateVal}px) scale(${scaleVal})`;
+
+                // Glow transition (cyan to magenta)
+                const r = Math.round(0 + (wipePct * 255));
+                const g = Math.round(255 - (wipePct * 255));
+                const b = 255;
+                const alpha = 0.4;
+                const scaleGlow = 1 + (wipePct * 0.3);
+                
+                ambientGlow.style.background = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                ambientGlow.style.transform = `translate(-50%, -50%) scale(${scaleGlow})`;
+            }
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        // Trigger initial calculation
+        onScroll();
+    </script>
+</body>
+</html>
