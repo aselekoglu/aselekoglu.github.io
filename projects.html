@@ -958,18 +958,76 @@ flowchart TB
 <!-- Dynamic, Theme-Aware Mermaid Config -->
 <script type="module">
     import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+
+    // Get actual resolved color values for theme variables to avoid "Unsupported color format" errors in Mermaid
+    function getThemeVariables() {
+        const style = getComputedStyle(document.documentElement);
+        return {
+            primaryColor: style.getPropertyValue('--paper').trim() || "#ffffff",
+            primaryTextColor: style.getPropertyValue('--ink').trim() || "#16231f",
+            primaryBorderColor: style.getPropertyValue('--line-strong').trim() || "#b9c8c0",
+            lineColor: style.getPropertyValue('--muted').trim() || "#68746f",
+            secondaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
+            tertiaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
+            fontFamily: style.getPropertyValue('--sans').trim() || "sans-serif"
+        };
+    }
+
+    // Initial config
     mermaid.initialize({
-        startOnLoad: true,
+        startOnLoad: false,
         theme: "base",
-        themeVariables: {
-            primaryColor: "var(--paper)",
-            primaryTextColor: "var(--ink)",
-            primaryBorderColor: "var(--line-strong)",
-            lineColor: "var(--muted)",
-            secondaryColor: "var(--bg)",
-            tertiaryColor: "var(--bg)",
-            fontFamily: "var(--sans)"
+        themeVariables: getThemeVariables()
+    });
+
+    // Render diagrams belonging to the currently active persona if not already processed
+    async function renderVisibleDiagrams() {
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "day";
+        const selector = `.persona-${currentTheme} .mermaid`;
+        const elements = Array.from(document.querySelectorAll(selector)).filter(el => {
+            return el.getAttribute("data-processed") !== "true";
+        });
+
+        if (elements.length > 0) {
+            try {
+                // Re-initialize with current static theme variables before rendering
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: "base",
+                    themeVariables: getThemeVariables()
+                });
+
+                await mermaid.run({
+                    nodes: elements
+                });
+            } catch (err) {
+                console.error("Error rendering mermaid diagrams:", err);
+            }
         }
+    }
+
+    // Run on initial load
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        renderVisibleDiagrams();
+    } else {
+        document.addEventListener("DOMContentLoaded", renderVisibleDiagrams);
+    }
+
+    // Watch for theme/persona changes to render diagrams once they become visible
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+                // requestAnimationFrame ensures CSS display is updated and layout is computed
+                requestAnimationFrame(() => {
+                    renderVisibleDiagrams();
+                });
+            }
+        }
+    });
+
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
     });
 </script>
 </body>
