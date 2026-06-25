@@ -17,7 +17,7 @@ The main eye-catching element is the hero photography, and the entire experience
 
 ## Hero Requirements
 - Use:
-  - `images/ata-speaking.png` for day/professional
+  - `images/ata-speaking-2.png` for day/professional
   - `images/ata-playing.png` for night/musician
 - Hero image remains **frameless**.
 - Hero images are the primary visual anchor and are **non-negotiable in alignment**:

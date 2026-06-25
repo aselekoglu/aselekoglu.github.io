@@ -131,6 +131,58 @@ html[data-theme="night"] .persona-day {
     background: transparent;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+}
+
+.sidebar::-webkit-scrollbar {
+    display: none; /* Safari and Chrome */
+}
+
+/* ---------- Sidebar Vertical Responsiveness ---------- */
+@media (max-height: 850px) {
+    .sidebar {
+        padding: 30px 24px;
+    }
+    .hero-visual, .sidebar-avatar-placeholder {
+        height: 200px;
+    }
+    .contact {
+        margin-top: 16px;
+        padding-top: 16px;
+    }
+    nav {
+        margin-top: 24px;
+    }
+}
+
+@media (max-height: 700px) {
+    .sidebar {
+        padding: 20px 20px;
+    }
+    .hero-visual, .sidebar-avatar-placeholder {
+        height: 140px;
+    }
+    .contact {
+        margin-top: 12px;
+        padding-top: 12px;
+    }
+    nav {
+        margin-top: 16px;
+    }
+}
+
+@media (max-height: 600px) {
+    .hero-visual, .sidebar-avatar-placeholder {
+        display: none; /* Hide photo on extremely short viewports to prioritize menu links */
+    }
+    .contact {
+        margin-top: 8px;
+        padding-top: 8px;
+    }
+    nav {
+        margin-top: 12px;
+    }
 }
 
 .brand {
@@ -248,12 +300,12 @@ html[data-theme="night"] .persona-toggle-thumb {
 }
 
 .hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
-    gap: 34px;
-    align-items: end;
     padding-bottom: 40px;
     border-bottom: 1px solid var(--line-strong);
+    display: grid;
+    grid-template-columns: minmax(350px, 0.8fr) minmax(0, 1.2fr);
+    gap: 34px;
+    align-items: end;
     min-height: 520px;
 }
 
@@ -262,6 +314,7 @@ html[data-theme="night"] .persona-toggle-thumb {
     flex-direction: column;
     justify-content: flex-end;
     position: relative;
+    max-width: 800px;
 }
 
 .hero h2 {
@@ -308,27 +361,49 @@ html[data-theme="night"] .persona-toggle-thumb {
     letter-spacing: 0.05em;
 }
 
+/* ---------- Scroll-Morph Placeholders & Floating Avatar ---------- */
+.sidebar-avatar-placeholder {
+    width: 100%;
+    height: 280px;
+    position: relative;
+}
+
+.hero-avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    min-height: 480px;
+    position: relative;
+}
+
+@media (min-width: 1021px) {
+    .hero-avatar-placeholder {
+        margin-right: -70px;
+        width: calc(100% + 70px);
+    }
+}
+
+.hero-visual.floating-avatar {
+    position: fixed;
+    z-index: 100;
+    pointer-events: none;
+    transform-origin: top left;
+    will-change: transform, width, height;
+}
+
+#active-avatar.at-start {
+    mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
+    -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
+}
+
 /* ---------- Hero Image Crossfade (Scale-Settling) ---------- */
 .hero-visual {
     position: relative;
     width: 100%;
-    height: 100%;
-    min-height: 400px;
+    height: 280px;
     display: flex;
     align-items: flex-end;
     justify-content: center;
     isolation: isolate;
-}
-
-@media (min-width: 1021px) {
-    .hero-visual {
-        /* Expand image into copy area slightly */
-        margin-left: -70px;
-        width: calc(100% + 70px);
-        /* Fade left edge to keep overlapping text perfectly readable */
-        mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
-        -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
-    }
 }
 
 /* Ambient glow background */
@@ -346,9 +421,10 @@ html[data-theme="night"] .persona-toggle-thumb {
 
 .hero-img-layer {
     position: absolute;
+    left: 0;
     bottom: 0;
-    max-width: 100%;
-    max-height: 110%; /* Slight overlap over header if needed */
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: bottom center;
     transform-origin: bottom center;
@@ -476,6 +552,7 @@ html.theme-transitioning.theme-to-day .hero-sweep-line {
 
 /* ---------- Theme Transition Sweep (Clip-Path) ---------- */
 /* Create a full-screen overlay that sweeps across the screen to reveal the new theme */
+/*
 .theme-transition-mask {
     position: fixed;
     inset: 0;
@@ -489,15 +566,13 @@ html.theme-transitioning .theme-transition-mask {
     opacity: 1;
 }
 
-/* Sweeping from Day to Night */
 html.theme-transitioning.theme-to-night .theme-transition-mask {
-    background: #090014; /* Night BG */
+    background: #090014;
     animation: sweepLTR var(--duration-theme) var(--ease-in-out) forwards;
 }
 
-/* Sweeping from Night to Day */
 html.theme-transitioning.theme-to-day .theme-transition-mask {
-    background: #f8faf7; /* Day BG */
+    background: #f8faf7;
     animation: sweepRTL var(--duration-theme) var(--ease-in-out) forwards;
 }
 
@@ -512,6 +587,7 @@ html.theme-transitioning.theme-to-day .theme-transition-mask {
     45%, 55% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
     100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
 }
+*/
 
 /* ---------- View Transitions API Styles ---------- */
 ::view-transition-group(root) {
@@ -639,18 +715,43 @@ html.theme-transitioning.theme-to-day .theme-transition-mask {
         border-bottom: 1px solid var(--line);
         padding: 30px;
     }
+    .brand {
+        text-align: center;
+        justify-items: center;
+    }
+    .contact {
+        text-align: center;
+        justify-items: center;
+    }
     nav {
         grid-template-columns: repeat(3, 1fr);
+    }
+    nav a {
+        width: fit-content;
+        margin: 0 auto;
+    }
+    .toggle-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+        padding-top: 0;
     }
     .main {
         padding: 40px 30px;
     }
     .hero {
-        grid-template-columns: 1fr;
+        display: block;
     }
-    .hero-visual {
-        grid-row: 1; /* Move image above text on mobile */
-        min-height: 300px;
+    .hero-avatar-placeholder {
+        display: none;
+    }
+    .hero-visual.floating-avatar {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        z-index: auto;
+        pointer-events: auto;
+        transform: none !important;
     }
     .featured, .matrix {
         grid-template-columns: 1fr;
@@ -918,19 +1019,8 @@ html[data-theme="night"] .mermaid {
 
 /* ---------- Scroll-Driven Animations (Progressive Enhancement) ---------- */
 @supports ((animation-timeline: scroll()) and (animation-range: 0% 100%)) {
-    /* Hero Image Parallax & Scale Effect */
-    .hero-img-layer {
-        animation: hero-image-parallax linear both;
-        animation-timeline: scroll(root block);
-        animation-range: start 0% exit 100%;
-    }
-    
-    /* Hero Glow Fade & Expand */
-    .hero-glow {
-        animation: hero-glow-fade linear both;
-        animation-timeline: scroll(root block);
-        animation-range: start 0% exit 100%;
-    }
+    /* Hero Image Parallax & Scale Effect - Disabled for sidebar */
+    /* Hero Glow Fade & Expand - Disabled for sidebar */
 
     /* Scroll Reveal for Sections and Cards */
     .section-head, 
@@ -983,6 +1073,69 @@ html[data-theme="night"] .mermaid {
         animation: none !important;
         transform: none !important;
         opacity: 1 !important;
+    }
+}
+
+/* ---------- Contact Section ---------- */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.contact-card {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.contact-card h3 {
+    font-size: 18px;
+    color: var(--ink);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 12px;
+    margin-bottom: 4px;
+}
+
+.contact-item {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-bottom: 16px;
+}
+
+.contact-item:last-child {
+    margin-bottom: 0;
+}
+
+.contact-item .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    text-transform: uppercase;
+    color: var(--green);
+    letter-spacing: 0.08em;
+}
+
+.contact-item a {
+    font-size: 16px;
+    color: var(--ink);
+    transition: color 0.2s var(--ease-out);
+    word-break: break-all;
+}
+
+.contact-item a:hover {
+    color: var(--green);
+}
+
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
     }
 }
 
