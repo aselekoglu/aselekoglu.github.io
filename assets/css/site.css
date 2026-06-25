@@ -390,7 +390,7 @@ html[data-theme="night"] .persona-toggle-thumb {
     will-change: transform, width, height;
 }
 
-#active-avatar.at-start {
+#active-avatar.at-start .hero-img-layer {
     mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
     -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.1) 30px, black 110px);
 }
@@ -1532,6 +1532,7 @@ html[data-theme="day"] .performance-card:hover {
 
 /* Tracklist */
 .sc-tracklist {
+    position: relative;
     flex: 1;
     overflow-y: auto;
     border-top: 1px solid var(--line);
@@ -1878,4 +1879,51 @@ html[data-theme="day"] .performance-card:hover {
         display: none;
     }
 }
+
+/* =========================================================
+   PJAX Loading Progress Bar
+   ========================================================= */
+.pjax-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 2px;
+    background: var(--green);
+    z-index: 2000;
+    transition: width 0.3s ease, opacity 0.3s ease;
+    box-shadow: 0 0 6px var(--green);
+}
+
+/* =========================================================
+   Day/Professional Mode Mini-Player overrides
+   ========================================================= */
+html[data-theme="day"] .sc-mini-player {
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 10px 30px rgba(13, 107, 69, 0.08), 0 1px 3px rgba(13, 107, 69, 0.04);
+}
+
+html[data-theme="day"] .sc-mini-title {
+    color: var(--ink);
+}
+
+html[data-theme="day"] .sc-mini-artist {
+    color: var(--muted);
+}
+
+html[data-theme="day"] .sc-mini-btn {
+    border-color: rgba(22, 35, 31, 0.15);
+    color: var(--ink);
+}
+
+html[data-theme="day"] .sc-mini-btn:hover {
+    color: var(--green);
+    border-color: var(--green);
+    box-shadow: 0 0 8px rgba(13, 107, 69, 0.3);
+}
+
+html[data-theme="day"] .sc-mini-art {
+    border-color: rgba(22, 35, 31, 0.1);
+    background: rgba(22, 35, 31, 0.05);
+}
+
 

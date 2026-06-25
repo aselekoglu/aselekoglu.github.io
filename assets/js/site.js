@@ -16,6 +16,7 @@
     let activeContainer = null;
     let isPlaylist = false;
     let miniPlayerEl = null;
+    let isPlaying = false;
 
     const pauseAllWidgets = () => {
         activeWidgets.forEach((w) => {
@@ -27,21 +28,22 @@
     };
 
     /* ---------- Active nav link ---------- */
-    const currentPath = window.location.pathname.toLowerCase();
-    document.querySelectorAll("[data-nav-link]").forEach((link) => {
-        const href = (link.getAttribute("href") || "").toLowerCase();
-        const isHome =
-            (currentPath.endsWith("/") || currentPath.endsWith("/index.html")) &&
-            (href.endsWith("index.html") || href === "/" || href === "");
-        const isProjects = currentPath.endsWith("/projects.html") && href.endsWith("projects.html");
-        
-        // Remove existing active classes
-        link.classList.remove("active");
-        
-        if (isHome || isProjects) {
-            link.classList.add("active");
-        }
-    });
+    function updateActiveNavLink(path) {
+        const currentPath = (path || window.location.pathname).toLowerCase();
+        document.querySelectorAll("[data-nav-link]").forEach((link) => {
+            const href = (link.getAttribute("href") || "").toLowerCase();
+            const isHome =
+                (currentPath.endsWith("/") || currentPath.endsWith("/index.html")) &&
+                (href.endsWith("index.html") || href === "/" || href === "");
+            const isProjects = currentPath.endsWith("/projects.html") && href.endsWith("projects.html");
+            
+            link.classList.remove("active");
+            if (isHome || isProjects) {
+                link.classList.add("active");
+            }
+        });
+    }
+    updateActiveNavLink();
 
     /* ---------- Persona toggle ---------- */
     const readStored = () => {
@@ -75,11 +77,7 @@
             html.setAttribute("data-theme", next);
             writeStored(next);
             updateToggleAria(next);
-            if (next === "day") {
-                pauseAllWidgets();
-            } else {
-                checkMiniPlayerVisibility();
-            }
+            checkMiniPlayerVisibility();
         };
 
         if (!animate || prefersReducedMotion) {
@@ -220,22 +218,20 @@
             }
         });
 
-        activeWidget.isPaused((paused) => {
-            const playBtn = miniPlayerEl.querySelector(".sc-mini-play-btn");
-            if (playBtn) {
-                const iconPlay = playBtn.querySelector(".sc-icon-play");
-                const iconPause = playBtn.querySelector(".sc-icon-pause");
-                if (paused) {
-                    if (iconPlay) iconPlay.style.display = "block";
-                    if (iconPause) iconPause.style.display = "none";
-                    miniPlayerEl.classList.remove("playing");
-                } else {
-                    if (iconPlay) iconPlay.style.display = "none";
-                    if (iconPause) iconPause.style.display = "block";
-                    miniPlayerEl.classList.add("playing");
-                }
+        const playBtn = miniPlayerEl.querySelector(".sc-mini-play-btn");
+        if (playBtn) {
+            const iconPlay = playBtn.querySelector(".sc-icon-play");
+            const iconPause = playBtn.querySelector(".sc-icon-pause");
+            if (!isPlaying) {
+                if (iconPlay) iconPlay.style.display = "block";
+                if (iconPause) iconPause.style.display = "none";
+                miniPlayerEl.classList.remove("playing");
+            } else {
+                if (iconPlay) iconPlay.style.display = "none";
+                if (iconPause) iconPause.style.display = "block";
+                miniPlayerEl.classList.add("playing");
             }
-        });
+        }
 
         const prevBtn = miniPlayerEl.querySelector(".sc-mini-prev-btn");
         const nextBtn = miniPlayerEl.querySelector(".sc-mini-next-btn");
@@ -269,10 +265,10 @@
         }
 
         const rect = activeContainer.getBoundingClientRect();
-        const scrolledOut = rect.bottom < 0 || rect.top > window.innerHeight;
-        const isNight = html.getAttribute("data-theme") === "night";
+        const isHidden = rect.width === 0 && rect.height === 0;
+        const scrolledOut = isHidden || rect.bottom < 0 || rect.top > window.innerHeight;
 
-        if (scrolledOut && isNight) {
+        if (scrolledOut) {
             showMiniPlayer();
         } else {
             hideMiniPlayer();
@@ -309,14 +305,27 @@
 
     const initSoundCloudCustomPlayers = () => {
         loadSoundCloudAPI(() => {
+            // Ensure shelter container exists
+            let shelter = document.getElementById("sc-iframe-shelter");
+            if (!shelter) {
+                shelter = document.createElement("div");
+                shelter.id = "sc-iframe-shelter";
+                shelter.style.display = "none";
+                document.body.appendChild(shelter);
+            }
+
             // 1. Single Track Players
             document.querySelectorAll(".audio-container").forEach((container) => {
                 const iframe = container.querySelector("iframe");
                 if (!iframe || iframe.classList.contains("processed")) return;
                 iframe.classList.add("processed");
 
+                // Move iframe to shelter immediately so it never reloads later
+                shelter.appendChild(iframe);
+
                 // Initialize widget
                 const widget = SC.Widget(iframe);
+                widget.scIframe = iframe;
                 activeWidgets.push(widget);
 
                 // Build custom player UI
@@ -354,7 +363,7 @@
                 `;
 
                 container.appendChild(playerDiv);
-                iframe.classList.add("sc-hidden-iframe");
+                widget.scCustomPlayer = playerDiv;
 
                 const playBtn = playerDiv.querySelector(".sc-play-btn");
                 const iconPlay = playerDiv.querySelector(".sc-icon-play");
@@ -469,6 +478,7 @@
                     activeWidget = widget;
                     activeContainer = container;
                     isPlaylist = false;
+                    isPlaying = true;
                     createMiniPlayer();
                     updateMiniPlayerUI();
                     checkMiniPlayerVisibility();
@@ -480,8 +490,10 @@
                     visualizer.classList.remove("playing");
                     artworkImg.classList.remove("playing");
 
+                    isPlaying = false;
                     if (activeWidget === widget) {
                         updateMiniPlayerUI();
+                        checkMiniPlayerVisibility();
                     }
                 });
 
@@ -493,8 +505,10 @@
                     updateWaveformProgress(0);
                     timeCurrent.textContent = "0:00";
 
+                    isPlaying = false;
                     if (activeWidget === widget) {
                         updateMiniPlayerUI();
+                        checkMiniPlayerVisibility();
                         if (miniPlayerEl) {
                             const progressEl = miniPlayerEl.querySelector(".sc-mini-progress");
                             if (progressEl) progressEl.style.width = "0%";
@@ -516,14 +530,20 @@
                 });
             });
 
+
+
             // 2. Playlist Players
             document.querySelectorAll(".playlist-container").forEach((container) => {
                 const iframe = container.querySelector("iframe");
                 if (!iframe || iframe.classList.contains("processed")) return;
                 iframe.classList.add("processed");
 
+                // Move iframe to shelter immediately so it never reloads later
+                shelter.appendChild(iframe);
+
                 // Initialize widget
                 const widget = SC.Widget(iframe);
+                widget.scIframe = iframe;
                 activeWidgets.push(widget);
 
                 // Build custom playlist UI
@@ -572,7 +592,7 @@
                 `;
 
                 container.appendChild(playerDiv);
-                iframe.classList.add("sc-hidden-iframe");
+                widget.scCustomPlayer = playerDiv;
 
                 const playBtn = playerDiv.querySelector(".sc-play-btn");
                 const prevBtn = playerDiv.querySelector(".sc-prev-btn");
@@ -675,7 +695,18 @@
                         const activeItem = tracklistEl.querySelector(`.sc-track-item[data-index="${index}"]`);
                         if (activeItem) {
                             activeItem.classList.add("active");
-                            activeItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+                            
+                            // Scroll the active item within the tracklist container locally without viewport scrolling
+                            const containerTop = tracklistEl.scrollTop;
+                            const containerHeight = tracklistEl.clientHeight;
+                            const elemTop = activeItem.offsetTop;
+                            const elemHeight = activeItem.offsetHeight;
+
+                            if (elemTop < containerTop) {
+                                tracklistEl.scrollTo({ top: elemTop, behavior: "smooth" });
+                            } else if (elemTop + elemHeight > containerTop + containerHeight) {
+                                tracklistEl.scrollTo({ top: elemTop - containerHeight + elemHeight, behavior: "smooth" });
+                            }
                         }
                     });
                 };
@@ -763,6 +794,7 @@
                     activeWidget = widget;
                     activeContainer = container;
                     isPlaylist = true;
+                    isPlaying = true;
                     createMiniPlayer();
                     updateMiniPlayerUI();
                     checkMiniPlayerVisibility();
@@ -774,8 +806,10 @@
                     visualizer.classList.remove("playing");
                     artworkImg.classList.remove("playing");
 
+                    isPlaying = false;
                     if (activeWidget === widget) {
                         updateMiniPlayerUI();
+                        checkMiniPlayerVisibility();
                     }
                 });
 
@@ -787,8 +821,10 @@
                     updateWaveformProgress(0);
                     timeCurrent.textContent = "0:00";
 
+                    isPlaying = false;
                     if (activeWidget === widget) {
                         updateMiniPlayerUI();
+                        checkMiniPlayerVisibility();
                         if (miniPlayerEl) {
                             const progressEl = miniPlayerEl.querySelector(".sc-mini-progress");
                             if (progressEl) progressEl.style.width = "0%";
@@ -813,8 +849,310 @@
     };
 
     if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", initSoundCloudCustomPlayers);
+        document.addEventListener("DOMContentLoaded", () => {
+            initSoundCloudCustomPlayers();
+            initPjax();
+        });
     } else {
         initSoundCloudCustomPlayers();
+        initPjax();
+    }
+
+    // Export global helpers for Mermaid dynamic loading and rendering
+    window.renderMermaidDiagrams = async function() {
+        if (!window.mermaid) {
+            try {
+                const { default: m } = await import("https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs");
+                window.mermaid = m;
+            } catch (err) {
+                console.error("Failed to load mermaid:", err);
+                return;
+            }
+        }
+        const mermaid = window.mermaid;
+        
+        function getThemeVariables() {
+            const style = getComputedStyle(document.documentElement);
+            return {
+                primaryColor: style.getPropertyValue('--paper').trim() || "#ffffff",
+                primaryTextColor: style.getPropertyValue('--ink').trim() || "#16231f",
+                primaryBorderColor: style.getPropertyValue('--line-strong').trim() || "#b9c8c0",
+                lineColor: style.getPropertyValue('--muted').trim() || "#68746f",
+                secondaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
+                tertiaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
+                fontFamily: style.getPropertyValue('--sans').trim() || "sans-serif"
+            };
+        }
+
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: "base",
+            themeVariables: getThemeVariables()
+        });
+
+        const currentTheme = document.documentElement.getAttribute("data-theme") || "day";
+        const selector = `.persona-${currentTheme} .mermaid`;
+        const elements = Array.from(document.querySelectorAll(selector)).filter(el => {
+            return el.getAttribute("data-processed") !== "true";
+        });
+
+        if (elements.length > 0) {
+            try {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: "base",
+                    themeVariables: getThemeVariables()
+                });
+                await mermaid.run({
+                    nodes: elements
+                });
+            } catch (err) {
+                console.error("Error rendering mermaid diagrams:", err);
+            }
+        }
+    };
+
+    // Watch for theme changes globally to re-render visible diagrams
+    const mermaidThemeObserver = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
+                requestAnimationFrame(() => {
+                    if (window.renderMermaidDiagrams) {
+                        window.renderMermaidDiagrams();
+                    }
+                });
+            }
+        }
+    });
+    mermaidThemeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["data-theme"]
+    });
+
+    /* =========================================================
+       PJAX Navigation & Page Transition Router
+       ========================================================= */
+    let pjaxLoadingBar = null;
+
+    function showLoadingBar() {
+        if (!pjaxLoadingBar) {
+            pjaxLoadingBar = document.createElement("div");
+            pjaxLoadingBar.className = "pjax-progress";
+            document.body.appendChild(pjaxLoadingBar);
+        }
+        pjaxLoadingBar.style.width = "0%";
+        pjaxLoadingBar.style.opacity = "1";
+        pjaxLoadingBar.offsetWidth; // force reflow
+        pjaxLoadingBar.style.width = "30%";
+        
+        pjaxLoadingBar.dataset.timer = setInterval(() => {
+            const currentWidth = parseFloat(pjaxLoadingBar.style.width) || 0;
+            if (currentWidth < 90) {
+                pjaxLoadingBar.style.width = (currentWidth + (90 - currentWidth) * 0.1) + "%";
+            }
+        }, 150);
+    }
+
+    function hideLoadingBar() {
+        if (pjaxLoadingBar) {
+            clearInterval(pjaxLoadingBar.dataset.timer);
+            pjaxLoadingBar.style.width = "100%";
+            setTimeout(() => {
+                pjaxLoadingBar.style.opacity = "0";
+            }, 300);
+        }
+    }
+
+    function getSoundCloudUrl(src) {
+        try {
+            const urlObj = new URL(src);
+            const urlParam = urlObj.searchParams.get("url");
+            if (urlParam) return urlParam.split("?")[0];
+        } catch (_) {}
+        return src.split("?")[0];
+    }
+
+    function isSameSoundCloudSrc(src1, src2) {
+        return getSoundCloudUrl(src1) === getSoundCloudUrl(src2);
+    }
+
+    function shelterActiveIframe() {
+        if (!activeWidget) return;
+
+        let shelter = document.getElementById("sc-iframe-shelter");
+        if (!shelter) {
+            shelter = document.createElement("div");
+            shelter.id = "sc-iframe-shelter";
+            shelter.style.display = "none";
+            document.body.appendChild(shelter);
+        }
+
+        const iframe = activeWidget.scIframe;
+        const customPlayer = activeWidget.scCustomPlayer;
+
+        if (iframe && customPlayer) {
+            shelter.dataset.originalSrc = iframe.src;
+            if (iframe.parentNode !== shelter) {
+                shelter.appendChild(iframe);
+            }
+            shelter.appendChild(customPlayer);
+        }
+    }
+
+    function restoreActiveIframe() {
+        if (!activeWidget) return;
+        const shelter = document.getElementById("sc-iframe-shelter");
+        if (!shelter || !shelter.dataset.originalSrc) return;
+
+        const iframe = activeWidget.scIframe;
+        const customPlayer = activeWidget.scCustomPlayer;
+
+        if (iframe && customPlayer) {
+            const containers = document.querySelectorAll(".audio-container, .playlist-container");
+            let matchedContainer = null;
+            for (const container of containers) {
+                const tempIframe = container.querySelector("iframe");
+                if (tempIframe && isSameSoundCloudSrc(tempIframe.src, shelter.dataset.originalSrc)) {
+                    matchedContainer = container;
+                    break;
+                }
+            }
+
+            if (matchedContainer) {
+                matchedContainer.innerHTML = "";
+                matchedContainer.appendChild(customPlayer);
+                activeContainer = matchedContainer;
+            }
+        }
+    }
+
+    async function pjaxNavigate(targetUrl, hashToScroll = null, isPopstate = false) {
+        showLoadingBar();
+        try {
+            const response = await fetch(targetUrl);
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            const htmlText = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlText, "text/html");
+
+            // 1. Shelter current active SoundCloud iframe & custom player
+            shelterActiveIframe();
+
+            // 2. DOM Swaps
+            const newMain = doc.querySelector("main.main");
+            const currentMain = document.querySelector("main.main");
+            if (newMain && currentMain) {
+                currentMain.innerHTML = newMain.innerHTML;
+            }
+
+            // Update page title
+            if (doc.title) {
+                document.title = doc.title;
+            }
+
+            // Update meta description
+            const newMetaDesc = doc.querySelector('meta[name="description"]');
+            const currentMetaDesc = document.querySelector('meta[name="description"]');
+            if (newMetaDesc && currentMetaDesc) {
+                currentMetaDesc.setAttribute("content", newMetaDesc.getAttribute("content"));
+            }
+
+            // Update url in browser history if not popstate
+            if (!isPopstate) {
+                const finalUrl = hashToScroll ? `${targetUrl.split('#')[0]}${hashToScroll}` : targetUrl;
+                window.history.pushState(null, "", finalUrl);
+            }
+
+            // 3. Post-swap restore and re-initialization
+            restoreActiveIframe();
+
+            // Re-init any new custom players
+            initSoundCloudCustomPlayers();
+
+            // Update active nav links highlighted
+            updateActiveNavLink();
+
+            // Scroll to hash or top (extract hash from targetUrl to avoid stale window.location.hash)
+            const urlHash = targetUrl.includes('#') ? targetUrl.substring(targetUrl.indexOf('#')) : null;
+            const hash = hashToScroll || urlHash;
+            if (hash) {
+                const targetEl = document.getElementById(hash.substring(1));
+                if (targetEl) {
+                    targetEl.scrollIntoView({ behavior: "smooth" });
+                } else {
+                    window.scrollTo({ top: 0, behavior: "instant" });
+                }
+            } else {
+                window.scrollTo({ top: 0, behavior: "instant" });
+            }
+
+            // Re-init scroll-fly avatar references
+            if (window.initScrollFly) {
+                window.initScrollFly();
+            }
+
+            // Re-run Mermaid if needed
+            if (window.renderMermaidDiagrams) {
+                window.renderMermaidDiagrams();
+            }
+
+            // Trigger scroll event to sync the mini player visibility immediately
+            checkMiniPlayerVisibility();
+
+        } catch (err) {
+            console.error("PJAX navigation failed:", err);
+            if (!isPopstate) {
+                window.location.href = targetUrl;
+            }
+        } finally {
+            hideLoadingBar();
+        }
+    }
+
+    function initPjax() {
+        document.addEventListener("click", (e) => {
+            const link = e.target.closest("a");
+            if (!link) return;
+
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+            
+            const href = link.getAttribute("href");
+            if (!href) return;
+
+            const isContactLink = href === "#contact" || href === "index.html#contact" || href.endsWith("#contact");
+            
+            if (isContactLink) {
+                e.preventDefault();
+                const isHome = window.location.pathname.endsWith("index.html") || 
+                               window.location.pathname.endsWith("/") || 
+                               window.location.pathname === "";
+                               
+                if (isHome) {
+                    const contactSection = document.getElementById("contact");
+                    if (contactSection) {
+                        contactSection.scrollIntoView({ behavior: "smooth" });
+                    }
+                } else {
+                    pjaxNavigate("index.html", "#contact");
+                }
+                return;
+            }
+
+            const isNavLink = link.hasAttribute("data-nav-link") || 
+                              ((href.includes(".html") || href.startsWith("projects.html")) && !href.startsWith("http") && !href.startsWith("//"));
+                              
+            if (isNavLink) {
+                e.preventDefault();
+                const targetUrl = link.href;
+                if (targetUrl === window.location.href) return;
+                pjaxNavigate(href);
+            }
+        });
+
+        window.addEventListener("popstate", (e) => {
+            pjaxNavigate(window.location.pathname + window.location.search + window.location.hash, null, true);
+        });
     }
 })();

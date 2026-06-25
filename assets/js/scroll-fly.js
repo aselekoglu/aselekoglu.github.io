@@ -3,15 +3,12 @@
    - Performs a high-performance scroll interpolation
    - Flies/morphs the avatar between hero placeholder and sidebar
    - Automatically handles window resize and mobile fallback
+   - Exposes window.initScrollFly for PJAX/SPA re-initialization
    ========================================================= */
 (() => {
-    const activeAvatar = document.getElementById('active-avatar');
-    const sidebarPlaceholder = document.getElementById('sidebar-avatar-placeholder');
-    const heroPlaceholder = document.getElementById('hero-avatar-placeholder');
-
-    if (!activeAvatar || !sidebarPlaceholder || !heroPlaceholder) {
-        return;
-    }
+    let activeAvatar = null;
+    let sidebarPlaceholder = null;
+    let heroPlaceholder = null;
 
     let isMobile = null;
     let ticked = false;
@@ -28,7 +25,7 @@
     let cachedSidebarHeight = 0;
 
     function updateCache() {
-        if (isMobile) return;
+        if (isMobile || !heroPlaceholder || !sidebarPlaceholder) return;
         
         // Measure placeholders
         const rectHero = heroPlaceholder.getBoundingClientRect();
@@ -47,7 +44,7 @@
     }
 
     function render() {
-        if (isMobile) return;
+        if (isMobile || !activeAvatar) return;
 
         const scrollY = Math.max(window.scrollY, 0);
         
@@ -87,6 +84,10 @@
     }
 
     function onScroll() {
+        if (isMobile || !heroPlaceholder) {
+            ticked = false;
+            return;
+        }
         if (!ticked) {
             requestAnimationFrame(tick);
             ticked = true;
@@ -94,6 +95,22 @@
     }
 
     function checkLayout() {
+        if (!activeAvatar || !sidebarPlaceholder) return;
+
+        if (!heroPlaceholder) {
+            // Force static inline inside sidebar placeholder
+            sidebarPlaceholder.appendChild(activeAvatar);
+            activeAvatar.classList.remove('floating-avatar');
+            activeAvatar.style.position = '';
+            activeAvatar.style.left = '';
+            activeAvatar.style.top = '';
+            activeAvatar.style.width = '';
+            activeAvatar.style.height = '';
+            activeAvatar.style.transform = '';
+            activeAvatar.classList.remove('at-start');
+            return;
+        }
+
         const nextIsMobile = window.innerWidth <= 1020;
 
         if (nextIsMobile !== isMobile) {
@@ -123,11 +140,54 @@
         }
     }
 
+    function init() {
+        activeAvatar = document.getElementById('active-avatar');
+        sidebarPlaceholder = document.getElementById('sidebar-avatar-placeholder');
+        heroPlaceholder = document.getElementById('hero-avatar-placeholder');
+
+        if (!activeAvatar || !sidebarPlaceholder) {
+            return;
+        }
+
+        // If there is no hero placeholder (like on projects.html), force static inline in sidebar
+        if (!heroPlaceholder) {
+            sidebarPlaceholder.appendChild(activeAvatar);
+            activeAvatar.classList.remove('floating-avatar');
+            activeAvatar.style.position = '';
+            activeAvatar.style.left = '';
+            activeAvatar.style.top = '';
+            activeAvatar.style.width = '';
+            activeAvatar.style.height = '';
+            activeAvatar.style.transform = '';
+            activeAvatar.classList.remove('at-start');
+            isMobile = true; // treat as mobile to bypass desktop scroll morph
+            return;
+        }
+
+        // If hero placeholder exists, make sure floating-avatar class is present
+        activeAvatar.classList.add('floating-avatar');
+        isMobile = null; // force checkLayout to re-evaluate
+        checkLayout();
+        updateCache();
+        render();
+    }
+
+    // Expose init function globally
+    window.initScrollFly = init;
+
     // Initialize layout setup and events
-    checkLayout();
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", init);
+    } else {
+        init();
+    }
 
     window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', checkLayout);
+    window.addEventListener('resize', () => {
+        if (isMobile !== null) {
+            checkLayout();
+        }
+    });
     window.addEventListener('load', () => {
         updateCache();
         render();

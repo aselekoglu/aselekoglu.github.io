@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/site.css?v=5">
+    <link rel="stylesheet" href="assets/css/site.css?v=10">
     <script defer src="https://cloud.umami.is/script.js" data-website-id="c396757d-b2fb-47d2-ba54-9dfc86b5c39f"></script>
 </head>
 <body>
@@ -27,14 +27,7 @@
 <div class="page">
     <aside class="sidebar">
         <div class="brand">
-            <div class="hero-visual" data-active="day" aria-hidden="false">
-                <div class="hero-glow" aria-hidden="true"></div>
-                <img class="hero-img-layer hero-img-day" src="images/ata-speaking-2.png"
-                     alt="Ataberk speaking on stage in a suit" loading="eager" decoding="async">
-                <img class="hero-img-layer hero-img-night" src="images/ata-playing.png"
-                     alt="Ataberk playing bass on stage" loading="eager" decoding="async">
-                <div class="hero-sweep-line" aria-hidden="true"></div>
-            </div>
+            <div class="sidebar-avatar-placeholder" id="sidebar-avatar-placeholder"></div>
             <h1>Ataberk Selekoglu</h1>
             <p class="role persona-day">AI Software Developer / Full-Stack</p>
             <p class="role persona-night">Music Producer / Songwriter / Multi-instrumentalist</p>
@@ -569,7 +562,7 @@
                 <!-- Homebridge Tuya Platform -->
                 <article class="project">
                     <div class="project-meta">
-                        <time>April 2021 - July 2024</time>
+                        <time>June 2024 - July 2024</time>
                         <span class="project-kind">IoT Plugin Maintenance</span>
                         <h3>Homebridge Tuya Platform Fork</h3>
                     </div>
@@ -1037,83 +1030,21 @@ flowchart TB
     </main>
 </div>
 
-<!-- Shared JavaScript Behavior -->
-<script src="assets/js/site.js?v=9"></script>
+<div class="hero-visual floating-avatar" id="active-avatar" data-active="day" aria-hidden="false">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <img class="hero-img-layer hero-img-day" src="images/ata-speaking-2.png"
+         alt="Ataberk speaking on stage in a suit" loading="eager" decoding="async">
+    <img class="hero-img-layer hero-img-night" src="images/ata-playing.png"
+         alt="Ataberk playing bass on stage" loading="eager" decoding="async">
+    <div class="hero-sweep-line" aria-hidden="true"></div>
+</div>
 
-<!-- Dynamic, Theme-Aware Mermaid Config -->
+<script src="assets/js/scroll-fly.js"></script>
+<script src="assets/js/site.js?v=10"></script>
 <script type="module">
-    import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
-
-    // Get actual resolved color values for theme variables to avoid "Unsupported color format" errors in Mermaid
-    function getThemeVariables() {
-        const style = getComputedStyle(document.documentElement);
-        return {
-            primaryColor: style.getPropertyValue('--paper').trim() || "#ffffff",
-            primaryTextColor: style.getPropertyValue('--ink').trim() || "#16231f",
-            primaryBorderColor: style.getPropertyValue('--line-strong').trim() || "#b9c8c0",
-            lineColor: style.getPropertyValue('--muted').trim() || "#68746f",
-            secondaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
-            tertiaryColor: style.getPropertyValue('--bg').trim() || "#f8faf7",
-            fontFamily: style.getPropertyValue('--sans').trim() || "sans-serif"
-        };
+    if (window.renderMermaidDiagrams) {
+        window.renderMermaidDiagrams();
     }
-
-    // Initial config
-    mermaid.initialize({
-        startOnLoad: false,
-        theme: "base",
-        themeVariables: getThemeVariables()
-    });
-
-    // Render diagrams belonging to the currently active persona if not already processed
-    async function renderVisibleDiagrams() {
-        const currentTheme = document.documentElement.getAttribute("data-theme") || "day";
-        const selector = `.persona-${currentTheme} .mermaid`;
-        const elements = Array.from(document.querySelectorAll(selector)).filter(el => {
-            return el.getAttribute("data-processed") !== "true";
-        });
-
-        if (elements.length > 0) {
-            try {
-                // Re-initialize with current static theme variables before rendering
-                mermaid.initialize({
-                    startOnLoad: false,
-                    theme: "base",
-                    themeVariables: getThemeVariables()
-                });
-
-                await mermaid.run({
-                    nodes: elements
-                });
-            } catch (err) {
-                console.error("Error rendering mermaid diagrams:", err);
-            }
-        }
-    }
-
-    // Run on initial load
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        renderVisibleDiagrams();
-    } else {
-        document.addEventListener("DOMContentLoaded", renderVisibleDiagrams);
-    }
-
-    // Watch for theme/persona changes to render diagrams once they become visible
-    const observer = new MutationObserver((mutations) => {
-        for (const mutation of mutations) {
-            if (mutation.type === "attributes" && mutation.attributeName === "data-theme") {
-                // requestAnimationFrame ensures CSS display is updated and layout is computed
-                requestAnimationFrame(() => {
-                    renderVisibleDiagrams();
-                });
-            }
-        }
-    });
-
-    observer.observe(document.documentElement, {
-        attributes: true,
-        attributeFilter: ["data-theme"]
-    });
 </script>
 </body>
 </html>
