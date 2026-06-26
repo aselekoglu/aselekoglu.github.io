@@ -557,97 +557,22 @@ html[data-theme="night"] .hero-img-night {
     z-index: 2;
 }
 
-/* Suspend normal CSS transitions when transitioning class is present */
-html.theme-transitioning .hero-img-layer {
+/* Suspend normal CSS transitions when transitioning class is present to ensure instant snapshot capture */
+html.theme-transitioning,
+html.theme-transitioning * {
     transition: none !important;
 }
 
-/* --- Day to Night Fallback Sweep --- */
-html.theme-transitioning.theme-to-night .hero-img-day {
-    opacity: 1;
-    z-index: 1;
-    animation: fadeOutSlow var(--duration-theme) var(--ease-in-out) forwards;
-}
-
-html.theme-transitioning.theme-to-night .hero-img-night {
-    opacity: 1;
-    z-index: 2; /* Bring incoming layer above */
-    animation: clipSweepLTR var(--duration-theme) var(--ease-in-out) forwards,
-               scaleSettle var(--duration-theme) var(--ease-out-settle) forwards;
-}
-
-html.theme-transitioning.theme-to-night .hero-sweep-line {
-    background: linear-gradient(to bottom, #00ffff, #ff00ff);
-    box-shadow: 0 0 10px #00ffff, 0 0 20px #ff00ff;
-    animation: lineSweepLTR var(--duration-theme) var(--ease-in-out) forwards;
-}
-
-/* --- Night to Day Fallback Sweep --- */
-html.theme-transitioning.theme-to-day .hero-img-night {
-    opacity: 1;
-    z-index: 1;
-    animation: fadeOutSlow var(--duration-theme) var(--ease-in-out) forwards;
-}
-
-html.theme-transitioning.theme-to-day .hero-img-day {
-    opacity: 1;
-    z-index: 2;
-    animation: clipSweepRTL var(--duration-theme) var(--ease-in-out) forwards,
-               scaleSettle var(--duration-theme) var(--ease-out-settle) forwards;
-}
-
-html.theme-transitioning.theme-to-day .hero-sweep-line {
-    background: linear-gradient(to bottom, #0d6b45, #b9c8c0);
-    box-shadow: 0 0 8px rgba(13, 107, 69, 0.4);
-    animation: lineSweepRTL var(--duration-theme) var(--ease-in-out) forwards;
-}
-
-/* --- Keyframe Declarations --- */
-@keyframes clipSweepLTR {
-    0%   { clip-path: polygon(0 0, 0 0, -20% 100%, -20% 100%); }
-    100% { clip-path: polygon(0 0, 120% 0, 100% 100%, 0 100%); }
-}
-
-@keyframes clipSweepRTL {
-    0%   { clip-path: polygon(120% 0, 120% 0, 100% 100%, 100% 100%); }
-    100% { clip-path: polygon(0 0, 120% 0, 100% 100%, 0 100%); }
-}
-
-@keyframes lineSweepLTR {
-    0%   { left: -10%; opacity: 0; }
-    15%  { opacity: 1; }
-    85%  { opacity: 1; }
-    100% { left: 110%; opacity: 0; }
-}
-
-@keyframes lineSweepRTL {
-    0%   { left: 110%; opacity: 0; }
-    15%  { opacity: 1; }
-    85%  { opacity: 1; }
-    100% { left: -10%; opacity: 0; }
-}
-
-@keyframes scaleSettle {
-    0%   { transform: scale(0.97) translateZ(0); }
-    100% { transform: scale(1.0) translateZ(0); }
-}
-
-@keyframes fadeOutSlow {
-    0%   { opacity: 1; }
-    50%  { opacity: 1; }
-    100% { opacity: 0.2; }
-}
-
-/* ---------- Theme Transition Sweep (Clip-Path) ---------- */
-/* Create a full-screen overlay that sweeps across the screen to reveal the new theme */
-/*
+/* ---------- Theme Transition Sweep (Fallback circular mask) ---------- */
 .theme-transition-mask {
     position: fixed;
     inset: 0;
     z-index: 9999;
     pointer-events: none;
     opacity: 0;
-    background: var(--bg);
+    background: transparent;
+    clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+    will-change: clip-path, opacity;
 }
 
 html.theme-transitioning .theme-transition-mask {
@@ -655,54 +580,71 @@ html.theme-transitioning .theme-transition-mask {
 }
 
 html.theme-transitioning.theme-to-night .theme-transition-mask {
-    background: #090014;
-    animation: sweepLTR var(--duration-theme) var(--ease-in-out) forwards;
+    background: #090014; /* Night background color matching site theme */
+    animation: fallbackCircleReveal var(--duration-theme, 800ms) var(--ease-in-out) forwards;
 }
 
 html.theme-transitioning.theme-to-day .theme-transition-mask {
-    background: #f8faf7;
-    animation: sweepRTL var(--duration-theme) var(--ease-in-out) forwards;
+    background: #f8faf7; /* Day background color matching site theme */
+    animation: fallbackCircleReveal var(--duration-theme, 800ms) var(--ease-in-out) forwards;
 }
 
-@keyframes sweepLTR {
-    0% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
-    45%, 55% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-    100% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
+@keyframes fallbackCircleReveal {
+    0% {
+        clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+        opacity: 1;
+    }
+    50% {
+        clip-path: circle(150vmax at var(--click-x, 50%) var(--click-y, 50%));
+        opacity: 1;
+    }
+    100% {
+        clip-path: circle(150vmax at var(--click-x, 50%) var(--click-y, 50%));
+        opacity: 0;
+    }
 }
-
-@keyframes sweepRTL {
-    0% { clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%); }
-    45%, 55% { clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
-    100% { clip-path: polygon(0 0, 0 0, 0 100%, 0 100%); }
-}
-*/
 
 /* ---------- View Transitions API Styles ---------- */
-::view-transition-group(root) {
-    animation-duration: var(--duration-theme);
-    animation-timing-function: var(--ease-in-out);
+html::view-transition-image-pair(root) {
+    isolation: auto;
 }
 
-/* Custom visual transition rules for the hero image */
-::view-transition-old(hero-image) {
-    animation: var(--duration-theme) var(--ease-out) both fade-out,
-               var(--duration-theme) var(--ease-out) both scale-up;
+html::view-transition-old(root) {
+    animation: none;
+    mix-blend-mode: normal;
+    opacity: 1;
 }
 
-::view-transition-new(hero-image) {
-    animation: var(--duration-theme) var(--ease-out) both fade-in,
-               var(--duration-theme) var(--ease-out-settle) both scale-settle-vt;
+html::view-transition-new(root) {
+    animation: circle-reveal var(--duration-theme, 800ms) var(--ease-in-out) forwards;
+    mix-blend-mode: normal;
 }
 
-@keyframes scale-up {
-    0%   { transform: scale(1.0); }
-    100% { transform: scale(1.03); }
+@keyframes circle-reveal {
+    from {
+        clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+    }
+    to {
+        clip-path: circle(150vmax at var(--click-x, 50%) var(--click-y, 50%));
+    }
 }
 
-@keyframes scale-settle-vt {
-    0%   { transform: scale(0.97); }
-    100% { transform: scale(1.0); }
+@keyframes reveal-in {
+    from { clip-path: circle(0% at var(--click-x, 50%) var(--click-y, 50%)); }
+    to { clip-path: circle(150% at var(--click-x, 50%) var(--click-y, 50%)); }
 }
+
+/* View Transitions API rules: animate the new root using reveal-in so the UA paints the new document into the expanding circle */
+::view-transition-new(root) {
+    animation: reveal-in var(--duration-theme, 800ms) var(--ease-in-out) forwards;
+    z-index: 2;
+}
+
+::view-transition-old(root) {
+    animation: none;
+    z-index: 1;
+}
+
 
 
 /* ---------- Featured Cards ---------- */
@@ -2175,6 +2117,32 @@ html[data-theme="day"] .sc-mini-btn:hover {
 html[data-theme="day"] .sc-mini-art {
     border-color: rgba(22, 35, 31, 0.1);
     background: rgba(22, 35, 31, 0.05);
+}
+
+/* ---------- Persona reveal overlay (JS-driven) ---------- */
+.persona-reveal-overlay {
+    position: fixed !important;
+    inset: 0 !important;
+    z-index: 2147483647 !important; /* topmost */
+    pointer-events: none !important;
+    overflow: hidden !important;
+    display: block !important;
+    -webkit-clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+    clip-path: circle(0px at var(--click-x, 50%) var(--click-y, 50%));
+}
+
+.persona-reveal-overlay .hero-visual {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .persona-reveal-overlay { transition: none !important; animation: none !important; }
 }
 
 

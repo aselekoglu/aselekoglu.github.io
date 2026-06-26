@@ -105,13 +105,15 @@
 
     let transitioning = false;
 
-    const setPersona = (next, { animate } = { animate: true }) => {
+    const setPersona = (next, { animate = true, event } = {}) => {
+        console.log('[persona] setPersona called', { next, animate, prefersReducedMotion, transitioning });
         if (dismissTooltipFn) dismissTooltipFn();
         const current = html.getAttribute("data-theme") || "day";
         if (next === current || transitioning) return;
         if (!VALID.has(next)) return;
 
         const updateDOM = () => {
+            console.log('[persona] updateDOM -> applying data-theme:', next);
             html.setAttribute("data-theme", next);
             writeStored(next);
             updateToggleAria(next);
@@ -123,23 +125,157 @@
             return;
         }
 
-        transitioning = true;
-        const directionClass = next === "night" ? "theme-to-night" : "theme-to-day";
-        
-        html.classList.add("theme-transitioning", directionClass);
-        const WAVE_MS = getCssDurationMs("--duration-theme", 800);
+        // Calculate click coordinates or default to viewport center
+        let x = window.innerWidth / 2;
+        let y = window.innerHeight / 2;
+        if (event) {
+            const target = event.currentTarget || event.target;
+            if (target && typeof target.getBoundingClientRect === "function") {
+                const rect = target.getBoundingClientRect();
+                x = rect.left + rect.width / 2;
+                y = rect.top + rect.height / 2;
+            } else if (event.clientX !== undefined && event.clientY !== undefined) {
+                x = event.clientX;
+                y = event.clientY;
+            }
+        }
 
-        // Swap the DOM state at the midpoint of the sweep (when screen is covered)
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const maxRadius = Math.hypot(
+            Math.max(x, w - x),
+            Math.max(y, h - y)
+        );
+
+        console.log('[persona] click coords', { x, y, maxRadius });
+
+        html.style.setProperty("--click-x", `${x}px`);
+        html.style.setProperty("--click-y", `${y}px`);
+        html.style.setProperty("--max-radius", `${maxRadius}px`);
+
+        const WAVE_MS = getCssDurationMs('--duration-theme', 800);
+        const easing = 'cubic-bezier(0.85, 0, 0.15, 1)';
+
+        // Prefer View Transitions API when available — it reveals the full next document's content inside the UA-handled snapshot.
+        if (document.startViewTransition) {
+            transitioning = true;
+            html.classList.add('theme-transitioning');
+
+            const transition = document.startViewTransition(() => {
+                updateDOM();
+            });
+
+            transition.ready.then(() => {
+                // Set CSS vars the ::view-transition-new(root) animation will read
+                html.style.setProperty('--click-x', `${x}px`);
+                html.style.setProperty('--click-y', `${y}px`);
+                console.log('[persona] view-transition ready, css vars set');
+            }).catch((err) => {
+                console.warn('[persona] view-transition ready failed', err);
+            });
+
+            transition.finished.then(() => {
+                html.classList.remove('theme-transitioning');
+                transitioning = false;
+                console.log('[persona] view-transition finished');
+                // Dispatch transitionend for compatibility
+                const mask = document.querySelector('.theme-transition-mask');
+                if (mask) mask.dispatchEvent(new TransitionEvent('transitionend', { propertyName: 'opacity', bubbles: true }));
+            }).catch(() => {
+                html.classList.remove('theme-transitioning');
+                transitioning = false;
+            });
+
+            return; // we're done — View Transition will handle the reveal
+        }
+
+        // Fallback for browsers without View Transitions API: overlay approach
+        transitioning = true;
+        html.classList.add("theme-transitioning");
+
+        // prefers-reduced-motion already handled earlier; create overlay element that shows the incoming theme
+        const overlay = document.createElement('div');
+        overlay.className = 'persona-reveal-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.style.position = 'fixed';
+        overlay.style.left = '0';
+        overlay.style.top = '0';
+        overlay.style.width = '100vw';
+        overlay.style.height = '100vh';
+        overlay.style.pointerEvents = 'none';
+        overlay.style.zIndex = '10000';
+        overlay.style.overflow = 'hidden';
+        overlay.style.background = next === 'night' ? '#090014' : '#f8faf7';
+        overlay.style.clipPath = `circle(0px at ${x}px ${y}px)`;
+        overlay.style.webkitClipPath = `circle(0px at ${x}px ${y}px)`;
+
+        // Clone hero visual so we can show incoming image inside the overlay
+        const heroVisual = document.querySelector('.hero-visual.floating-avatar');
+        if (heroVisual) {
+            const clone = heroVisual.cloneNode(true);
+            // Ensure incoming image visible and outgoing hidden
+            const incomingSel = next === 'night' ? '.hero-img-night' : '.hero-img-day';
+            const outgoingSel = next === 'night' ? '.hero-img-day' : '.hero-img-night';
+            const inc = clone.querySelector(incomingSel);
+            const out = clone.querySelector(outgoingSel);
+            if (inc) { inc.style.opacity = '1'; inc.style.zIndex = '2'; }
+            if (out) { out.style.opacity = '0'; out.style.zIndex = '1'; }
+            clone.style.position = 'absolute';
+            clone.style.left = '50%';
+            clone.style.top = '50%';
+            clone.style.transform = 'translate(-50%, -50%)';
+            clone.style.width = '100%';
+            clone.style.height = '100%';
+            clone.style.pointerEvents = 'none';
+            overlay.appendChild(clone);
+        }
+
+        // Append to documentElement to avoid transformed ancestors creating stacking contexts
+        try { document.documentElement.appendChild(overlay); console.log('[persona] overlay appended to documentElement'); } catch (e) { document.body.appendChild(overlay); console.log('[persona] overlay appended to body (fallback)'); }
+
+        // Animate overlay circle expansion using WA
+        let overlayAnim = null;
+        try {
+            overlayAnim = overlay.animate([
+                { clipPath: `circle(0px at ${x}px ${y}px)`, webkitClipPath: `circle(0px at ${x}px ${y}px)` },
+                { clipPath: `circle(${Math.ceil(maxRadius)}px at ${x}px ${y}px)`, webkitClipPath: `circle(${Math.ceil(maxRadius)}px at ${x}px ${y}px)` }
+            ], { duration: WAVE_MS, easing, fill: 'forwards' });
+        } catch (e) {
+            // Fallback: set full immediately
+            overlay.style.clipPath = `circle(${Math.ceil(maxRadius)}px at ${x}px ${y}px)`;
+        }
+
+        // Midpoint swap
         window.setTimeout(() => {
             updateDOM();
-            
-            window.setTimeout(() => {
-                requestAnimationFrame(() => {
-                    html.classList.remove("theme-transitioning", "theme-to-night", "theme-to-day");
-                    transitioning = false;
-                });
-            }, WAVE_MS / 2);
-        }, WAVE_MS / 2);
+        }, Math.floor(WAVE_MS / 2));
+
+        // After animation completes, remove overlay and cleanup
+        const finishCleanup = () => {
+            console.log('[persona] overlay animation finished, cleaning up');
+            try { if (overlayAnim) overlayAnim.cancel(); } catch (e) {}
+            overlay.remove();
+            html.classList.remove('theme-transitioning');
+            transitioning = false;
+        };
+
+        if (overlayAnim && overlayAnim.finished) {
+            overlayAnim.finished.then(finishCleanup).catch(finishCleanup);
+        } else {
+            // Safety fallback
+            window.setTimeout(finishCleanup, WAVE_MS + 50);
+        }
+
+        // Also dispatch transitionend for compatibility with scroll-fly
+        window.setTimeout(() => {
+            const mask = document.querySelector('.theme-transition-mask');
+            if (mask) {
+                mask.dispatchEvent(new TransitionEvent('transitionend', { propertyName: 'opacity', bubbles: true }));
+            }
+        }, WAVE_MS + 20);
+        
+        // End of overlay approach
+        
     };
 
     const getCssDurationMs = (name, fallback) => {
@@ -161,9 +297,9 @@
     };
 
     document.querySelectorAll("[data-persona-toggle]").forEach((btn) => {
-        btn.addEventListener("click", () => {
+        btn.addEventListener("click", (e) => {
             const current = html.getAttribute("data-theme") || "day";
-            setPersona(current === "day" ? "night" : "day");
+            setPersona(current === "day" ? "night" : "day", { event: e });
         });
     });
 
