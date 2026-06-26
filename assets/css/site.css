@@ -294,6 +294,94 @@ html[data-theme="night"] .persona-toggle-thumb {
     content: var(--persona-label);
 }
 
+/* ---------- Persona Toggle Tooltip ---------- */
+.toggle-container {
+    position: relative;
+}
+
+.persona-tooltip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #1e0b36, #090014);
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), 0 0 15px rgba(0, 255, 255, 0.15);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    font-size: 13px;
+    line-height: 1.4;
+    width: 240px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out-settle);
+    pointer-events: none;
+}
+
+.persona-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.tooltip-close {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0;
+    line-height: 1;
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    width: 18px;
+}
+
+.tooltip-close:hover {
+    color: #00ffff;
+}
+
+.tooltip-arrow {
+    position: absolute;
+    top: 100%;
+    left: 124px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: rgba(0, 255, 255, 0.3) transparent transparent transparent;
+}
+
+.tooltip-arrow::after {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: -6px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: #090014 transparent transparent transparent;
+}
+
+@media (max-width: 1020px) {
+    .persona-tooltip {
+        left: 50%;
+        transform: translate(-50%, 10px);
+    }
+    .persona-tooltip.show {
+        transform: translate(-50%, 0);
+    }
+    .tooltip-arrow {
+        left: calc(50% + 46px);
+        transform: translateX(-50%);
+    }
+}
+
 /* ---------- Main Content ---------- */
 .main {
     padding: 54px 54px 72px;

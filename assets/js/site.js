@@ -17,6 +17,7 @@
     let isPlaylist = false;
     let miniPlayerEl = null;
     let isPlaying = false;
+    let dismissTooltipFn = null;
 
     const pauseAllWidgets = () => {
         activeWidgets.forEach((w) => {
@@ -105,6 +106,7 @@
     let transitioning = false;
 
     const setPersona = (next, { animate } = { animate: true }) => {
+        if (dismissTooltipFn) dismissTooltipFn();
         const current = html.getAttribute("data-theme") || "day";
         if (next === current || transitioning) return;
         if (!VALID.has(next)) return;
@@ -343,6 +345,77 @@
         script.async = true;
         script.onload = callback;
         document.head.appendChild(script);
+    };
+
+    /* ---------- Persona toggle incentive tooltip ---------- */
+    const TOOLTIP_DISMISSED_KEY = "as-persona-tooltip-dismissed";
+    const initPersonaTooltip = () => {
+        // If theme is not day, or it was already dismissed, skip
+        if (localStorage.getItem(TOOLTIP_DISMISSED_KEY) === "true") return;
+        const currentTheme = html.getAttribute("data-theme") || "day";
+        if (currentTheme !== "day") return;
+
+        const containers = document.querySelectorAll(".toggle-container");
+        if (containers.length === 0) return;
+
+        const tooltips = [];
+
+        const phrases = [
+            "Flick the switch to see my alter ego 😉",
+            "Curious about the music side? Flip this! 🎸",
+            "Click here to turn up the bass 🔊",
+            "Where code ends, the synth begins. Toggle me!",
+            "Wanna see what happens after hours? 🌙",
+            "From compile to compose. Take a look! 🎹"
+        ];
+        const randomPhrase = phrases[Math.floor(Math.random() * phrases.length)];
+
+        containers.forEach((container) => {
+            if (container.querySelector(".persona-tooltip")) return;
+
+            const tooltip = document.createElement("div");
+            tooltip.className = "persona-tooltip";
+            tooltip.setAttribute("role", "tooltip");
+            tooltip.innerHTML = `
+                <span>${randomPhrase}</span>
+                <button class="tooltip-close" aria-label="Close tip">&times;</button>
+                <div class="tooltip-arrow"></div>
+            `;
+            container.appendChild(tooltip);
+            tooltips.push(tooltip);
+
+            const closeBtn = tooltip.querySelector(".tooltip-close");
+            if (closeBtn) {
+                closeBtn.addEventListener("click", (e) => {
+                    e.stopPropagation();
+                    dismissTooltip();
+                });
+            }
+        });
+
+        const dismissTooltip = () => {
+            localStorage.setItem(TOOLTIP_DISMISSED_KEY, "true");
+            tooltips.forEach((t) => {
+                t.classList.remove("show");
+                setTimeout(() => {
+                    t.remove();
+                }, 400);
+            });
+        };
+
+        // Assign the global dismiss function so setPersona can trigger it
+        dismissTooltipFn = dismissTooltip;
+
+        // Show the tooltip with a 2 second delay for elegant timing
+        setTimeout(() => {
+            // Re-verify conditions in case they changed during the delay
+            if (localStorage.getItem(TOOLTIP_DISMISSED_KEY) === "true") return;
+            if (html.getAttribute("data-theme") !== "day") return;
+
+            tooltips.forEach((t) => {
+                t.classList.add("show");
+            });
+        }, 2000);
     };
 
     const initSoundCloudCustomPlayers = () => {
@@ -900,10 +973,12 @@
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {
             initSoundCloudCustomPlayers();
+            initPersonaTooltip();
             initPjax();
         });
     } else {
         initSoundCloudCustomPlayers();
+        initPersonaTooltip();
         initPjax();
     }
 
