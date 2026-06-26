@@ -742,9 +742,13 @@ html.theme-transitioning.theme-to-day .theme-transition-mask {
     }
     .hero {
         display: block;
+        min-height: auto;
     }
     .hero-avatar-placeholder {
         display: none;
+    }
+    .hero-visual {
+        overflow: hidden;
     }
     .hero-visual.floating-avatar {
         position: relative;
@@ -753,6 +757,7 @@ html.theme-transitioning.theme-to-day .theme-transition-mask {
         z-index: auto;
         pointer-events: auto;
         transform: none !important;
+        overflow: hidden;
     }
     .featured, .matrix {
         grid-template-columns: 1fr;
@@ -1615,6 +1620,15 @@ html[data-theme="day"] .performance-card:hover {
 
 /* Mobile responsive overrides */
 @media (max-width: 480px) {
+    .sidebar {
+        padding: 30px 15px;
+    }
+    .main {
+        padding: 30px 15px;
+    }
+    .featured-project-card {
+        padding: 20px 15px;
+    }
     .custom-sc-player {
         padding: 12px;
         gap: 12px;
@@ -1639,6 +1653,12 @@ html[data-theme="day"] .performance-card:hover {
     .sc-play-btn svg {
         width: 16px;
         height: 16px;
+    }
+    .sc-controls-row {
+        gap: 8px;
+    }
+    .sc-visualizer {
+        display: none;
     }
     .sc-playlist-header {
         height: auto;
