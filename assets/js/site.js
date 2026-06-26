@@ -970,15 +970,69 @@
         });
     };
 
+    /* ---------- Project Catalog Filters ---------- */
+    function initProjectFilters() {
+        const filterContainer = document.querySelector(".catalog-filters");
+        if (!filterContainer) return;
+
+        const buttons = filterContainer.querySelectorAll(".filter-btn");
+        const catalog = document.querySelector(".project-catalog.persona-day");
+        if (!catalog) return;
+        const projects = catalog.querySelectorAll(".project");
+
+        // Read category from URL params
+        const urlParams = new URLSearchParams(window.location.search);
+        const initialCategory = urlParams.get("category");
+
+        function applyFilter(category) {
+            buttons.forEach((btn) => {
+                btn.classList.toggle("active", btn.dataset.filter === category);
+            });
+
+            projects.forEach((project) => {
+                if (category === "all") {
+                    project.classList.remove("filter-hidden");
+                } else {
+                    const cats = (project.dataset.categories || "").split(/\s+/);
+                    project.classList.toggle("filter-hidden", !cats.includes(category));
+                }
+            });
+        }
+
+        // Attach click handlers
+        buttons.forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const category = btn.dataset.filter;
+                applyFilter(category);
+
+                // Update URL without polluting history
+                const url = new URL(window.location);
+                if (category === "all") {
+                    url.searchParams.delete("category");
+                } else {
+                    url.searchParams.set("category", category);
+                }
+                window.history.replaceState(null, "", url);
+            });
+        });
+
+        // Apply initial filter from URL if present
+        if (initialCategory) {
+            applyFilter(initialCategory);
+        }
+    }
+
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {
             initSoundCloudCustomPlayers();
             initPersonaTooltip();
+            initProjectFilters();
             initPjax();
         });
     } else {
         initSoundCloudCustomPlayers();
         initPersonaTooltip();
+        initProjectFilters();
         initPjax();
     }
 
@@ -1194,6 +1248,9 @@
 
             // Re-init any new custom players
             initSoundCloudCustomPlayers();
+
+            // Re-init project catalog filters
+            initProjectFilters();
 
             // Update active nav links highlighted
             updateActiveNavLink();

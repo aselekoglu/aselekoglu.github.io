@@ -373,16 +373,24 @@
         </section>
 
         <!-- Project Catalog (List of all remaining projects) -->
-        <section class="section">
+        <section class="section" id="project-catalog">
             <div class="section-head">
                 <h2>Project Catalog</h2>
                 <p class="section-note">Archived and active repositories, utility modules, and academic coursework.</p>
             </div>
 
+            <div class="catalog-filters persona-day">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="ai-product-delivery">AI Product Delivery</button>
+                <button class="filter-btn" data-filter="integrations-and-automation">Integrations & Automation</button>
+                <button class="filter-btn" data-filter="full-stack-delivery">Full-stack Delivery</button>
+                <button class="filter-btn" data-filter="data-engineering">Data Engineering</button>
+            </div>
+
             <!-- Day Catalog -->
             <div class="project-catalog persona-day">
                 <!-- ApplAI -->
-                <article class="project">
+                <article class="project" data-categories="ai-product-delivery full-stack-delivery">
                     <div class="project-meta">
                         <time>March 2026 - June 2026</time>
                         <span class="project-kind">AI Career Platform</span>
@@ -404,7 +412,7 @@
                 </article>
 
                 <!-- Sehlikzade Family Archive -->
-                <article class="project">
+                <article class="project" data-categories="full-stack-delivery">
                     <div class="project-meta">
                         <time>May 2026</time>
                         <span class="project-kind">Public Web Archive</span>
@@ -427,7 +435,7 @@
                 </article>
 
                 <!-- Air Controller -->
-                <article class="project">
+                <article class="project" data-categories="ai-product-delivery full-stack-delivery">
                     <div class="project-meta">
                         <time>May 2026</time>
                         <span class="project-kind">Computer Vision / MIDI tool</span>
@@ -448,7 +456,7 @@
                 </article>
 
                 <!-- OPS Copilot -->
-                <article class="project">
+                <article class="project" data-categories="ai-product-delivery">
                     <div class="project-meta">
                         <time>2026</time>
                         <span class="project-kind">RAG Assistant</span>
@@ -470,7 +478,7 @@
                 </article>
 
                 <!-- Cliff Walking Gymnasium -->
-                <article class="project">
+                <article class="project" data-categories="ai-product-delivery data-engineering">
                     <div class="project-meta">
                         <time>2026</time>
                         <span class="project-kind">RL Coursework</span>
@@ -489,7 +497,7 @@
                 </article>
 
                 <!-- ARPA Meal Planner -->
-                <article class="project">
+                <article class="project" data-categories="ai-product-delivery full-stack-delivery">
                     <div class="project-meta">
                         <time>March 2026 - May 2026</time>
                         <span class="project-kind">Full-stack AI Planner</span>
@@ -510,7 +518,7 @@
                 </article>
 
                 <!-- Crime Insights in Dallas -->
-                <article class="project">
+                <article class="project" data-categories="data-engineering ai-product-delivery">
                     <div class="project-meta">
                         <time>November 2025</time>
                         <span class="project-kind">Applied Machine Learning</span>
@@ -527,7 +535,7 @@
                 </article>
 
                 <!-- HubSpot Goal Tracker -->
-                <article class="project">
+                <article class="project" data-categories="integrations-and-automation">
                     <div class="project-meta">
                         <time>2024</time>
                         <span class="project-kind">Google Apps Script</span>
@@ -546,7 +554,7 @@
                 </article>
 
                 <!-- Homebridge Tuya Platform -->
-                <article class="project">
+                <article class="project" data-categories="integrations-and-automation">
                     <div class="project-meta">
                         <time>June 2024 - July 2024</time>
                         <span class="project-kind">IoT Plugin Maintenance</span>
@@ -565,7 +573,7 @@
                 </article>
 
                 <!-- HubSpot to Zoho Custom Integration -->
-                <article class="project">
+                <article class="project" data-categories="integrations-and-automation">
                     <div class="project-meta">
                         <time>November 2023</time>
                         <span class="project-kind">CRM Middleware</span>
@@ -585,7 +593,7 @@
                 </article>
 
                 <!-- Chordy (Android) -->
-                <article class="project">
+                <article class="project" data-categories="full-stack-delivery">
                     <div class="project-meta">
                         <time>February 2026</time>
                         <span class="project-kind">Android Music App</span>
@@ -604,7 +612,7 @@
                 </article>
 
                 <!-- Telecom Churn Prediction -->
-                <article class="project">
+                <article class="project" data-categories="data-engineering">
                     <div class="project-meta">
                         <time>January 2022</time>
                         <span class="project-kind">Decision Support System</span>
@@ -621,7 +629,7 @@
                 </article>
 
                 <!-- Kotlin Quiz App -->
-                <article class="project">
+                <article class="project" data-categories="full-stack-delivery">
                     <div class="project-meta">
                         <time>June 2021</time>
                         <span class="project-kind">Android Application</span>
@@ -640,7 +648,7 @@
                 </article>
 
                 <!-- Rate Center NPA-NXX -->
-                <article class="project">
+                <article class="project" data-categories="integrations-and-automation">
                     <div class="project-meta">
                         <time>2021</time>
                         <span class="project-kind">Google Sheets Utility</span>
@@ -659,7 +667,7 @@
                 </article>
 
                 <!-- CCS Signature Generator -->
-                <article class="project">
+                <article class="project" data-categories="integrations-and-automation full-stack-delivery">
                     <div class="project-meta">
                         <time>December 2021</time>
                         <span class="project-kind">Google Workspace Utility</span>
@@ -774,7 +782,6 @@
                 <article class="diagram tall" id="diagram-applai">
                     <div class="diagram-title">
                         <h3>ApplAI</h3>
-                        <a href="https://github.com/aselekoglu/ApplAI/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">applai.mmd</a>
                     </div>
                     <pre class="mermaid">
 flowchart TB
@@ -802,7 +809,6 @@ flowchart TB
                 <article class="diagram tall" id="diagram-air">
                     <div class="diagram-title">
                         <h3>Air Controller</h3>
-                        <span>air-controller.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart TB
@@ -826,7 +832,6 @@ flowchart TB
                 <article class="diagram wide" id="diagram-ops">
                     <div class="diagram-title">
                         <h3>OPS Copilot (OPS Policy Chatbot)</h3>
-                        <span>ops-copilot.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart LR
@@ -850,7 +855,6 @@ flowchart LR
                 <article class="diagram tall" id="diagram-sehlikzade">
                     <div class="diagram-title">
                         <h3>Sehlikzade Family Archive</h3>
-                        <span>sehlikzade.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart TB
@@ -877,7 +881,6 @@ flowchart TB
                 <article class="diagram tall" id="diagram-arpa">
                     <div class="diagram-title">
                         <h3>ARPA Meal Planner</h3>
-                        <span>arpa-meal-planner.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart TB
@@ -911,7 +914,6 @@ flowchart TB
                 <article class="diagram wide" id="diagram-crm">
                     <div class="diagram-title">
                         <h3>CRM Integration Middleware</h3>
-                        <span>crm-integration.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart LR
@@ -931,7 +933,6 @@ flowchart LR
                 <article class="diagram wide" id="diagram-air-night">
                     <div class="diagram-title">
                         <h3>Air Controller</h3>
-                        <span>air-controller.mmd</span>
                     </div>
                     <pre class="mermaid">
 flowchart TB
