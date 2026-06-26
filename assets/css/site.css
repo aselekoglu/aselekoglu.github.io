@@ -1398,6 +1398,7 @@ html[data-theme="day"] .performance-card:hover {
     align-items: center;
     gap: 12px;
     margin-top: auto;
+    min-width: 0;
 }
 
 .sc-play-btn {
@@ -1472,6 +1473,7 @@ html[data-theme="day"] .performance-card:hover {
     cursor: pointer;
     user-select: none;
     margin: 8px 0;
+    min-width: 0;
 }
 
 .sc-wave-bar {
@@ -1479,6 +1481,7 @@ html[data-theme="day"] .performance-card:hover {
     background: rgba(255, 255, 255, 0.15);
     border-radius: 1px;
     transition: background-color 0.1s ease;
+    min-width: 0;
 }
 
 .sc-wave-bar.filled {
@@ -1639,16 +1642,31 @@ html[data-theme="day"] .performance-card:hover {
     .featured-project-card {
         padding: 20px 15px;
     }
+    .audio-container {
+        height: auto;
+    }
+    .audio-container iframe {
+        min-height: 166px;
+    }
+    .playlist-container iframe {
+        min-height: 450px;
+    }
     .custom-sc-player {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
         padding: 12px;
         gap: 12px;
     }
     .sc-artwork {
         width: 80px;
         height: 80px;
+        align-self: center;
     }
     .sc-info-controls {
-        height: 80px;
+        width: 100%;
+        height: auto;
+        min-height: 80px;
     }
     .sc-title {
         font-size: 14px;
@@ -1671,6 +1689,8 @@ html[data-theme="day"] .performance-card:hover {
         display: none;
     }
     .sc-playlist-header {
+        flex-direction: column;
+        align-items: stretch;
         height: auto;
         min-height: 80px;
         gap: 12px;
@@ -1678,8 +1698,10 @@ html[data-theme="day"] .performance-card:hover {
     .sc-playlist-header .sc-artwork {
         width: 80px;
         height: 80px;
+        align-self: center;
     }
     .sc-playlist-header .sc-info-controls {
+        width: 100%;
         height: auto;
         min-height: 80px;
     }
