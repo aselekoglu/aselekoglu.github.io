@@ -978,6 +978,8 @@ html[data-theme="night"] .project-meta {
     flex-direction: column;
     min-width: 0;
     max-width: 100%;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .diagram.wide {
@@ -1012,8 +1014,10 @@ html[data-theme="night"] .diagram-title {
 .mermaid {
     padding: 20px;
     background: rgba(0, 0, 0, 0.01) !important;
-    overflow-x: auto;
+    overflow-x: auto !important;
     -webkit-overflow-scrolling: touch;
+    width: 100% !important;
+    box-sizing: border-box;
 }
 
 html[data-theme="night"] .mermaid {
@@ -1021,8 +1025,8 @@ html[data-theme="night"] .mermaid {
 }
 
 .mermaid svg {
-    max-width: 100%;
-    height: auto;
+    max-width: none !important;
+    height: auto !important;
 }
 
 /* ---------- Scroll-Driven Animations (Progressive Enhancement) ---------- */
