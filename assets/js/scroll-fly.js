@@ -61,8 +61,17 @@
         const width = cachedHeroWidth + (cachedSidebarWidth - cachedHeroWidth) * t;
         const height = cachedHeroHeight + (cachedSidebarHeight - cachedHeroHeight) * t;
 
-        // Apply style values directly to the active avatar
-        activeAvatar.style.top = `${top}px`;
+        // Apply style values directly to the active avatar, adjusting top for elastic overscroll
+        const maxScrollLimit = Math.max(0, document.documentElement.scrollHeight - window.innerHeight);
+        let overscroll = 0;
+        if (window.scrollY < 0) {
+            overscroll = window.scrollY;
+        } else if (window.scrollY > maxScrollLimit) {
+            overscroll = window.scrollY - maxScrollLimit;
+        }
+        const finalTop = top - overscroll;
+
+        activeAvatar.style.top = `${finalTop}px`;
         activeAvatar.style.left = `${left}px`;
         activeAvatar.style.width = `${width}px`;
         activeAvatar.style.height = `${height}px`;
