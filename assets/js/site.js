@@ -1022,18 +1022,150 @@
         }
     }
 
+    // ---------- SoundCloud promo popup (site-wide) ----------
+    const SC_PROMO_KEY = 'sc_listened';
+    const SC_PROMO_DELAY = 3000; // ms
+    const SC_TRACK_IDENTIFIERS = ['2162149044', 'ghost-of-pain'];
+
+    function findScIframe() {
+        const allIframes = Array.from(document.querySelectorAll('iframe')).filter(f => f.src && f.src.includes('soundcloud.com'));
+        for (const id of SC_TRACK_IDENTIFIERS){
+            const found = allIframes.find(f => f.src && f.src.includes(id));
+            if (found) return found;
+        }
+        if (allIframes.length) return allIframes[0];
+        const shelter = document.getElementById('sc-iframe-shelter');
+        if (shelter){
+            const shelterIframe = shelter.querySelector('iframe');
+            if (shelterIframe) return shelterIframe;
+        }
+        return null;
+    }
+
+    function createScPromoPopup(){
+        if (document.getElementById('sc-promo-popup')) return;
+        const el = document.createElement('div');
+        el.id = 'sc-promo-popup';
+        el.setAttribute('role','dialog');
+        el.setAttribute('aria-label','Listen while browsing projects');
+        el.style.position = 'fixed';
+        el.style.right = '20px';
+        el.style.bottom = '20px';
+        el.style.zIndex = 9999;
+        el.style.maxWidth = '320px';
+        el.style.padding = '14px 16px';
+        el.style.borderRadius = '12px';
+        el.style.boxShadow = '0 6px 20px rgba(0,0,0,0.18)';
+        el.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98))';
+        el.style.color = 'var(--ink, #16231f)';
+        el.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
+        el.innerHTML = `
+            <div style="display:flex; gap:12px; align-items:flex-start">
+                <div style="flex:1">
+                    <div style="font-weight:600; margin-bottom:4px">Wanna listen to my original music while browsing my projects?</div>
+                    <div style="font-size:13px; color:var(--muted, #6b6b6b); margin-bottom:8px">Play "Ghost of Pain" in the mini player.</div>
+                    <div style="display:flex; gap:8px;">
+                        <button id="sc-promo-play" style="background:#2d1b4e;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer">Play</button>
+                        <button id="sc-promo-dismiss" style="background:transparent;border:1px solid var(--line-strong,#d0d0d0);padding:6px 10px;border-radius:8px;cursor:pointer">Dismiss</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(el);
+
+        document.getElementById('sc-promo-dismiss').addEventListener('click', () => {
+            el.remove();
+            try{ localStorage.setItem(SC_PROMO_KEY, 'true'); }catch(_e){}
+        });
+
+        document.getElementById('sc-promo-play').addEventListener('click', () => {
+            const iframe = findScIframe();
+            if (!iframe){
+                console.warn('No SoundCloud iframe found to play.');
+                try{ localStorage.setItem(SC_PROMO_KEY, 'true'); }catch(_e){}
+                el.remove();
+                return;
+            }
+
+            // Ensure SC API loaded and then play via widget
+            const existing = window.SC && window.SC.Widget ? Promise.resolve() : new Promise((res) => {
+                const s = document.querySelector('script[src*="soundcloud.com/player/api.js"]');
+                if (s) {
+                    if (s.onload) res(); else s.addEventListener('load', res);
+                } else {
+                    const script = document.createElement('script');
+                    script.src = 'https://w.soundcloud.com/player/api.js';
+                    script.async = true;
+                    script.onload = res;
+                    document.head.appendChild(script);
+                }
+            });
+
+            existing.then(() => {
+                try{
+                    const widget = window.SC && window.SC.Widget ? window.SC.Widget(iframe) : null;
+                    if (widget && typeof widget.play === 'function'){
+                        widget.play();
+                    } else {
+                        try{
+                            const src = iframe.src;
+                            if (!src.includes('auto_play=true')){
+                                iframe.src = src.replace('auto_play=false','auto_play=true');
+                            }
+                        }catch(_e){}
+                    }
+                }catch(err){
+                    console.error('Failed to start SoundCloud widget:', err);
+                }
+                try{ localStorage.setItem(SC_PROMO_KEY, 'true'); }catch(_e){}
+                el.remove();
+            }).catch((e)=>{
+                console.error('Failed loading SC API', e);
+                try{ localStorage.setItem(SC_PROMO_KEY, 'true'); }catch(_e){}
+                el.remove();
+            });
+        });
+    }
+
+    let scPromoTimer = null;
+    let scPromoShown = false;
+
+    function isOnProjectsPage() {
+        try{
+            const path = window.location.pathname || '';
+            if (path.endsWith('projects.html') || path.endsWith('/projects') || path === '/projects') return true;
+        }catch(_e){}
+        if (document.querySelector('.featured-projects-container') || document.querySelector('.project-catalog') || document.querySelector('.audio-container')) return true;
+        return false;
+    }
+
+    function scheduleScPromoPopup() {
+        if (scPromoShown) return;
+        try{ if (localStorage.getItem(SC_PROMO_KEY) === 'true') return; }catch(_e){}
+        if (!isOnProjectsPage()) return;
+        if (scPromoTimer) clearTimeout(scPromoTimer);
+        scPromoTimer = setTimeout(() => {
+            try{ if (localStorage.getItem(SC_PROMO_KEY) === 'true') return; }catch(_e){}
+            createScPromoPopup();
+            scPromoShown = true;
+        }, SC_PROMO_DELAY);
+    }
+
+    // Wire into initial boot and PJAX
     if (document.readyState === "loading") {
         document.addEventListener("DOMContentLoaded", () => {
             initSoundCloudCustomPlayers();
             initPersonaTooltip();
             initProjectFilters();
             initPjax();
+            scheduleScPromoPopup();
         });
     } else {
         initSoundCloudCustomPlayers();
         initPersonaTooltip();
         initProjectFilters();
         initPjax();
+        scheduleScPromoPopup();
     }
 
     // Export global helpers for Mermaid dynamic loading and rendering
@@ -1281,6 +1413,8 @@
 
             // Trigger scroll event to sync the mini player visibility immediately
             checkMiniPlayerVisibility();
+            // Schedule SoundCloud promo popup if appropriate (PJAX navigations)
+            try { if (typeof scheduleScPromoPopup === 'function') scheduleScPromoPopup(); } catch(_e) {}
 
         } catch (err) {
             console.error("PJAX navigation failed:", err);
