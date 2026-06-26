@@ -1294,6 +1294,7 @@ html[data-theme="day"] .performance-card:hover {
     align-items: center;
     position: relative;
     overflow: hidden;
+    min-width: 0;
 }
 
 .custom-sc-player.sc-playlist-layout {
@@ -1310,6 +1311,7 @@ html[data-theme="day"] .performance-card:hover {
     gap: 16px;
     height: auto;
     width: 100%;
+    min-width: 0;
 }
 
 .sc-artwork {
@@ -1554,6 +1556,7 @@ html[data-theme="day"] .performance-card:hover {
     gap: 2px;
     scrollbar-width: thin;
     scrollbar-color: var(--line-strong) transparent;
+    min-width: 0;
 }
 
 .sc-tracklist::-webkit-scrollbar {
@@ -1581,6 +1584,7 @@ html[data-theme="day"] .performance-card:hover {
     gap: 12px;
     min-height: 36px;
     box-sizing: border-box;
+    min-width: 0;
 }
 
 .sc-track-item:hover {
