@@ -12,6 +12,7 @@
 
     let isMobile = null;
     let ticked = false;
+    let isAttachedToSidebar = false;
 
     // Cache variables for desktop coordinates
     let cachedHeroTopAtZero = 0;
@@ -51,6 +52,31 @@
         // Determine the scroll distance over which the morph completes
         const maxScroll = Math.max(300, cachedHeroHeight);
         const t = Math.min(Math.max(scrollY / maxScroll, 0), 1);
+
+        if (t >= 1) {
+            if (!isAttachedToSidebar) {
+                // Attach to sidebar placeholder so it moves naturally with it during rubber-band overscroll
+                sidebarPlaceholder.appendChild(activeAvatar);
+                activeAvatar.style.position = 'absolute';
+                activeAvatar.style.top = '0';
+                activeAvatar.style.left = '0';
+                activeAvatar.style.width = '100%';
+                activeAvatar.style.height = '100%';
+                activeAvatar.style.transform = '';
+                isAttachedToSidebar = true;
+            }
+            activeAvatar.classList.remove('at-start');
+            return;
+        }
+
+        // If t < 1, make sure it is detached from sidebar and fixed to body
+        if (isAttachedToSidebar) {
+            document.body.appendChild(activeAvatar);
+            activeAvatar.style.position = 'fixed';
+            isAttachedToSidebar = false;
+            // Recalculate cache because DOM manipulation might shift layout slightly
+            updateCache();
+        }
 
         // Current hero top in viewport space
         const heroTop = cachedHeroTopAtZero - scrollY;
@@ -136,10 +162,12 @@
                 activeAvatar.style.height = '';
                 activeAvatar.style.transform = '';
                 activeAvatar.classList.remove('at-start');
+                isAttachedToSidebar = false;
             } else {
                 // Move back to root body as a fixed element
                 document.body.appendChild(activeAvatar);
                 activeAvatar.style.position = 'fixed';
+                isAttachedToSidebar = false;
                 updateCache();
                 render();
             }
@@ -153,6 +181,7 @@
         activeAvatar = document.getElementById('active-avatar');
         sidebarPlaceholder = document.getElementById('sidebar-avatar-placeholder');
         heroPlaceholder = document.getElementById('hero-avatar-placeholder');
+        isAttachedToSidebar = false;
 
         if (!activeAvatar || !sidebarPlaceholder) {
             return;
