@@ -1665,13 +1665,19 @@ html[data-theme="day"] .performance-card:hover {
     .audio-container iframe {
         min-height: 166px;
     }
+    .playlist-container {
+        height: 480px;
+    }
     .playlist-container iframe {
-        min-height: 450px;
+        min-height: 480px;
     }
     .custom-sc-player {
         flex-direction: column;
         align-items: stretch;
         height: auto;
+    }
+    .custom-sc-player.sc-playlist-layout {
+        height: 100% !important;
     }
     .sc-artwork {
         width: 80px;
