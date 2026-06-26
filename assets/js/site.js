@@ -27,6 +27,42 @@
         hideMiniPlayer();
     };
 
+    const setupMarquee = (el) => {
+        if (!el) return;
+        
+        // Find or create the inner marquee text element
+        let inner = el.querySelector(".marquee-inner");
+        if (!inner) {
+            inner = document.createElement("span");
+            inner.className = "marquee-inner";
+            inner.style.display = "inline-block";
+            inner.style.whiteSpace = "nowrap";
+            // Move all children of el into inner
+            while (el.firstChild) {
+                inner.appendChild(el.firstChild);
+            }
+            el.appendChild(inner);
+        }
+        
+        inner.classList.remove("marquee-active");
+        el.classList.remove("marquee-parent");
+        inner.style.transform = "";
+        inner.style.removeProperty("--scroll-dist");
+        inner.style.animation = "";
+        
+        setTimeout(() => {
+            const containerWidth = el.clientWidth;
+            const textWidth = inner.scrollWidth;
+            if (textWidth > containerWidth && containerWidth > 0) {
+                inner.classList.add("marquee-active");
+                el.classList.add("marquee-parent");
+                const scrollDist = textWidth - containerWidth;
+                inner.style.setProperty("--scroll-dist", `-${scrollDist + 12}px`);
+                inner.style.animation = "marquee-bounce 7s ease-in-out infinite alternate";
+            }
+        }, 150);
+    };
+
     /* ---------- Active nav link ---------- */
     function updateActiveNavLink(path) {
         const currentPath = (path || window.location.pathname).toLowerCase();
@@ -203,8 +239,14 @@
             const artistEl = miniPlayerEl.querySelector(".sc-mini-artist");
             const artworkImg = miniPlayerEl.querySelector(".sc-mini-art-img");
 
-            if (titleEl) titleEl.textContent = sound.title || "SoundCloud Track";
-            if (artistEl) artistEl.textContent = sound.user ? sound.user.username : "Artist";
+            if (titleEl) {
+                titleEl.textContent = sound.title || "SoundCloud Track";
+                setupMarquee(titleEl);
+            }
+            if (artistEl) {
+                artistEl.textContent = sound.user ? sound.user.username : "Artist";
+                setupMarquee(artistEl);
+            }
 
             if (artworkImg) {
                 if (sound.artwork_url) {
@@ -454,6 +496,8 @@
                         if (sound) {
                             titleEl.textContent = sound.title || "SoundCloud Track";
                             artistEl.textContent = sound.user ? sound.user.username : "Artist";
+                            setupMarquee(titleEl);
+                            setupMarquee(artistEl);
                             if (sound.artwork_url) {
                                 const highQualityArt = sound.artwork_url.replace("-large.", "-t300x300.");
                                 artworkImg.style.backgroundImage = `url('${highQualityArt}')`;
@@ -716,6 +760,8 @@
                         if (sound) {
                             titleEl.textContent = sound.title || "SoundCloud Track";
                             artistEl.textContent = sound.user ? sound.user.username : "Artist";
+                            setupMarquee(titleEl);
+                            setupMarquee(artistEl);
                             if (sound.artwork_url) {
                                 const highQualityArt = sound.artwork_url.replace("-large.", "-t300x300.");
                                 artworkImg.style.backgroundImage = `url('${highQualityArt}')`;
@@ -756,6 +802,9 @@
                             });
 
                             updateActiveTrackHighlight();
+                            setTimeout(() => {
+                                tracklistEl.querySelectorAll(".sc-track-title").forEach(setupMarquee);
+                            }, 100);
                         } else {
                             tracklistEl.innerHTML = `<div style="padding: 10px; text-align: center; color: var(--muted); font-size: 13px;">No tracks found</div>`;
                         }

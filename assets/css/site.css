@@ -1158,12 +1158,16 @@ html[data-theme="night"] .mermaid {
     gap: 24px;
     margin-top: 24px;
     align-items: start;
+    width: 100%;
+    max-width: 100%;
 }
 
 .performances-col {
     display: flex;
     flex-direction: column;
     gap: 24px;
+    width: 100%;
+    min-width: 0;
 }
 
 .performance-card {
@@ -1374,6 +1378,8 @@ html[data-theme="day"] .performance-card:hover {
     flex-direction: column;
     gap: 4px;
     min-width: 0;
+    width: 100%;
+    overflow: hidden;
 }
 
 .sc-title {
@@ -1391,6 +1397,26 @@ html[data-theme="day"] .performance-card:hover {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.marquee-parent {
+    text-overflow: clip !important;
+}
+
+.marquee-inner {
+    display: inline-block;
+    white-space: nowrap;
+    max-width: none;
+    will-change: transform;
+}
+
+@keyframes marquee-bounce {
+    0%, 25% {
+        transform: translateX(0);
+    }
+    75%, 100% {
+        transform: translateX(var(--scroll-dist, 0));
+    }
 }
 
 .sc-controls-row {
@@ -1631,17 +1657,8 @@ html[data-theme="day"] .performance-card:hover {
     color: var(--muted);
 }
 
-/* Mobile responsive overrides */
-@media (max-width: 480px) {
-    .sidebar {
-        padding: 30px 15px;
-    }
-    .main {
-        padding: 30px 15px;
-    }
-    .featured-project-card {
-        padding: 20px 15px;
-    }
+/* Tablet & Mobile responsive overrides */
+@media (max-width: 768px) {
     .audio-container {
         height: auto;
     }
@@ -1655,8 +1672,6 @@ html[data-theme="day"] .performance-card:hover {
         flex-direction: column;
         align-items: stretch;
         height: auto;
-        padding: 12px;
-        gap: 12px;
     }
     .sc-artwork {
         width: 80px;
@@ -1667,6 +1682,39 @@ html[data-theme="day"] .performance-card:hover {
         width: 100%;
         height: auto;
         min-height: 80px;
+    }
+    .sc-playlist-header {
+        flex-direction: column;
+        align-items: stretch;
+        height: auto;
+        min-height: 80px;
+        gap: 12px;
+    }
+    .sc-playlist-header .sc-artwork {
+        width: 80px;
+        height: 80px;
+        align-self: center;
+    }
+    .sc-playlist-header .sc-info-controls {
+        width: 100%;
+        height: auto;
+        min-height: 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        padding: 30px 15px;
+    }
+    .main {
+        padding: 30px 15px;
+    }
+    .featured-project-card {
+        padding: 20px 15px;
+    }
+    .custom-sc-player {
+        padding: 12px;
+        gap: 12px;
     }
     .sc-title {
         font-size: 14px;
@@ -1687,23 +1735,6 @@ html[data-theme="day"] .performance-card:hover {
     }
     .sc-visualizer {
         display: none;
-    }
-    .sc-playlist-header {
-        flex-direction: column;
-        align-items: stretch;
-        height: auto;
-        min-height: 80px;
-        gap: 12px;
-    }
-    .sc-playlist-header .sc-artwork {
-        width: 80px;
-        height: 80px;
-        align-self: center;
-    }
-    .sc-playlist-header .sc-info-controls {
-        width: 100%;
-        height: auto;
-        min-height: 80px;
     }
 }
 
@@ -1803,6 +1834,8 @@ html[data-theme="day"] .performance-card:hover {
     justify-content: center;
     flex: 1;
     min-width: 0; /* Ensures ellipsis works on child elements */
+    width: 100%;
+    overflow: hidden;
 }
 
 .sc-mini-title {
