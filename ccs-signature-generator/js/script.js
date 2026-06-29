@@ -7,6 +7,10 @@ const checkbox = document.getElementById('meeting-checkbox');
 const hiddenElement = document.getElementById('hidden');
 const hiddenSig = document.getElementById('hidden-sig');
 
+Array.from(links).forEach(function (el) {
+    el.dataset.baseHref = el.getAttribute('href');
+});
+
 // Handle meeting checkbox toggle
 checkbox.addEventListener('change', function () {
     if (checkbox.checked) {
@@ -57,6 +61,8 @@ function generateSig() {
         }
         $this.attr("href", baseHref + signature.email);
     });
+
+    $('.btn').show();
 }
 
 // Attach event listeners for real-time typing preview updates
