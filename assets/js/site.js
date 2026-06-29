@@ -1182,29 +1182,16 @@
         if (document.getElementById('sc-promo-popup')) return;
         const el = document.createElement('div');
         el.id = 'sc-promo-popup';
+        el.className = 'sc-promo-popup';
         el.setAttribute('role','dialog');
         el.setAttribute('aria-label','Listen while browsing projects');
-        el.style.position = 'fixed';
-        el.style.right = '20px';
-        el.style.bottom = '20px';
-        el.style.zIndex = 9999;
-        el.style.maxWidth = '320px';
-        el.style.padding = '14px 16px';
-        el.style.borderRadius = '12px';
-        el.style.boxShadow = '0 6px 20px rgba(0,0,0,0.18)';
-        el.style.background = 'linear-gradient(180deg, rgba(255,255,255,0.98), rgba(250,250,250,0.98))';
-        el.style.color = 'var(--ink, #16231f)';
-        el.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial';
         el.innerHTML = `
-            <div style="display:flex; gap:12px; align-items:flex-start">
-                <div style="flex:1">
-                    <div style="font-weight:600; margin-bottom:4px">Wanna listen to my original music while browsing my projects?</div>
-                    <div style="font-size:13px; color:var(--muted, #6b6b6b); margin-bottom:8px">Play "Ghost of Pain" in the mini player.</div>
-                    <div style="display:flex; gap:8px;">
-                        <button id="sc-promo-play" style="background:#2d1b4e;color:#fff;border:none;padding:8px 12px;border-radius:8px;cursor:pointer">Play</button>
-                        <button id="sc-promo-dismiss" style="background:transparent;border:1px solid var(--line-strong,#d0d0d0);padding:6px 10px;border-radius:8px;cursor:pointer">Dismiss</button>
-                    </div>
-                </div>
+            <div class="sc-promo-kicker">Original track</div>
+            <div class="sc-promo-title">Listen while browsing?</div>
+            <div class="sc-promo-copy">Play "Ghost of Pain" in the mini player.</div>
+            <div class="sc-promo-actions">
+                <button id="sc-promo-play" class="sc-promo-btn sc-promo-btn-primary" type="button">Play</button>
+                <button id="sc-promo-dismiss" class="sc-promo-btn sc-promo-btn-secondary" type="button">Dismiss</button>
             </div>
         `;
         document.body.appendChild(el);
