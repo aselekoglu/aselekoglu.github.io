@@ -18,7 +18,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/site.css?v=19">
+    <link rel="stylesheet" href="assets/css/site.css?v=20">
     <script defer src="https://cloud.umami.is/script.js" data-website-id="c396757d-b2fb-47d2-ba54-9dfc86b5c39f"></script>
 </head>
 <body>
@@ -70,6 +70,42 @@
 
             <!-- Day Persona Featured (ApplAI, OPS Copilot, Sehlikzade Archive) -->
             <div class="featured-projects-container persona-day">
+                <!-- Top Notch -->
+                <article class="featured-project-card" id="feat-topnotch">
+                    <div class="featured-project-header">
+                        <span class="kicker">macOS workflow utility</span>
+                        <h3>Top Notch</h3>
+                        <p class="project-sub">Personal Project · July 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Daily macOS workflows often require switching between full apps for music context, clipboard history, and quick notes, while the physical notch/menu-bar area remains underused as a persistent glanceable surface.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Built a native macOS utility in Swift, SwiftUI, and AppKit with a floating top-center <code>NSPanel</code> that attaches visually to the physical notch or behaves as a virtual island on notchless displays.</li>
+                                <li>Separated testable app logic into <code>TopNotchCore</code> while keeping window lifecycle, status item behavior, and SwiftUI panel rendering in the app target.</li>
+                                <li>Implemented provider boundaries for Apple Music now-playing state, playback controls, lyrics fallback states, and future media-provider expansion.</li>
+                                <li>Added privacy-first local clipboard history with text-only capture, pre-persistence sensitive-content filtering, retention limits, and copy-back behavior that avoids duplicate churn.</li>
+                                <li>Created local Markdown scratchpad and pinned-note stores, display calibration settings, multi-display positioning, and planned module tiles for future calendar, timer, file-drop, commands, and read-only agents modules.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>A local-first macOS workflow surface that keeps music, lyrics, clipboard, notes, and future module context one click from the notch without accounts, cloud sync, telemetry, or background server storage.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Swift</span><span class="tag">SwiftUI</span><span class="tag">AppKit</span><span class="tag">SwiftPM</span><span class="tag">Local-first</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aselekoglu/topnotch" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="#diagram-topnotch">View Diagram</a>
+                    </div>
+                </article>
+
                 <!-- ApplAI -->
                 <article class="featured-project-card" id="feat-applai">
                     <div class="featured-project-header">
@@ -389,6 +425,28 @@
 
             <!-- Day Catalog -->
             <div class="project-catalog persona-day">
+                <!-- Top Notch -->
+                <article class="project" data-categories="full-stack-delivery ai-product-delivery">
+                    <div class="project-meta">
+                        <time>July 2026</time>
+                        <span class="project-kind">Native macOS Utility</span>
+                        <h3>Top Notch</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Built a native SwiftUI/AppKit macOS utility that turns the notch or top-center menu-bar area into a compact daily workflow surface.</li>
+                            <li>Split the app into <code>TopNotchCore</code> for testable module logic, settings, geometry, persistence, and service boundaries, plus a <code>TopNotch</code> target for AppKit lifecycle, windows, status item, and SwiftUI views.</li>
+                            <li>Implemented Apple Music now-playing detection, playback controls, synced/plain/unavailable lyrics states, hover expansion, and a black-core dropdown dashboard.</li>
+                            <li>Added privacy-first local clipboard history with pre-persistence sensitive text filtering, local retention limits, and text-only capture.</li>
+                            <li>Created Markdown scratchpad and pinned-note storage, display calibration settings, multi-display positioning, and planned read-only workflow modules for future expansion.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/topnotch" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-topnotch">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- ApplAI -->
                 <article class="project" data-categories="ai-product-delivery full-stack-delivery">
                     <div class="project-meta">
@@ -778,6 +836,35 @@
 
             <!-- Day Diagrams -->
             <div class="diagram-grid persona-day">
+                <!-- Top Notch Diagram -->
+                <article class="diagram tall" id="diagram-topnotch">
+                    <div class="diagram-title">
+                        <h3>Top Notch</h3>
+                    </div>
+                    <pre class="mermaid">
+flowchart TB
+  User["macOS User"]
+  Status["Menu Bar Status Item"]
+  Surface["TopSurface NSPanel"]
+  Panel["MainPanel NSPanel"]
+  Core["TopNotchCore"]
+  Music["Music Provider Boundary"]
+  Clipboard["Privacy-first Clipboard Store"]
+  Notes["Markdown Notes Store"]
+  Settings["Settings + Geometry"]
+  Planned["Read-only Planned Modules"]
+  User --> Status
+  User --> Surface --> Panel
+  Panel --> Core
+  Surface --> Core
+  Core --> Music
+  Core --> Clipboard
+  Core --> Notes
+  Core --> Settings
+  Core --> Planned
+                    </pre>
+                </article>
+
                 <!-- ApplAI Diagram -->
                 <article class="diagram tall" id="diagram-applai">
                     <div class="diagram-title">

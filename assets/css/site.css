@@ -493,9 +493,14 @@ html[data-theme="night"] .persona-toggle-thumb {
     will-change: transform, width, height;
 }
 
+#active-avatar .hero-img-layer {
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.08) 14px, rgba(0,0,0,0.36) 38px, rgba(0,0,0,0.74) 76px, black 124px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.08) 14px, rgba(0,0,0,0.36) 38px, rgba(0,0,0,0.74) 76px, black 124px);
+}
+
 #active-avatar.at-start .hero-img-layer {
-    mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.08) 32px, rgba(0,0,0,0.38) 92px, rgba(0,0,0,0.78) 168px, black 240px);
-    -webkit-mask-image: linear-gradient(to left, transparent 0%, rgba(0,0,0,0.08) 32px, rgba(0,0,0,0.38) 92px, rgba(0,0,0,0.78) 168px, black 240px);
+    mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.06) 24px, rgba(0,0,0,0.34) 64px, rgba(0,0,0,0.76) 120px, black 180px);
+    -webkit-mask-image: linear-gradient(to right, transparent 0, rgba(0,0,0,0.06) 24px, rgba(0,0,0,0.34) 64px, rgba(0,0,0,0.76) 120px, black 180px);
 }
 
 /* ---------- Hero Image Crossfade (Scale-Settling) ---------- */
