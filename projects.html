@@ -837,12 +837,12 @@
             <!-- Day Diagrams -->
             <div class="diagram-grid persona-day">
                 <!-- Top Notch Diagram -->
-                <article class="diagram tall" id="diagram-topnotch">
+                <article class="diagram wide diagram-primary" id="diagram-topnotch">
                     <div class="diagram-title">
                         <h3>Top Notch</h3>
                     </div>
                     <pre class="mermaid">
-flowchart TB
+flowchart LR
   User["macOS User"]
   Status["Menu Bar Status Item"]
   Surface["TopSurface NSPanel"]
@@ -853,10 +853,9 @@ flowchart TB
   Notes["Markdown Notes Store"]
   Settings["Settings + Geometry"]
   Planned["Read-only Planned Modules"]
-  User --> Status
-  User --> Surface --> Panel
-  Panel --> Core
+  User --> Status --> Surface --> Panel
   Surface --> Core
+  Panel --> Core
   Core --> Music
   Core --> Clipboard
   Core --> Notes
