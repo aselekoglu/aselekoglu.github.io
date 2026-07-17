@@ -447,6 +447,27 @@
                     </div>
                 </article>
 
+                <!-- GEDS Explorer -->
+                <article class="project" data-categories="data-engineering full-stack-delivery">
+                    <div class="project-meta">
+                        <time>July 2026</time>
+                        <span class="project-kind">Data Discovery Explorer</span>
+                        <h3>GEDS Explorer</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Designed a privacy-conscious explorer for finding Government of Canada IT, software, data, AI, and cybersecurity teams and titles across GEDS.</li>
+                            <li>Separated the crawl pipeline from the product layer, using Python to create reusable SQLite and JSONL snapshots for search, filtering, and organization-tree exploration.</li>
+                            <li>Planned a bilingual, responsive Career Atlas experience with department navigation, global search, title and organization filters, ranked results, and source-linked evidence.</li>
+                            <li>Kept phone and email details out of stored data while preserving official GEDS source links for verification.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/geds-explorer" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            <a href="#diagram-geds">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- ApplAI -->
                 <article class="project" data-categories="ai-product-delivery full-stack-delivery">
                     <div class="project-meta">
@@ -842,6 +863,25 @@ flowchart LR
   Core --> Notes
   Core --> Settings
   Core --> Planned
+                    </pre>
+                </article>
+
+                <!-- GEDS Explorer Diagram -->
+                <article class="diagram wide" id="diagram-geds">
+                    <div class="diagram-title">
+                        <h3>GEDS Explorer</h3>
+                    </div>
+                    <pre class="mermaid">
+flowchart LR
+  GEDS["Official GEDS Pages"]
+  Crawl["Rate-limited Python Crawler"]
+  Privacy["Privacy Boundary: No Phone or Email Storage"]
+  Snapshot["Reusable SQLite + JSONL Snapshot"]
+  API["Search + Filter API"]
+  Atlas["Bilingual Career Atlas: Search + Org Tree"]
+  Evidence["Official Source Links"]
+  GEDS --> Crawl --> Privacy --> Snapshot --> API --> Atlas
+  Snapshot --> Evidence --> Atlas
                     </pre>
                 </article>
 
