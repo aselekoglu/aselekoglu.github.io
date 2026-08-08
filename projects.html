@@ -68,7 +68,7 @@
                 <p class="section-note">Key projects highlighting core design patterns, problem-solving, and outcomes.</p>
             </div>
 
-            <!-- Day Persona Featured (ApplAI, OPS Copilot, Sehlikzade Archive) -->
+            <!-- Day Persona Featured (Codex Router, ApplAI, OPS Copilot, Sehlikzade Archive) -->
             <div class="featured-projects-container persona-day">
                 <!-- Top Notch -->
                 <article class="featured-project-card" id="feat-topnotch">
@@ -103,6 +103,42 @@
                     <div class="project-links">
                         <a href="https://github.com/aselekoglu/topnotch" target="_blank" rel="noopener noreferrer">GitHub</a>
                         <a href="#diagram-topnotch">View Diagram</a>
+                    </div>
+                </article>
+
+                <!-- Codex Router -->
+                <article class="featured-project-card" id="feat-codex-router">
+                    <div class="featured-project-header">
+                        <span class="kicker">Local AI Router</span>
+                        <h3>Codex Router</h3>
+                        <p class="project-sub">Open-source Contribution · 2026</p>
+                    </div>
+                    <div class="pao-grid">
+                        <div class="pao-col">
+                            <h4 class="pao-label">Problem</h4>
+                            <p>Using external AI models inside Codex App and CLI requires reliable local credential isolation and request translation across providers with different API capabilities, especially on Windows.</p>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Approach</h4>
+                            <ul>
+                                <li>Fixed <code>cmd.exe</code> quoting and escaping issues in Windows Scheduled Task commands.</li>
+                                <li>Prevented service installation from failing unnecessarily in non-elevated Windows terminals.</li>
+                                <li>Added Gemini request normalization that removes unsupported thinking, web search, penalty, seed, store, and logit bias parameters.</li>
+                                <li>Made the UTF-8 Python/LiteLLM runtime setup more reliable under Windows.</li>
+                                <li>Converted Gemini-incompatible <code>image_url</code>/<code>input_image</code> parts in assistant and tool history into safe text placeholders.</li>
+                                <li>Added routing and regression coverage for these Windows and provider-compatibility edge cases.</li>
+                            </ul>
+                        </div>
+                        <div class="pao-col">
+                            <h4 class="pao-label">Outcome</h4>
+                            <p>Contributed targeted Windows reliability and Gemini API compatibility improvements to the open-source Node.js router. Validation: <code>npm run check</code> passed; related routing and service tests passed 33 cases with 1 skipped.</p>
+                        </div>
+                    </div>
+                    <div class="tags">
+                        <span class="tag">Node.js</span><span class="tag">JavaScript ESM</span><span class="tag">PowerShell</span><span class="tag">Windows Scheduled Tasks</span><span class="tag">OpenAI-compatible APIs</span><span class="tag">Gemini API</span><span class="tag">Node test runner</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/aselekoglu/codex-router" target="_blank" rel="noopener noreferrer">GitHub</a>
                     </div>
                 </article>
 
@@ -464,6 +500,27 @@
                         <div class="project-links">
                             <a href="https://github.com/aselekoglu/geds-explorer" target="_blank" rel="noopener noreferrer">GitHub</a>
                             <a href="#diagram-geds">View Diagram</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Codex Router -->
+                <article class="project" data-categories="ai-product-delivery integrations-and-automation">
+                    <div class="project-meta">
+                        <time>2026</time>
+                        <span class="project-kind">Local Node.js Router</span>
+                        <h3>Codex Router</h3>
+                    </div>
+                    <div class="project-body">
+                        <ul>
+                            <li>Contributed Windows reliability fixes for <code>cmd.exe</code> quoting and escaping in Scheduled Task commands.</li>
+                            <li>Prevented unnecessary service-installation failures in non-elevated Windows terminals and improved the UTF-8 Python/LiteLLM runtime setup.</li>
+                            <li>Added provider-aware Gemini request normalization for unsupported thinking, web search, penalty, seed, store, and logit bias parameters.</li>
+                            <li>Converted Gemini-incompatible <code>image_url</code>/<code>input_image</code> history parts into safe text placeholders.</li>
+                            <li>Added routing and regression tests for the Windows and provider-compatibility edge cases.</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://github.com/aselekoglu/codex-router" target="_blank" rel="noopener noreferrer">GitHub</a>
                         </div>
                     </div>
                 </article>
