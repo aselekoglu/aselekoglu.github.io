@@ -1106,6 +1106,22 @@
         });
     };
 
+    /* ---------- Chronological Project Ordering ---------- */
+    function initProjectSorting() {
+        const sortNewestFirst = (a, b) => {
+            const dateOrder = (b.dataset.projectDate || "").localeCompare(a.dataset.projectDate || "");
+            return dateOrder || (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_PRECEDING ? 1 : -1);
+        };
+
+        document.querySelectorAll(".featured-projects-container, .project-catalog").forEach((container) => {
+            const selector = container.classList.contains("featured-projects-container")
+                ? ":scope > .featured-project-card[data-project-date]"
+                : ":scope > .project[data-project-date]";
+            const projects = Array.from(container.querySelectorAll(selector));
+            projects.sort(sortNewestFirst).forEach((project) => container.appendChild(project));
+        });
+    }
+
     /* ---------- Project Catalog Filters ---------- */
     function initProjectFilters() {
         const filterContainer = document.querySelector(".catalog-filters");
@@ -1279,6 +1295,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             initSoundCloudCustomPlayers();
             initPersonaTooltip();
+            initProjectSorting();
             initProjectFilters();
             initPjax();
             scheduleScPromoPopup();
@@ -1286,6 +1303,7 @@
     } else {
         initSoundCloudCustomPlayers();
         initPersonaTooltip();
+        initProjectSorting();
         initProjectFilters();
         initPjax();
         scheduleScPromoPopup();
@@ -1505,6 +1523,7 @@
             initSoundCloudCustomPlayers();
 
             // Re-init project catalog filters
+            initProjectSorting();
             initProjectFilters();
 
             // Update active nav links highlighted
