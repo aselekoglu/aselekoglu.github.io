@@ -25,7 +25,7 @@ A CSS geometric wipe preserves live header controls during transitions. Full-doc
 
 Project category filters synchronize the URL and pressed state. Direct case-study URLs reveal the right persona and open the relevant disclosure. Existing homepage anchors `overview`, `featured`, `skills`, and `contact` are retained.
 
-SoundCloud and YouTube iframes load only when a visitor opens a player. Closing the player or changing persona removes the frame and stops playback. External listening links remain available. Mermaid is also loaded on demand; diagram source remains readable if the optional renderer is unavailable.
+SoundCloud loads after an explicit play action and uses one shared Widget API instance. Custom inline controls and a fixed bottom player share actual track metadata, playback, progress, seeking, volume, and playlist navigation. Playback continues across persona changes and internal navigation; Stop closes and unloads it. The SoundCloud attribution link remains available, including on connection failures. YouTube remains an on-demand embed and stops when its disclosure closes or the persona changes. Mermaid is also loaded on demand; diagram source remains readable if the optional renderer is unavailable.
 
 ## Files and scope
 
@@ -33,6 +33,11 @@ SoundCloud and YouTube iframes load only when a visitor opens a player. Closing 
 - `musician.html`: direct musician entry with the original longer artist story and milestones.
 - `projects.html`: preserved project and music content with the new shared layout.
 - `assets/css/portfolio.css`: shared design tokens and responsive presentation.
-- `assets/js/portfolio.js`: persona, filters, disclosures, optional embeds, and email copy.
+- `assets/js/portfolio.js`: persona, filters, disclosures, and optional video/diagram embeds.
+- `assets/js/music-player.js`: shared SoundCloud playback, custom controls, and internal navigation that preserves audio.
 
 Legacy CSS and scripts remain available for the existing experimental pages. The signature generator is independent. This redesign introduces no build step or package installation and does not publish the site.
+
+## September 5 refinements
+
+The homepage capability panel replaces the Codex Router feature with AI workflows, full-stack products, and integrations. The redundant persona bridge is removed. Contact uses one email link. The About note reads: “Sometimes it starts with a problem. Sometimes with a melody.”
