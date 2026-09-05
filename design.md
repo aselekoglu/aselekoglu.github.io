@@ -1,78 +1,38 @@
-# Website Design Direction
+# Engineering systems. Shaping sound.
 
-## Goal
-Build a marketable personal website with one shared layout and two personas:
-- **Day persona**: professional software engineer
-- **Night persona**: musician / synthwave artist
+## Direction
 
-The site should feel premium, minimalist, and distinctive, while remaining clear and readable. 
-The main eye-catching element is the hero photography, and the entire experience should be designed around that.
+A single editorial identity for Ataberk Selekoglu, expressed through two disciplines. Professional uses paper, forest green, and architectural rings. Musician uses charcoal plum, lilac, and the same rings as a sound motif. Stage photography stays frameless. The speaker image was conservatively refined with Image Gen at the user’s request, preserving the original expression, hair, gesture, and framing. The original source is retained.
 
-## Core Experience
-- Keep an **almost identical page structure** between personas.
-- Switch personas with a **toggle**.
-- Toggle transition should be a **premium geometric sweep (clip-path)** rather than a glitchy wave.
-- During the sweep, the hero image swap must be clean (using opacity crossfade and scale-settling).
-- The overall feeling should be close to a **dark/light mode switch**, not a page change.
+The homepage moves from an oversized headline and portrait to selected work, a concise personal introduction, and direct contact. The project archive preserves the existing case studies, catalog, dates, source links, and diagrams, with native disclosure controls to make it easier to scan.
 
-## Hero Requirements
-- Use:
-  - `images/ata-speaking-2.png` for day/professional
-  - `images/ata-playing.png` for night/musician
-- Hero image remains **frameless**.
-- Hero images are the primary visual anchor and are **non-negotiable in alignment**:
-  - exact same container
-  - exact same `x/y` position
-  - exact same width and height
-  - exact same scale logic across breakpoints
-  - exact same crop behavior (`object-fit`/`object-position` strategy must stay consistent)
-- The swap should look like one subject transforming in place, with the outgoing image slightly scaling up and the incoming image settling into place.
-- Hero composition:
-  - image overlaps title area slightly from behind
-  - text stays readable while partially covered
+## Design system
 
-## Visual Language (Architectural Logic)
+- Background: `#f6f7f4` / `#17151c`.
+- Text: `#182620` / `#f4f1ea`.
+- Accent: `#376449` / `#b7a1de`.
+- Sans: Arial, Helvetica, system fallback. Emphasis: Georgia italic. Metadata: system monospace.
+- Shared responsive container: 4.55vw gutters, 22px minimum, 1600px maximum content width.
+- Hairline dividers, open editorial sections, restrained rectangular CTAs. Rounded geometry is reserved for persona controls, circular art, and the contact arrow.
+- Hero portraits use one identical container, scale rule, and bottom alignment across both modes, with an opacity crossfade. The refined speaker asset has a white source background, composed with `mix-blend-mode: darken` to avoid a visible rectangular background on the paper surface.
+- Breakpoints: 1150px, 800px, 540px. Mobile puts the offer and actions before the portrait.
 
-### Unified Typography Stack
-To maintain a high-end, premium feel across both personas, the typography remains unified, clean, and minimalist.
-- **Primary Sans**: `Inter`, `system-ui`, `-apple-system`, `sans-serif`
-  - Headers use tight leading/tracking for a locked-in, editorial feel.
-- **Monospace**: `SFMono-Regular`, `Cascadia Code`, `Roboto Mono`, `monospace`
-  - Used for tags, kickers, and metadata.
+## Interaction
 
-### Day Mode (Professional)
-- **Palette**: Clean, modern editorial.
-  - Background: Off-white/Paper (`#f8faf7`, `#ffffff`)
-  - Text/Ink: Deep charcoal (`#16231f`)
-  - Accents: Subdued earth/green/terra tones for a natural, refined feel.
+The persistent Professional / Musician switch updates copy, imagery, colors, and navigation labels. Mouse, touch, Tab, Enter, Space, and arrow keys are supported. Selection is stored when localStorage is available and reflected in the URL. Reduced-motion preferences disable the wipe and smooth scrolling.
 
-### Night Mode (Musician)
-- **Palette**: Dark, premium synthwave.
-  - Background: Deep black/charcoal (`#0c0c0c` or `#090014`)
-  - Text: Stark white/light gray (`#E0E0E0`)
-  - Accents: Subtle neon violet, cyan, or magenta, strictly controlled to avoid looking messy.
+A CSS geometric wipe preserves live header controls during transitions. Full-document native view transitions were found to swallow rapid pointer events and are intentionally not used.
 
-## Content Strategy
-- Keep homepage concise and marketable.
-- Prioritize scanability:
-  - clear headline
-  - short support text
-  - strong proof blocks / cards
-- Avoid CV-like long paragraphs on homepage.
-- Projects page structure:
-  - Problem
-  - Approach
-  - Outcome
+Project category filters synchronize the URL and pressed state. Direct case-study URLs reveal the right persona and open the relevant disclosure. Existing homepage anchors `overview`, `featured`, `skills`, and `contact` are retained.
 
-## UX / Accessibility
-- Keep transitions performant and smooth using hardware-accelerated properties (transform, opacity, clip-path).
-- Respect reduced-motion preferences.
-- Maintain readable contrast in both modes.
-- Typography choreography: ensure persona-specific text shifts slightly rather than jumping abruptly during the switch.
+SoundCloud and YouTube iframes load only when a visitor opens a player. Closing the player or changing persona removes the frame and stops playback. External listening links remain available. Mermaid is also loaded on demand; diagram source remains readable if the optional renderer is unavailable.
 
-## Implementation Constraints
-- Centralize tokens in CSS variables by mode.
-- Avoid one-off inline styling.
-- Keep styles reusable and coherent.
-- Do not break day/night toggle behavior or hero sweep transition logic.
-- Do not move hero elements independently per mode; alignment must be locked.
+## Files and scope
+
+- `index.html`: dual-persona homepage.
+- `musician.html`: direct musician entry with the original longer artist story and milestones.
+- `projects.html`: preserved project and music content with the new shared layout.
+- `assets/css/portfolio.css`: shared design tokens and responsive presentation.
+- `assets/js/portfolio.js`: persona, filters, disclosures, optional embeds, and email copy.
+
+Legacy CSS and scripts remain available for the existing experimental pages. The signature generator is independent. This redesign introduces no build step or package installation and does not publish the site.
