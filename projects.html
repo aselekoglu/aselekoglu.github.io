@@ -55,6 +55,42 @@
 <a href="#diagram-topnotch">View Diagram</a>
 </div>
 </div></details></article>
+<!-- Career Ops -->
+<article class="featured-project-card" data-project-date="2026-10-02" id="feat-career-ops"><details><summary>
+<span class="kicker">Open-source Career Automation</span>
+<h3>Career Ops</h3>
+<p class="project-sub">Merged Open-source Contribution · October 2026</p>
+</summary><div class="case-body">
+
+<div class="pao-grid">
+<div class="pao-col">
+<h4 class="pao-label">Problem</h4>
+<p>Recurring job scans should not require someone to manually rerun portal searches or spend AI tokens just to discover new roles. The schedule also needs durable state, safe concurrency, recovery, and a clear local-first boundary.</p>
+</div>
+<div class="pao-col">
+<h4 class="pao-label">Approach</h4>
+<ul>
+<li>Designed and implemented the Scheduled scans feature for the open-source Career Ops web app, covering saved portal and full-ATS scans with create, edit, pause, resume, Run now, and local run-history workflows.</li>
+<li>Built a durable Node.js scheduling store and queue with atomic writes, locks, claim tokens, stale-claim recovery, retries, timeouts, and bounded history.</li>
+<li>Kept the worker zero-token and scan-only by reusing existing scanner entrypoints without evaluating roles, invoking AI, or submitting applications.</li>
+<li>Added Windows Task Scheduler install/uninstall support while keeping manual execution available on macOS and Linux.</li>
+<li>Hardened scan fallbacks so jobs use title keywords or fall back to <code>portals.yml</code>, stop safely when neither is available, and preserve hard-block filters.</li>
+<li>Added regression coverage across the scheduling lifecycle and iterated through maintainer review until the feature was accepted upstream.</li>
+</ul>
+</div>
+<div class="pao-col">
+<h4 class="pao-label">Outcome</h4>
+<p>Merged into <code>career-ops-hq/career-ops</code> <code>main</code> as PR #2628 after 22 commits. Career Ops users can now save recurring scans, inspect local history, run scans manually across platforms, and use a Windows worker that checks for due jobs every 15 minutes.</p>
+</div>
+</div>
+<div class="tags">
+<span class="tag">Next.js</span><span class="tag">TypeScript</span><span class="tag">Node.js</span><span class="tag">PowerShell</span><span class="tag">Task Scheduler</span><span class="tag">Concurrency</span><span class="tag">Open Source</span>
+</div>
+<div class="project-links">
+<a href="https://github.com/career-ops-hq/career-ops/pull/2628" rel="noopener noreferrer" target="_blank">Merged PR #2628</a>
+<a href="https://github.com/career-ops-hq/career-ops" rel="noopener noreferrer" target="_blank">Repository</a>
+</div>
+</div></details></article>
 <!-- Codex Router -->
 <article class="featured-project-card" data-project-date="2026-08-08" id="feat-codex-router"><details><summary>
 <span class="kicker">Local AI Router</span>
