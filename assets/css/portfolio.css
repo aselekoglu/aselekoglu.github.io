@@ -932,6 +932,9 @@ summary::-webkit-details-marker {
   gap:9px;
   margin-top:24px
 }
+.career-ops-proof {
+  margin:0 0 24px
+}
 .tag {
   font:11px/1.5 var(--mono);
   color:var(--accent);
